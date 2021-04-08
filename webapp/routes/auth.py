@@ -8,6 +8,7 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route('/register', methods=['GET'], subdomain='auth')
 @developer_required
+@loggedout_required
 def register() -> render_template:
     return render_template('/auth/register.html', form=RegisterForm(), flashed_message=get_flashed_messages())
 

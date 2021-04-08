@@ -1,0 +1,70 @@
+<!-- top bar -->
+<div class="dashboard-top-bar">
+    <div class="mobile-menu-icon">
+        <img onclick="showMobileMenu()" id="mobile-menu-icon" src="{{url_for('static', filename='img/icons/menu.svg')}}" height="20" width="20">
+    </div>
+    <div class="search-container">
+        <img src="{{url_for('static', filename='img/icons/search.svg')}}" height="15" width="15">
+        <input class="search-input" type="text" placeholder="Search...">
+    </div>
+
+    <div class="top-bar-right">
+        <div class="top-bar-icons">
+            <a href="{{url_for('shop.shop', username=current_user.get_username())}}">
+                <img src="{{url_for('static', filename='img/icons/store.svg')}}" width="20" height="20">
+            </a>
+            <img src="{{url_for('static', filename='img/icons/bell.svg')}}" width="20" height="20">
+        </div>
+
+        <div class="top-bar-user-dropdown">
+            <p>John Doe</p>
+            <img src="{{url_for('static', filename='img/icons/down-arrow.svg')}}" onchange="openDropdown()" height="10" width="10" class="down-arrow-topbar">
+
+            <!-- settings dropdown -->
+            <div class="settings-dropdown">
+                {#<div class="inline-flex settings-row">
+                    <div class="switch-wrapper">
+                        <label class="switch">
+                            <input id="dark-mode" type="checkbox" disabled>
+                                <span class="check-slider round"></span>
+                            </label>
+                    </div>
+                    <p> Dark Mode </p>
+                    <div class="dm-coming-soon">
+                        Coming Soon
+                    </div>
+                </div>#}
+                <div class="inline-flex settings-row">
+                    <a href="{{url_for('dashboard.payment_methods')}}">
+                        <div class="settings-row-last">
+                            <img src="{{url_for('static', filename='img/icons/credit-card.svg')}}" width="25" height="25" class="settings-dropdown-icon">
+                        </div>
+                        <p>Payment Methods</p>
+                    </a>
+                    
+                    
+                </div>
+                <div class="inline-flex settings-row">
+                    <a href="{{url_for('dashboard.settings')}}">
+                        <div class="settings-row-last">
+                            <img src="{{url_for('static', filename='img/icons/gear.svg')}}" width="25" height="25" class="settings-dropdown-icon">
+                        </div>
+                        <p>Settings</p>
+                    </a>
+                    
+                </div>
+                <div class="inline-flex settings-row logout-row">
+                    <a href="{{url_for('auth.logout')}}">
+                        <div class="settings-row-last">
+                            <img src="{{url_for('static', filename='img/icons/logout.svg')}}" width="25" height="25" class="settings-dropdown-icon" id="settings-logout">
+                        </div>
+                        <p class="logout-text">Log Out</p>
+                    </a>
+                    
+                </div>
+            </div>
+            <!-- settings dropdown -->
+        </div>
+    </div>
+</div>
+<!-- top bar -->

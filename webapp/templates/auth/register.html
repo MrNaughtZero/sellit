@@ -1,0 +1,80 @@
+{% extends 'base/auth.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="auth-flex">
+    <div class="auth-left auth-left-register">
+        <div class="auth-branding">
+            <a href="/index.html">
+                <img src="{{url_for('static', filename='img/logos/logo-purple.png')}}" width="100" class="auth-logo">
+            </a>
+        </div>
+        <div class="auth-block auth-register-block">
+            <p class="merchant-login">
+                Merchant Registration
+            </p>
+            <h1>Register</h1>
+            <form method="POST" action="/register/user">
+                <div class="form-control">
+                    <label for="email">Email</label>
+                    {{form.email(placeholder="youremail@example.com", class="form-input")}}
+                </div>
+
+                <div class="form-control">
+                    <label for="username">Username</label>
+                    {{form.username(placeholder="JohnDoe123")}}
+                </div>
+
+                <div class="form-control">
+                    <label for="password">Password</label>
+                    {{form.password(placeholder="Password", class="form-input")}}
+                </div>
+
+                <div class="form-control">
+                    <label for="confirm_password">Confirm Password</label>
+                    {{form.confirm_password(placeholder="Confirm Password", class="form-input")}}
+                </div>
+                <div class="form-control" id="terms-checkbox">
+                    {{form.terms}}
+                    <span id="agree-to-terms">
+                        I agree to the the <a class="purple-link" href="#">Terms & Conditions</a>
+                    </span>
+                </div>
+                {{form.csrf_token}}
+                <button type="submit" class="btn btn-primary">Register</button>
+
+
+                
+            </form>
+        </div>
+        {% include 'include/flashed_messages/auth.html' %}
+    </div>
+    <div class="auth-right auth-right-register">
+        <img src="{{url_for('static', filename='img/icons/dots.png')}}" id="auth-dots-top">
+        <img src="{{url_for('static', filename='img/icons/dots.png')}}" id="auth-dots-bottom">
+
+        <div class="auth-right-block">
+            <div class="top-layer-auth-block">
+                <h2>👋 Welcome.</h2>
+                <p>
+                    Register now to start selling on the #1 Ecommerce Platform
+                </p>
+            </div>
+            <div class="bottom-layer-auth-block">
+                <h2>✋ Already have an account?</h2>
+                <div class="signup-text-auth">
+                    <p>Sign In now to access your dashboard</p>
+                    <a href="{{url_for('auth.login')}}">
+                        <button type="button" class="btn btn-primary">
+                                Sign In
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="or-block">
+                <p>OR</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

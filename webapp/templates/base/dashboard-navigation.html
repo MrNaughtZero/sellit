@@ -1,0 +1,196 @@
+<!-- Side Navigation -->
+<div class="side-navigation">
+    <div class="side-nav-branding">
+        <img src="{{url_for('static', filename='img/logos/icon-only.png')}}" class="side-nav-icon">
+    </div>
+
+    <div class="side-nav-links">
+        <ul>
+            <li {% if active_page == 'dashboard' %} class="active-nav-link dashboard-nav-link" {% else %} class="dashboard-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.home')}}">
+                    <img src="{{url_for('static', filename='img/icons/home.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'donations' %} class="active-nav-link donations-nav-link" {% else %} class="donations-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.donations')}}">
+                    <img src="{{url_for('static', filename='img/icons/heart.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'products' %} class="active-nav-link products-nav-link" {% else %} class="products-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.products')}}">
+                    <img src="{{url_for('static', filename='img/icons/open-box.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'categories' %} class="active-nav-link categories-nav-link" {% else %} class="categories-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.categories')}}">
+                    <img src="{{url_for('static', filename='img/icons/interface.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'coupons' %} class="active-nav-link coupons-nav-link" {% else %} class="coupons-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.coupons')}}">
+                    <img src="{{url_for('static', filename='img/icons/badge.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'orders' %} class="active-nav-link orders-nav-link" {% else %} class="orders-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.orders')}}">
+                    <img src="{{url_for('static', filename='img/icons/credit-card.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'analytics' %} class="active-nav-link analytics-nav-link" {% else %} class="analytics-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.analytics')}}">
+                    <img src="{{url_for('static', filename='img/icons/analytics.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'attachments' %} class="active-nav-link attachments-nav-link" {% else %} class="attachments-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.attachments')}}">
+                    <img src="{{url_for('static', filename='img/icons/document.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'reviews' %} class="active-nav-link reviews-nav-link" {% else %} class="reviews-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.reviews')}}">
+                    <img src="{{url_for('static', filename='img/icons/favorites.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'blacklist' %} class="active-nav-link blacklist-nav-link" {% else %} class="blacklist-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.blacklist')}}">
+                    <img src="{{url_for('static', filename='img/icons/ban.svg')}}" height="30" width="30">
+                </a>
+            </li>
+
+            <li {% if active_page == 'ticket' %} class="active-nav-link blacklist-nav-link" {% else %} class="blacklist-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.tickets')}}">
+                    <img src="{{url_for('static', filename='img/icons/coupon.svg')}}" height="30" width="30">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="side-nav-footer">
+        <div {% if 'settings' in active_page %} class="settings-nav-link active-nav-link sidenav-settings" {% else %} class="settings-nav-link sidenav-settings" {% endif %}>
+            <a href="{{url_for('dashboard.settings')}}">
+                <img src="{{url_for('static', filename='img/icons/gear.svg')}}" width="20" height="20" class="cog-svg">
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Side Navigation -->
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+    <div class="close-mobile-menu">
+        <img src="{{url_for('static', filename='img/icons/back-button.svg')}}" onclick="hideMobileMenu()" height="20" width="20" id="close-menu">
+    </div>
+    <div class="mobile-menu-branding">
+        <img src="{{url_for('static', filename='img/logos/logo-light-bg.png')}}" width="100">
+    </div>
+    <div class="mobile-menu-links">
+        <ul>
+            <li {% if active_page == 'dashboard' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.home')}}">
+                    <img src="{{url_for('static', filename='img/icons/home.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Dashboard
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'donations' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.donations')}}">
+                    <img src="{{url_for('static', filename='img/icons/heart.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Donations
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'products' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.products')}}">
+                    <img src="{{url_for('static', filename='img/icons/open-box.svg')}}" height="25" width="25">
+                <span class="mobile-link-text">
+                    Products
+                </span>
+            </a>
+            </li>
+
+            <li {% if active_page == 'categories' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.categories')}}">
+                    <img src="{{url_for('static', filename='img/icons/interface.svg')}}" height="25" width="25">
+                <span class="mobile-link-text">
+                    Categories
+                </span>
+            </a>
+            </li>
+
+            <li {% if active_page == 'coupons' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.coupons')}}">
+                    <img src="{{url_for('static', filename='img/icons/badge.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Coupons
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'orders' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.orders')}}">
+                    <img src="{{url_for('static', filename='img/icons/credit-card.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Orders
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'analytics' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.analytics')}}">
+                    <img src="{{url_for('static', filename='img/icons/analytics.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Analytics
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'attachments' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.attachments')}}">
+                    <img src="{{url_for('static', filename='img/icons/document.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        attachments
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'reviews' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.reviews')}}">
+                    <img src="{{url_for('static', filename='img/icons/favorites.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Reviews
+                    </span>
+                </a>
+            </li>
+
+            <li {% if active_page == 'blacklist' %} class="active-nav-link" {%endif%}>
+                <a href="{{url_for('dashboard.blacklist')}}">
+                    <img src="{{url_for('static', filename='img/icons/ban.svg')}}" height="25" width="25">
+                    <span class="mobile-link-text">
+                        Blacklist
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mobile-menu-footer">
+        <a href="{{url_for('dashboard.settings')}}">
+            <img src="{{url_for('static', filename='img/icons/gear.svg')}}" width="20" height="20" class="cog-svg">
+            <p class="mobile-menu-settings-text">Settings</p>
+        </a>
+    </div>
+</div>
+<!-- Mobile Menu -->

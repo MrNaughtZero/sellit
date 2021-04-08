@@ -1,0 +1,65 @@
+{% extends 'base/settings.html' %}
+{% set active_page = 'settings_payment_methods' %}
+{% block settings_block %}
+    <h2>Payment Methods</h2>
+    <div class="settings-content-wrapper">
+        <div class="form-inline">
+            <div class="setup-payment-block">
+                <div class="inline-setup-block">
+                    <h4>Stripe</h4>
+                    {% if user.payment_methods.stripe == None %}
+                        <a href="{{url_for('payments.stripe_connect')}}">
+                            <button type="button" class="btn btn-primary btn-setup-payment">Setup Stripe</button>
+                        </a>
+                    {% else %}
+                        <a href="{{url_for('payments.disconnect_stripe')}}">
+                            <button type="button" class="btn btn-primary btn-setup-payment">Disconnect Stripe</button>
+                        </a>
+                    {% endif %}
+                </div>
+                <p>Accept Card Payments: Visa, Mastercard and Amex</p>
+            </div>
+        </div>
+        <form method="POST" action="/settings/payment/methods/submit">
+            <div class="setup-paypal">
+                <h3>PayPal</h3>
+                <div class="form-control">
+                    <label for="paypal_email">
+                        PayPal Email
+                    </label>
+                    {{form.paypal(placeholder="Your PayPal Email...")}}
+                    <div class="paypal_delivery">
+                        {{form.paypal_delivery}}
+                        <p>Only deliver to Buyer's PayPal Email Address</p>
+                    </div>
+                </div>
+            </div>
+            <div class="virtual-address">
+                <h3>Virtual Coins</h3>
+                <div class="form-control">
+                    <label for="bitcoin_address">
+                        Bitcoin Address
+                    </label>
+                    {{form.BTC(placeholder='1B1evZWmaJ26DHrSwFsmaL7TyWEFN72Hfm')}}
+                </div>
+
+                <div class="form-control">
+                    <label for="ethereum_address">
+                        Ethereum Address
+                    </label>
+                    {{form.ETH(placeholder='0x1Ff482D42D8727258A1686102Fa4ba925C46Bc42')}}
+                </div>
+
+                <div class="form-control">
+                    <label for="litecoin_address">
+                        Litecoin Address
+                    </label>
+                    {{form.LTC(placeholder='MGxNPPB7eBoWPUaprtX9v9CXJZoD2465zN')}}
+                </div>
+                {{form.csrf_token}}
+                <button type="submit" class="btn btn-primary btn-update-settings">UPDATE PAYMENTS</button>
+            </div>
+        </form>
+    </div>
+    </div>
+{% endblock %}

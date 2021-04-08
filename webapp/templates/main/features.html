@@ -1,0 +1,114 @@
+{% extends 'base/front.html' %}
+{% block title %} Features{% endblock %}
+{% block content %}
+<section class="features-header">
+   <h2 id="features-main-header" class="highlight-bg">FEATURES</h2>
+   <p id="features-sub-heading-text">
+      Providing you with all the tools required for success
+   </p>
+</section>
+<section class="all-features">
+   <div class="features-wrapper main-container">
+      <div class="feature-block feature-block-reverse">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-all-in-one">
+               <span class="feature-span-header">
+               All in One Platform
+               </span>
+            </h3>
+            <p class="feature-block-desc">
+               Sellit is an all in Platform, giving you access to everything you need to get your business up and running. We provide Multiple payment methods, Crypto currency payments, email delivery, download link delivery and more.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/statistics-illustration.svg')}}" alt="a picture of a man standing next to three cards displaying analytics statistics">
+         </div>
+      </div>
+      <div class="feature-block feature-block">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-payment">
+               Payment Flexability
+            </h3>
+            <p class="feature-block-desc">
+               Whether you want to take payments by PayPal, Credit Card, or Crypto, Sellit has you covered. Offering you all these payments methods and more to be added in the future.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/credit-card-illustration.svg')}}" alt="a picture of three children holding up a blank animated credit card">
+         </div>
+      </div>
+      <div class="feature-block feature-block-reverse">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-shop">
+               Customizable Shop
+            </h3>
+            <p class="feature-block-desc">
+               Sellit gives you the option to fully customize your shop. Whether you want to add custom CSS/Javascript, or if you want to Blacklist specific customers. We have you covered.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/business-shop-illustration.svg')}}" alt="a picture of a man holding on to an animated picture of a shop">
+         </div>
+      </div>
+      <div class="feature-block">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-email">
+               Email Campaigns
+            </h3>
+            <p class="feature-block-desc">
+               Create Email Campaigns quick and easy. Integrated with Mailchimp, keeping tracking of your customer base is as easy as ever.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/email-illustration.svg')}}" alt="a picture of a man holding on to an animated picture of a shop">
+         </div>
+      </div>
+      <div class="feature-block feature-block-reverse">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-livechat">
+               Live Chat
+            </h3>
+            <p class="feature-block-desc">
+               Speak to your customers in realtime. Saving time, and helping your customers get their issue solved in realtime.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/livechat-illustration.svg')}}" alt="a picture of a man holding on to an animated picture of a shop">
+         </div>
+      </div>
+      <div class="feature-block">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-email">
+               In-depth Analytics
+            </h3>
+            <p class="feature-block-desc">
+               Create Email Campaigns quick and easy. Integrated with Mailchimp, keeping tracking of your customer base is as easy as ever.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/analytics-illustration.svg')}}" alt="a picture of a man holding on to an animated picture of a shop">
+         </div>
+      </div>
+      <div class="feature-block feature-block-reverse">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-livechat">
+               Anti Fraud Shield
+            </h3>
+            <p class="feature-block-desc">
+               Speak to your customers in realtime. Saving time, and helping your customers get their issue solved in realtime.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/shield-illustration.svg')}}" alt="a picture of a man holding on to an animated picture of a shop">
+         </div>
+      </div>
+   </div>
+</section>
+<section class="bottom-banner">
+   <h2 id="bottom-banner-heading">Ready to join Sellit?</h2>
+   <a href="{{url_for('auth.register')}}">
+      <button type="button" class="btn btn-get-started">Get Started</button>
+   </a>
+</section>
+<script src="{{url_for('static', filename='scripts/front.js')}}"></script>
+{% endblock %}

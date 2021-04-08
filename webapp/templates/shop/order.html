@@ -1,0 +1,114 @@
+{% extends 'base/shop.html' %}
+{% set active_page = 'product_page' %}
+{% block title %}Sellit - Order #{{order.id}}{% endblock %}
+{% block content %}
+    <div class="pay-for-order main-container">
+        <div class="pay-for-order-left">
+            <div class="order-payment-number">
+                Order #{{order.id}}
+            </div>
+            {% if order.status == 'Pending Payment' %}
+                <div class="waiting-for-payment">
+                    <h6>Waiting For Payment</h6>
+                </div>
+            {% endif %}
+            <div class="pay-now-wrapper">
+                {% if order.status == 'cancelled' %}
+                    <h2>Your order has been cancelled</h2>
+                {% elif order.status == 'Pending Payment' %}
+                <h2>Please pay for your order before the time runs out.</h2>
+                {% endif %}
+            </div>
+            {% if order.status != 'Completed' %}
+                <div id="time-remaining"></div>
+            {% else %}
+                {% if order.delivered_product == None %}
+                    <div class="payment-complete">
+                        Payment complete. Your purchase will be delivered to your email address shortly.
+                    </div>
+                {% else %}
+                    <div class="payment-complete">
+                        Your purchase is complete. An email has been sent containing your product.
+                    </div>
+                {% endif %}
+            {% endif %}
+            </div>
+        
+        <div class="pay-for-order-right">
+            <div class="order-payment-details">
+                <div class="layer-one">
+                    <h3>Product</h3>
+                    <h3>{{product.name}}</h3>
+                </div>
+    
+                <div class="layer-one">
+                    <h3>Price</h3>
+                    <h3>{{order.currency|currency_to_symbol}}{{order.price}}</h3>
+                </div>
+    
+                <div class="layer-one">
+                    <h3>Seller</h3>
+                    <h3>{{user.username}}</h3>
+                </div>
+            </div>
+            <div class="make-payment-block">
+                {% if (order.expiry != None) and (order.status != 'Completed') %}
+                    <h1>Payment Details</h1>
+                    {% if order.payment_method == 'paypal' %}
+                        <button type="button" class="btn btn-primary pay-now-btn"><a href="{{order.payment.payment_address}}">Pay Now</a></button>
+                    {% else %}
+                    {% if order.payment_method == 'BTC' %}
+                        {% set crypto = 'bitcoin:' %}
+                    {% elif order.payment_method == 'ETH' %}
+                        {% set crypto = 'ethereum:' %}
+                    {% else %}
+                        {% set crypto = 'litecoin:' %}
+                    {% endif %}
+                        <div class="payment-details-crypto">
+                            <span class="send-crypto">Please send {{order.crypto_payment.amount}} {{order.payment_method}} to {{order.crypto_payment.address}}</span>
+                            <img src="{{ qrcode(crypto + order.crypto_payment.address) }}">
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if order.status != 'Completed' %}
+                        payment window expired
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var remainingTime = '{{order.expiry}}'
+        var MMode = setInterval(function(){ MModeTimer(remainingTime)}, 1000);
+        function MModeTimer(remainingTime) {
+            if(remainingTime != 'Void'){
+                var currentTime = new Date().getTime() / 1000;
+                var futureTime = remainingTime;
+                var timeRemaining = futureTime - currentTime;
+                var minute = 60;
+                var hour = 60 * 60;
+                var day = 60 * 60 * 24;
+                var dayFloor = Math.floor(timeRemaining / day);
+                var hourFloor = Math.floor((timeRemaining - dayFloor * day) / hour);
+                var minuteFloor = Math.floor((timeRemaining - dayFloor * day - hourFloor * hour) / minute);
+                var secondFloor = Math.floor((timeRemaining - dayFloor * day - hourFloor * hour - minuteFloor * minute));
+                var countdownCompleted = "Completed";
+             
+                if (futureTime > currentTime) {
+                    console.log('y')
+                    document.querySelector('#time-remaining').innerHTML = `Time Remaining: ${minuteFloor}:${secondFloor}`
+                }
+                else{
+                    remainingTime = 'Void';
+                    if(document.querySelector('.pay-now-btn')){
+                        document.querySelector('.pay-now-btn').style.display = 'none';
+                    }
+                    
+                    document.querySelector('#time-remaining').innerHTML = 'Payment Timed out. Your order has been cancelled.'
+                    //fetch('/order/{{order.id}}/status');
+                }
+            }
+        }    
+    </script>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% if flashed_message !=[] %}
+    <div class="flashed-message flashed-message-shop">
+        {% for item in flashed_message %}
+            {% if 'CSRF' in item[0] %}
+                <p class="flashed-error">
+                    Something went wrong. Please try again
+                </p>
+            {% elif 'Your message has been sent' in item[0] %}
+                <p class="flashed-success">
+                    {{item[0]|safe}}
+                </p>
+            {% else %}
+                <p class="flashed-error">
+                    {{item[0]|safe}}
+                </p>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %} 

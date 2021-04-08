@@ -1,0 +1,26 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'blacklist' %}
+{% block title %}Add to Blacklist{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading">
+    <h2>Add Blacklist Entry</h2>
+</div>
+<div class="create-category-container">
+    <form method="POST" action="/blacklist/create/submit">
+        <div class="form-control">
+            <label for="blacklist_type">
+                Type
+            </label>
+            {{form.blacklist_type}}
+        </div>
+        <div class="form-control">
+            <label for="blocked_data">
+                Blocked Data
+            </label>
+            {{form.blocked_data}}
+            {{form.csrf_token}}
+        </div>
+            <button type="submit" class="btn btn-primary btn-save-coupon">Add Entry</button>
+    </form>
+</div>
+{% endblock %}

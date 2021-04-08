@@ -1,0 +1,57 @@
+{% extends 'base/shop.html' %}
+{% block username %}Sellit - @{{user.username}}{% endblock %}
+{% block content %}
+    <!-- user categories -->
+    {% if user.categories != [] %}
+        <div class="shop-categories main-container">
+            <ul class="inline-list category-list">
+                <a href="{{url_for('shop.shop', username=user.username)}}">
+                    <li>
+                        All
+                    </li>
+                </a>
+                {% set category_list = [] %}
+                {% for item in user.categories %}
+                    {% for product in user.products %}
+                        {% for cat in product.product_category %}
+                            {% if item.category_name == cat.category_name %}
+                                {% if item.category_name not in category_list %}
+                                    <a href="{{url_for('shop.shop_category', username=user.username, category=item.category_name.replace(' ', '-'))}}">
+                                        <li>
+                                            {{item.category_name}}
+                                        </li>
+                                    </a>
+                                    {% set tmp = category_list.append(item.category_name) %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <!-- user categories -->
+
+    <!-- user products -->
+    <div class="products-block main-container">
+        {% if user.products != [] %}
+            {% for item in user.products %}
+                <a href="{{url_for('shop.product_page', username=user.username, product_id=item.id) | replace('%40', '@')}}">
+                    <div class="mini-product-container form-control">
+                        <img src="https://sellitpi.s3.eu-west-2.amazonaws.com/default.png">
+                        <div class="mini-product-details">
+                            <h4>{{item.name}}</h4>
+                            <p>{{item.currency}}{{item.price}}</p>
+                        </div>
+                        <button type="button" class="btn btn-view-product">View Product</button>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <div class="user-no-products">
+                <h2>{{user.username}} has no products yet!</h2>
+            </div>
+        {% endif %}
+    </div>
+    <!-- user products -->
+{% endblock %}

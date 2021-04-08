@@ -1,0 +1,74 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'tickets' %}
+{% block title %}Tickets{% endblock %}
+{% block content %}
+
+<div class="tickets-container">
+    <div class="dashboard-section-heading">
+        <h2>Tickets</h2>
+    </div>
+
+    {% if tickets.items == [] %}
+        <div class="not-yet-created">
+                <h2>You have no tickets :)</h2>
+        </div>
+    {% else %}
+        <div class="latest-table">
+            <div class="table-wrapper">
+                <table style="width:100%">
+                    <tr class="theader">
+                        <th class="order-id-column">Ticket ID</th>
+                        <th class="product-customer">Email</th>
+                        <th class="ticket-subject">Subject</th>
+                        <th class="ticket-status">Status</th>
+                    </tr>
+                    {% for item in tickets.items %}
+                        <tr class="table-row">
+                            <td>{{item.id}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.subject}}</td>
+                            {% for ticket in item.ticket_message %}
+                                {% if loop.last %}
+                                    {% if item.status == 'Closed' %}
+                                        <td><p class="ticket-closed"> <a href="{{url_for('dashboard.view_ticket', ticket_id=item.id)}}">Closed</a></p></td>
+                                    {% else %}
+                                        <td><p class="ticket-open"> <a href="{{url_for('dashboard.view_ticket', ticket_id=item.id)}}">{{item.status}}</a></p></td>
+                                    {% endif %}
+                                    
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endif %} 
+</div>
+
+<div class="latest-table-view-all">
+    {% for page_num in tickets.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        <div class="pagination-numbers">
+            {% if page_num %}
+                {% if tickets.page == page_num %}
+                    <a href="{{ url_for('dashboard.tickets', page=page_num)}}" class="active-pagination btn pagination-btn">
+                        {{ page_num }}
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('dashboard.tickets', page=page_num) }}" class="btn pagination-btn"> 
+                        {{ page_num }}
+                    </a>
+                {% endif %}
+            {% else %}
+            ...
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<p class="showing-of">
+    {% if tickets.items != [] %}
+        Showing page {{ tickets.page }} of {{ tickets.pages }}
+    {% endif %}
+</p>
+
+{% endblock %}

@@ -1,0 +1,512 @@
+/* css reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul {
+  margin: 0;
+  padding: 0
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto";
+}
+
+/* variables */
+
+:root {
+    --primary: #4b0082;
+    --secondary: #949fff;
+    --light-grey: #f7fafc;
+    --white: #efefef;
+    --light-white: #F8F8FF;
+    --grey: #839095;
+    --green: #89ac35;
+    --light-green: #c6f6d5;
+}
+
+/* global styles */
+
+ul li {
+    list-style-type: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto";
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* global styles end */
+
+/* buttons */
+
+button.btn.btn-primary {
+    background: var(--primary);
+    font-family: 'Inter';
+    border-radius: 4px;
+    border: none;
+    color: white;
+}
+
+/* buttons end */
+
+/* inputs */
+
+input {
+    text-indent: 5px;
+    padding: 10px;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+}
+
+label {
+    padding-bottom: 4px;
+    font-size: 14px;
+    font-family: 'Inter';
+    font-weight: 300;
+}
+
+/* inputs end */
+
+/* flashed messages */
+
+.flashed-message {
+    display: inline;
+    position: absolute;
+    right: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: white;
+}
+
+.flashed-error {
+    background: red;
+    padding: 10px;
+}
+
+.flashed-success {
+    background: var(--green);
+    padding: 10px;
+}
+
+
+/* flashed messages end */
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.auth-flex {
+    min-height: 100vh;
+    display: flex;
+}
+
+.auth-left {
+    width: 50%;
+}
+
+.auth-branding, .auth-block {
+    padding: 20px;
+}
+
+.auth-branding {
+    position: relative;
+    left: 40px;
+}
+
+.auth-block-login {
+    position: absolute;
+    left: 9px;
+    top: 36.5%;
+}
+
+.auth-block {
+    width: 100%;
+    padding: 0 50px;
+}
+
+p.merchant-login {
+    background: #efefef;
+    display: inline;
+    padding: 10px;
+    position: relative;
+    top: -10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.auth-block h1 {
+    font-size: 50px;
+    padding-bottom: 20px;
+}
+
+.auth-block ::placeholder {
+    opacity: 1;
+    font-family: "Open Sans";
+    font-weight: 300;
+}
+
+.auth-block button {
+    width: 100%;
+    margin-top: 11px;
+    padding: 10px;
+}
+
+p.forgotten-password {
+    text-align: right;
+    font-size: 13px;
+    position: relative;
+    font-family: 'Open Sans';
+    top: 10px;
+    font-weight: 300;
+}
+
+.auth-left {
+    position: relative;
+    z-index: 99;
+}
+
+.auth-right {
+    width: 50%;
+    position: relative;
+    background: var(--primary);
+    overflow: hidden;
+}
+
+img#auth-dots-top {
+    position: absolute;
+    right: -5px;
+    top: -7px;
+}
+
+img#auth-dots-bottom {
+    position: absolute;
+    bottom: 10px;
+    left: -28px;
+}
+
+.auth-right-block {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+}
+
+.top-layer-auth-block {
+    background: var(--light-grey);
+    padding: 30px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.bottom-layer-auth-block {
+    padding: 30px;
+    background: var(--yellow);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: #c6f6d5;
+}
+
+.auth-right-block h2 {
+    font-weight: 400;
+    padding-bottom: 5px;
+    font-size: 18px;
+}
+
+.auth-right-block p {
+    font-weight: 300;
+}
+
+.signup-text-login {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.signup-text-login p {
+    max-width: 50%;
+}
+
+
+.bottom-layer-auth-block button {
+    width: 150px;
+    height: 31px;
+    position: relative;
+    top: 9px;
+}
+
+.bottom-layer-auth-block h2 {
+    padding-bottom: 10px;
+}
+
+.or-block {
+    position: absolute;
+    top: 38%;
+    left: 48%;
+    background: purple;
+    padding: 5px;
+    color: white;
+    filter: blur(0.6px);
+    -webkit-filter: blur(0.6px);
+    border-radius: 3px;
+}
+
+/* Fix Blur on Safari */
+@media not all and (min-resolution:.001dpcm) { 
+        .or-block {
+            filter: none;
+    }
+}
+
+/* REGISTER PAGE */
+/* REGISTER PAGE */
+/* REGISTER PAGE */
+/* REGISTER PAGE */
+/* REGISTER PAGE */
+
+.auth-register-block {
+    position: absolute;
+    top: 25%;
+    padding-bottom: 50px;
+}
+
+#terms-checkbox {
+    display: inline;
+}
+
+#agree-to-terms {
+    position: relative;
+    top: -2px;
+    font-size: 12px;
+}
+
+/* media queries */
+
+@media screen and (max-width:1317px){
+    .or-block {
+        top: 35%;
+    }
+    .auth-right-register .auth-right-block .or-block {
+        top: 37%;
+    }
+}
+
+@media screen and (max-width:1217px){
+    /* register page */
+    .auth-right-register > .or-block {
+        top: 52%;
+    }
+    .auth-right-register .auth-right-block .or-block {
+        top: 42%;
+    }
+}
+
+@media screen and (max-width:999px){
+    .auth-block {
+        padding: 0 50px;
+    }
+    .auth-branding {
+        left: 40px;
+    }
+    .auth-right-block {
+        width: 100%;
+        padding: 0 50px;
+    }
+    .auth-flex {
+        flex-wrap: wrap;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    .auth-left, .auth-right {
+        width: 100%;
+    }
+    .auth-left {
+        min-height: 545px;
+    }
+    .auth-right {
+        min-height: 350px;
+        margin-bottom: -10px;
+    }
+    .auth-block {
+        top: 24%;
+    }
+    img#auth-dots-top {
+        position: absolute;
+    }
+    .auth-right-block {
+        top: 11%;
+    }
+    .or-block {
+        top: 38%;
+    }
+    /* register */
+    .auth-register-block {
+        margin-top: 25px;
+        position: relative;
+        left: 0;
+        margin-bottom: 20px;
+    }
+    .auth-left-register {
+        height: 64%;
+    }
+    .auth-right-register > .or-block {
+        top: 29%;
+    }
+    .auth-right-register > .auth-right-block {
+        top: 6%;
+    }
+    .auth-right-register .auth-right-block .or-block {
+        top: 37%;
+    }
+
+    .auth-left.auth-left-register .flashed-message {
+        top: 5%;
+    }
+}
+
+@media screen and (max-width: 658px){
+    .or-block {
+        top: 34.5%;
+    }
+}
+
+@media screen and (max-width:608px){
+    /* register */
+    .auth-right-register .auth-right-block .or-block {
+        top: 39%;
+    }
+}
+
+@media screen and (max-width:600px){
+    .auth-block {
+        padding: 0 25px;
+    }
+    .signup-text-login {
+        flex-wrap: wrap;
+    }
+    .signup-text-login p, .signup-text-login button {
+        max-width: 100%;
+        width: 100%;
+    }
+    .auth-right-block {
+        width: 100%;
+        padding: 0 25px;
+    }
+    .auth-register-block {
+        margin-bottom: 20px;
+    }
+
+    .auth-branding {
+        left: 7px;
+    }
+
+    .auth-block-login {
+        left: 0;
+    }
+}
+
+@media screen and (max-width:541px){
+    .auth-right-register .auth-right-block .or-block {
+        top: 43%;
+    }
+}
+
+@media screen and (max-width:426px){
+    /* login page */
+    .or-block {
+        top: 54%;
+    }
+    .auth-right-block p {
+        font-size: 14px;
+    }
+    .or-block {
+        top: 35%;
+        left: 46%;
+    }
+}
+
+@media screen and (max-width:400px){
+    /* login/register */
+    .auth-block {
+        padding: 0 25px;
+    }
+    .bottom-layer-auth-block button {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:382px){
+    /* login */
+    .or-block {
+        top: 34%;
+    }
+    .auth-right-block h2 {
+        font-size: 14px;
+    }
+    /* register */
+    .auth-right-register > .or-block {
+        top: 31%;
+    }
+}
+
+@media screen and (max-width:339px){
+    .or-block {
+        top: 39%;
+    }
+}
+
+@media screen and (max-width:330px){
+    .auth-right-register .auth-right-block .or-block {
+        top: 39%;
+    }
+}

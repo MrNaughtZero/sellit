@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static', filename='styles/shop.css')}}" type="text/css" rel="stylesheet">
+    <link rel="icon" type="image" href="{{url_for('static', filename='img/icons/favicon.ico')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>{% block username %} - {% endblock %} {% block title %}{% endblock %}</title>
+</head>
+<main>
+    <div class="shop-header">
+        <div class="main-container">
+            <div class="shop-top-bar">
+                <div class="shop-branding">
+                    <img src="{{url_for('static', filename='img/logos/logo.png')}}" width="100">
+                </div>
+                {% if current_user.is_authenticated %}
+                    <div class="visit-dashboard">
+                        <a href="#">
+                            <button type="button" class="btn-visit-dashboard">
+                                Visit Dashboard
+                            </button>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="shop-user-block{% if active_page == 'product_page'%} hide-user-block{%endif%}">
+                <img id="shop-img-avatar" width="200" src="https://sellit-avatars.s3.eu-west-2.amazonaws.com/default.png">
+
+                <div class="shop-nav-links">
+                    <ul class="inline-list">
+                        <li>
+                            Products
+                        </li>
+                        <li>
+                            Feedback
+                        </li>
+                        <a href="{{url_for('shop.open_ticket', username=user.username)}}">
+                            <li>
+                                Contact
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+    {% include 'include/flashed_messages/shop.html' %}
+    <script src="{{url_for('static', filename='scripts/shop.js')}}"></script>
+</main>
+</html>

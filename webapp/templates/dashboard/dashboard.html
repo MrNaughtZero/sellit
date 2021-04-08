@@ -1,0 +1,150 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'dashboard' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard-stats">
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Daily Revenue</h5>
+            <p>£49.99</p> 
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/coins.svg')}}" width="30" height="30">
+        </div>
+    </div>
+
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Monthly Revenue</h5>
+            <p>£149.99</p>
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/coins.svg')}}" width="30" height="30">
+        </div>
+    </div>
+
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Unique Visitors</h5>
+            <p>12,304</p>
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/visibility.svg')}}" width="30" height="30">
+        </div>
+    </div>
+
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Total Customers</h5>
+            <p>1094</p>
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/target-audience.svg')}}" width="30" height="30">
+        </div>
+    </div>
+</div>
+
+<div class="latest-table">
+    <h3 class="latest-table-heading">
+        <img src="{{url_for('static', filename='img/icons/open-box.svg')}}" width="20" height="20">
+        Latest Orders</h3>
+    <div class="table-wrapper">
+        <table style="width:100%">
+            <tr class="theader">
+                <th class="order-id-column">Order ID</th>
+                <th class="payment-method-column">Payment Method</th>
+                <th class="product-column">Product</th>
+                <th class="product-customer">Customer</th>
+                <th class="product-quantity">Quantity</th>
+                <th class="product-total">Total</th>
+            </tr>
+            <tr class="table-row">
+                <td data-label="Order ID">#10092</td>
+                <td data-label="Payment Method">
+                    <img src="{{url_for('static', filename='img/icons/paypal.svg')}}" height="20" width="20" class="order-payment-method">
+                </td>
+                <td data-label="Product">Windows 10 Serial Pro Key</td>
+                <td data-label="Customer">Trevornicholas082@gmail.com</td>
+                <td class="quanity-table-value" data-label="Quantity">2</td>
+                <td data-label="Total">£49.90</td>
+            </tr>
+
+            <tr class="table-row">
+                <td data-label="Order ID">#10092</td>
+                <td data-label="Payment Method">
+                    <img src="{{url_for('static', filename='img/icons/paypal.svg')}}" height="20" width="20" class="order-payment-method">
+                </td>
+                <td data-label="Product">Windows 10 Serial Pro Key</td>
+                <td data-label="Customer">Trevornicholas082@gmail.com</td>
+                <td class="quanity-table-value" data-label="Quantity">2</td>
+                <td data-label="Total">£49.90</td>
+            </tr>
+
+            <tr class="table-row">
+                <td data-label="Order ID">#10092</td>
+                <td data-label="Payment Method">
+                    <img src="{{url_for('static', filename='img/icons/paypal.svg')}}" height="20" width="20" class="order-payment-method">
+                </td>
+                <td data-label="Product">Windows 10 Serial Pro Key</td>
+                <td data-label="Customer">Trevornicholas082@gmail.com</td>
+                <td class="quanity-table-value" data-label="Quantity">2</td>
+                <td data-label="Total">£49.90</td>
+            </tr>
+        </table>
+    </div>
+    
+        <div class="latest-table-view-all dashboard-view-more">
+            <a href="{{url_for('dashboard.orders')}}">
+                <button type="button" class="btn btn-primary">View All Orders</button>
+            </a>
+            <p class="showing-of">Showing 3 of 56 Orders</p>
+        </div>
+    
+</div>
+
+<div class="latest-table">
+    <h3 class="latest-table-heading"><img src="{{url_for('static', filename='img/icons/ticket.svg')}}" width="20" height="20">
+        Latest Tickets</h3>
+    <div class="table-wrapper">
+        <table style="width:100%" class="table-responsive">
+            <tr class="theader">
+                <th class="order-id-column">Ticket ID</th>
+                <th class="product-customer">Customer</th>
+                <th class="ticket-subject">Subject</th>
+                <th class="last-reply">Last Reply</th>
+                <th class="ticket-status">Status</th>
+            </tr>
+            <tr class="table-row">
+                <td data-label="Order ID">#284</td>
+                <td data-label="Product">junipr93@gmail.com</td>
+                <td data-label="Customer">Didn't receive an email?</td>
+                <td data-label="Quantity">24 Minutes Ago</td>
+                <td data-label="Total"><p class="ticket-open">OPEN</p></td>
+            </tr>
+
+            <tr class="table-row">
+                <td data-label="Order ID">#284</td>
+                <td data-label="Product">junipr93@gmail.com</td>
+                <td data-label="Customer">Didn't receive an email?</td>
+                <td data-label="Quantity">24 Minutes Ago</td>
+                <td data-label="Total"><p class="ticket-open">OPEN</p></td>
+            </tr>
+
+            <tr class="table-row">
+                <td data-label="Order ID">#284</td>
+                <td data-label="Product">junipr93@gmail.com</td>
+                <td data-label="Customer">Didn't receive an email?</td>
+                <td data-label="Quantity">24 Minutes Ago</td>
+                <td data-label="Total"><p class="ticket-open">OPEN</p></td>
+            </tr>
+            </table>
+    </div>
+    <div class="latest-table-view-all dashboard-view-more">
+        <a href="{{url_for('dashboard.orders')}}">
+            <button type="button" class="btn btn-primary">View All Tickets</button>
+        </a>
+        <p class="showing-of">Showing 3 of 109 Tickets</p>
+    </div>
+    
+</div>
+{% endblock %}

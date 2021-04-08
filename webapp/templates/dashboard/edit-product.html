@@ -1,0 +1,179 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'products' %}
+{% set edit_product = 'y' %}
+{% block title %}Edit Product{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading dashboard-section-create-product">
+    <h3>New Product</h3>
+</div>
+<div class="product-panel">
+    <div class="product-panel-left">
+        <h4>Steps To Create A Product:</h4>
+        <ul>
+            <li>
+                <a href="#product-type">
+                    Product Type
+                </a>
+            </li>
+            <li>
+                <a href="#product-details">
+                    Product Details
+                </a>
+            </li>
+
+            <li>
+                <a href="#product-image">
+                    Product Image
+                </a>
+            </li>
+            
+            <li>
+                <a href="#product-stock">
+                    Stock
+                </a>
+            </li>
+
+            <li>
+                <a href="#product-price">
+                    Price
+                </a>
+            </li>
+
+            <li>
+                <a href="#product-categories">
+                    Categories
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="product-panel-right">
+        <form method="POST" action="/product/edit/{{product.id}}/submit" enctype="multipart/form-data">
+            <div class="product-section-heading" id="product-type">
+                <input type="hidden" id="product_type_hidden" value="{{product.product_type}}">
+                <h4>Product Type</h4>
+                {{form.product_type(value='item')}}
+                <div class="product-type-buttons">
+                    <button onclick="updateProductType('item')" type="button" class="btn btn-primary btn-item">Item</button>
+                    <button onclick="updateProductType('file')" type="button" class="btn btn-primary btn-file btn-not-active">File</button>
+                </div>
+            </div>
+
+
+            <div class="product-section-heading" id="product-details">
+                <h4>Product Details</h4>
+                <div class="product-section-wrapper">
+                    <div class="form-control">
+                        <label for="product_name">Product Name</label>
+                        {{form.product_name(placeholder="Name of the product...", value=product.name)}}
+                    </div>
+                    <div class="form-control">
+                        <label for="product_description">Product Description</label>
+                        <div class="tinymce-area-contianer">
+                            <textarea id="create-product-textarea"></textarea>
+                        </div>
+                        <input type="hidden" name="hidden_desc" id="hidden_desc">
+                        {{form.description_value}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-section-heading" id="product-image">
+                <h4>Product Image</h4>
+                <div class="product-section-wrapper product-image-section">
+                    <!-- <input type="file" required> -->
+                    <div class="new-product-images-wrapper">
+                        <div class="upload-big-image">
+                            <h4 class="new-image-heading">Recommended Size: 350x350</h4>
+                            <div class="new-product-image-block">
+                                <div class="image-upload-icon-text">
+                                    <img src="{{url_for('static', filename='img/icons/photo.svg')}}" height="50" width="50">
+                                    <h3>Drag & Drop Your Image</h3>
+                                    <p>Supports JPG, JPEG, PNG & GIF</p>
+                                </div>
+                                <div class="image-uploaded-text">
+                                    <p style="font-weight:400;position:relative;top:2px;">Image Uploaded</p>
+                                </div>
+                            </div>
+                            <div class="uploaded-image-details">
+                                <p class="uploaded-image-name">
+                                    test
+                                </p>
+                                <img id="img-changed-edit-product" onclick="replaceProductImage()" src="{{url_for('static', filename='img/icons/delete.svg')}}" width="20" height="20">
+                                <input type="hidden" id="image-changed" name="image-changed">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="imagename" value="{{product.product_image.image_filename}}">
+                    {{form.product_image(class="product-image-input", title=" ", accept="image/*", onchange="productImageUpload()", value=product.product_image.image_name)}}
+                </div>
+            </div>
+            <div class="product-section-heading" id="product-items">
+                <h4>Stock</h4>
+                <div class="product-section-wrapper">
+                    <div class="form-control">
+                        <label for="items">Items</label>
+                        {{form.items(onchange="itemLineCount()", class="items-textarea", placeholder="Enter your items...")}}
+                        <div class="stock-flex">
+                            <p class="textarea-tip">Separate each item with a new line</p>
+                            <p class="total-stock-items">Stock: 0</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="product-section-heading" id="product-attachments">
+                <h4>Stock</h4>
+                <div class="product-section-wrapper">
+                    {% if attachments == [] %}
+                        <div class="no-attachments-message">
+                            <p>You have no attachments. Visit the <a class="purple-link" href="{{url_for('dashboard.attachments')}}">Attachments</a> page to make an upload</p>
+                        </div>
+                    {% else %}
+                        <div class="form-control">
+                            <label for="attachments">
+                                Attachments
+                            </label>
+                            {{form.attachment_file()}}
+                        </div>
+                        <div class="form-control">
+                            <label for="stock-available">
+                                How many times can this be sold:
+                            </label>
+                            {{form.stock()}}
+                            <p class="stock-tip">Leave empty for unlimited times</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="product-section-heading" id="product-price">
+                <h4>Price</h4>
+                <div class="product-section-wrapper product-section-price">
+                    <div class="form-control">
+                        <label for="price">Price</label>
+                        <div class="form-inline">
+                            <p>£</p>
+                            {{form.price}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-section-heading" id="product-categories">
+                <h4>Categories</h4>
+                <div class="product-section-wrapper product-section-categories">
+                    <div class="form-control">
+                        <label for="price">Category</label>
+                        {{form.categories(onclick="selectedCategories(this)", id="categories")}}
+                    </div>
+                </div>
+            </div>
+            <div class="create-product-btn">
+                {{form.csrf_token}}
+                <button type="submit" class="btn btn-primary">Update Product</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

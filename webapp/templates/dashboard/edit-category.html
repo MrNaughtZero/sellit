@@ -1,0 +1,26 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'categories' %}
+{% block title %}Edit Category{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading">
+    <h2>Create Category</h2>
+</div>
+<div class="create-category-container">
+    <form method="POST" action="/categories/{{category.id}}/update">
+        <div class="form-control">
+            <label for="cat_name">
+                Category Name
+            </label>
+            {{form.category_name(id="category-name-input")}}
+            {{form.csrf_token}}
+        </div>
+        <div class="form-control">
+            <label for="cat_products">
+                Products It Applies To
+            </label>
+            {{form.linked_products}}
+        </div>
+            <button type="submit" class="btn btn-primary btn-save-coupon">Create Category</button>
+    </form>
+</div>
+{% endblock %}

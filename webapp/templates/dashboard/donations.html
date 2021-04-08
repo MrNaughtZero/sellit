@@ -1,0 +1,102 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'donations' %}
+{% block title %}Donations{% endblock %}
+{% block content %}
+<div class="donation-header">
+    <div class="donation-header-left">
+        <h2>Donations</h2>
+        <h5>Start Accepting Donations</h5>
+    </div>
+    <div class="donation-header-right">
+        {% if user.settings.donations %}
+            <a href="{{url_for('dashboard.disable_donations')}}">
+                <button type="button" class="btn btn-donation">DISABLE DONATIONS</button>
+            </a>
+        {% else %}
+            <a href="{{url_for('dashboard.enable_donations')}}">
+                <button type="button" class="btn btn-donation btn-donation-enable">ENABLE DONATIONS</button>
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+{% if user.settings.donations %}
+    <form method="POST" action="/donations/update">
+        <div class="donation-settings">
+            <h3>Settings</h3>
+            <div class="form-control">
+                <label for="donation_amount">Minimum Donation Amount</label>
+                
+                    <div class="inline-flex">
+                        <p class="donation-currency">{{user.settings.currency | replace('GBP', '£') | replace('USD', '$') | replace('EUR', '€')}}</p>
+                        {{form.amount(class="min-donate-amount", value=user.settings.minimum_donation)}}
+                    </div>
+            </div>
+
+            <div class="form-control">
+                <label for="donation_link">Donation URL</label>
+                <input type="text" value="https://sellit.gg/@{{user.username}}/donate" disabled class="donation-url">
+                <div class="copy-icon-wrapper">
+                    <img src="{{url_for('static', filename='img/icons/copy.svg')}}" height="20" width="20" id="copy-icon">
+                </div>
+            </div>
+            {{form.csrf_token}}
+            <button type="submit" class="btn btn-green">Save Settings</button>
+        </div>
+    </form>
+{% endif %}
+
+<div class="latest-table">
+    <h3 class="latest-table-heading">
+        <img src="{{url_for('static', filename='img/icons/heart.svg')}}" width="20" height="20">
+        Donations</h3>
+    <div class="table-wrapper">
+        <table style="width:100%">
+            {% if donations.items == [] %}
+                <div class="no-donations">
+                    <h3>You haven't received no donations :(</h3>
+                </div>
+            {% else %}
+                <tr class="theader">
+                    <th class="donation-name">Name</th>
+                    <th class="donation-message">Message</th>
+                    <th class="donation-amount">Amount</th>
+                    <th class="donation-date">Date</th>
+                </tr>
+                {% for item in donations.items %}
+                    <tr class="table-row">
+                        <td>{{item.name}}</td>
+                        <td>{% if item.message != None %} {{item.message}} {% endif %}</td>
+                        <td>{{user.settings.currency|currency_to_symbol}}{{item.amount}}</td>
+                        <td>{{item.timestamp|int|timestamp_to_human}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+    {% if donations.items != [] %}
+    <div class="latest-table-view-all">
+        {% for page_num in donations.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            <div class="pagination-numbers">
+                    {% if page_num %}
+                        {% if donations.page == page_num %}
+                            <a href="{{ url_for('dashboard.donations', page=page_num)}}" class="active-pagination btn pagination-btn">
+                                {{ page_num }}
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('dashboard.donations', page=page_num) }}" class="btn pagination-btn"> 
+                                {{ page_num }}
+                            </a>
+                        {% endif %}
+                    {% else %}
+                    ...
+                    {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <p class="showing-of">
+        Showing page {{ donations.page }} of {{ donations.pages }}
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

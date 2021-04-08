@@ -1,0 +1,30 @@
+{% extends 'base/settings.html' %}
+{% set active_page = 'settings_security' %}
+{% block settings_block %}
+    <h2>Security</h2>
+    <div class="settings-content-wrapper">
+        <form method="POST" action="/settings/security/update">
+            <div class="form-control security-current-password">
+                <label for="current_password">
+                    Current Password
+                </label>
+                {{form.current_password(placeholder="Your Current Password")}}
+            </div>
+            <div class="form-control">
+                <label for="new_password">
+                    New Password
+                </label>
+                {{form.password(placeholder="New Password")}}
+            </div>
+            <div class="form-control">
+                <label for="new_password">
+                    Confirm New Password
+                </label>
+                {{form.confirm_password(placeholder="Confirm New Password")}}
+            </div>
+            {{form.csrf_token}}
+            <button type="submit" class="btn btn-primary btn-update-settings">CHANGE PASSWORD</button>
+        </form>
+    </div>
+    </div>
+{% endblock %}

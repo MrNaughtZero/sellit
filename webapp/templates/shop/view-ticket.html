@@ -1,0 +1,63 @@
+{% extends 'base/shop.html' %}
+{% set active_page = 'view ticket' %}
+{% block title %}Ticket {{ticket.id}}{% endblock %}
+{% block content %}
+<div class="view-ticket-container main-container">
+    <div class="view-ticket-wrapper">
+        <div class="ticket-header">
+            <h4 id="ticket-id">Ticket {{ticket.id}}</h4>
+        </div>
+        <div class="ticket-information">
+            <div class="customer-details">
+                <h4 id="ticket-subject">
+                    {{ticket.subject}}
+                </h4>
+                <h4 id="ticket-created">
+                    {{ticket.ticket_created_timestamp|timestamp_to_human}}
+                </h4>
+            </div>
+            {% if ticket.status == 'Closed' %}
+                <div class="ticket-status">
+                    <p>
+                        This ticket has been closed by {{user.username}}. You can not reply
+                    </p>
+                    
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="ticket-messages">
+            {% for item in ticket.ticket_message %}
+                {% if item.reply %}
+                    <p class="seller-ticket-message">
+                        {{item.reply}}
+                    </p>
+                    <p class="reply-timestamp">
+                        {{item.reply_timestamp|int|timestamp_to_hours_minutes}}
+                    </p>
+                    
+                {% endif %}
+
+                {% if item.message %}
+                    <p class="customer-ticket-message">
+                        {{item.message}}
+                    </p>
+                    <p class="message-timestamp">
+                        {{item.message_timestamp|int|timestamp_to_hours_minutes}}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if ticket.status != 'Closed' %}
+            <div class="reply-to-ticket">
+                <form method="POST" action="/ticket/{{ticket.id}}/submit">
+                    {{form.message}}
+                    {{form.csrf_token}}
+                    <button type="submit" class="btn-reply-to-ticket">Reply</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

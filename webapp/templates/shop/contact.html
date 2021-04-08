@@ -1,0 +1,45 @@
+{% extends 'base/shop.html' %}
+{% block username %}Sellit - @{{user.username}}{% endblock %}
+{% block content %}
+<div class="main-container">
+    <div class="contact-wrapper">
+        <h3 id="contact-header">
+            Send {{user.username}} a message
+        </h3>
+        <div class="contact-form">
+            <form method="POST" action="/@{{user.username}}/contact/submit">
+                <div class="form-control">
+                    <label for="email">
+                        Email
+                    </label>
+                    {{form.email(placeholder='johndoe@example.com')}}
+                </div>
+
+                <div class="form-control">
+                    <label for="subject">
+                        Subject
+                    </label>
+                    {{form.subject(placeholder="I didn't receive my order")}}
+                </div>
+
+                <div class="form-control">
+                    <label for="order_id">
+                        Order ID <span id="if-applicable">if applicable</span>
+                    </label>
+                   {{form.order_id}}
+                </div>
+
+                <div class="form-control">
+                    <label for="message">
+                        Message
+                    </label>
+                    {{form.message(id="contact-form-textarea")}}
+                </div>
+                {{form.csrf_token}}
+                <button type="submit" class="submit-contact-form">Send Message</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

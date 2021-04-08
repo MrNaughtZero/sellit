@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/gif" rel="icon" href="{{url_for('static', filename='img/favicons/favicon.ico')}}">
+    <link href="{{url_for('static', filename='styles/developer.css')}}" type="text/css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Sellit - API Reference</title>
+</head>
+<body>
+    <header>
+        <div class="top-bar-message">
+            Unfortunately the API isn't quite ready. Check back soon for updates
+        </div>
+        <nav class="developer-nav">
+            <a href="{{url_for('main.index')}}">
+                <div class="nav-branding">
+                    <img src="{{url_for('static', filename='img/logos/logo.png')}}" width="100">
+                </div>
+            </a>
+            <div class="nav-text">
+                <h4>
+                    API Reference
+                </h4>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main-api-wrapper">
+            <section class="api-reference-menu api-container">
+                <h5 class="api-menu-header">Quick Start</h5>
+                <ul class="api-list">
+                    <li>
+                        Home
+                    </li>
+                    <li>
+                        Authentication
+                    </li>
+                    <li>
+                        Pagination
+                    </li>
+                </ul>
+    
+                <h5 class="api-menu-header">
+                    Resources
+                </h5>
+    
+                <ul class="api-list">
+                    <li>
+                        Order
+                        <ul class="api-list api-list-nested">
+                            <li>
+                                Order Object
+                            </li>
+                            <li>
+                                List all Orders
+                            </li>
+                            <li>
+                                Get a Order
+                            </li>
+                        </ul>
+                    </li>
+    
+                    <li>
+                        Product
+                        <ul class="api-list api-list-nested">
+                            <li>
+                                Product Object
+                            </li>
+                            <li>
+                                List all Products
+                            </li>
+                            <li>
+                                Get a Product
+                            </li>
+                            <li>
+                                Create a Product
+                            </li>
+                            <li>
+                                Update a Product
+                            </li>
+                            <li>
+                                Delete a Product
+                            </li>
+                            <li>
+                                Update Product Image
+                            </li>
+                        </ul>
+                    </li>
+    
+                    <li>
+                        Feedback
+                        <ul class="api-list api-list-nested">
+                            <li>
+                                Feedback Object
+                            </li>
+                            <li>
+                                List all Feedbacks
+                            </li>
+                            <li>
+                                Get a Feedback
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+    
+            <div class="api-main">
+                <section class="api-introduction">
+                    <h2>Introduction</h2>
+        
+                    <p>
+                        Welcome to the Sellit API. You can use our API to access Sellit API endpoints to built your own system on top of our platform.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

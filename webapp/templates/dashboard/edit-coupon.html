@@ -1,0 +1,62 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'coupons' %}
+{% block title %}Edit Coupon{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading">
+    <h2>Edit Coupon</h2>
+</div>
+<div class="create-category-container">
+    <form method="POST" action="{{url_for('dashboard.update_coupon', coupon_id=coupon.id)}}">
+        <div class="form-control">
+            <label for="coupon_code">
+                Coupon Code
+            </label>
+            <div class="inline-form-control">
+                {{form.coupon_code(class="coupon-code-input")}}
+                <button onclick="generateCoupon()" type="button" class="btn btn-light-green generate-coupon-btn">Generate</button>
+            </div>
+        </div>
+        <div class="form-control">
+            <label for="coupon_amount">
+                Discount Amount (%)
+            </label>
+            {{form.discount_amount}}
+        </div>
+        <div class="inline-form-control coupon-dates">
+            <div class="form-control">
+                <label for="coupon_start_from">
+                    Starts At
+                </label>
+                {{form.start_date(onchange="updateEndDate()")}}
+            </div>
+
+            <div class="form-control">
+                <label for="coupon_start_from">
+                    Ends At
+                </label>
+                {{form.end_date()}}
+            </div>
+        </div>
+        <div class="form-control">
+            <label for="coupon_max_uses">
+                Max Uses
+            </label>
+            {{form.max_uses}}
+            {{form.csrf_token}}
+        </div>
+        <div class="form-control">
+            <label for="limit_coupon">
+                Product Settings
+            </label>
+            <div class="inline-form-control coupon-restriction">
+                {{form.coupon_restricted(onchange="couponRestricted()")}}
+                <p>Restrict this coupon for specific products</p>
+            </div>
+            <div class="form-control coupon-product-list">
+                {{form.product_list}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-save-coupon">Update Coupon</button>
+    </form>
+</div>
+{% endblock %}

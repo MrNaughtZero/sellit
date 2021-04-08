@@ -1,0 +1,29 @@
+{% extends 'base/dashboard.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+    <div class="settings-wrapper">
+        <div class="settings-left">
+            <ul>
+                <a href="{{url_for('dashboard.settings')}}">
+                    <li {% if active_page == 'settings_general' %} class="setting-link-active" {% endif %}>
+                        General
+                    </li>
+                </a>
+                <a href="{{url_for('dashboard.security_settings')}}">
+                    <li {% if active_page == 'settings_security' %} class="setting-link-active" {% endif %}>
+                        Security
+                    </li>
+                </a>
+                <a href="{{url_for('dashboard.payment_methods')}}">
+                    <li id="settings-link-pm" {% if active_page == 'settings_payment_methods' %} class="setting-link-active" {% endif %}>
+                        Payment Methods
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div class="settings-right">
+            {% block settings_block %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

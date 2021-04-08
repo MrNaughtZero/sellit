@@ -1,0 +1,78 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'coupons' %}
+{% block title %}Coupons{% endblock %}
+{% block content %}
+<div class="coupon-container">
+    <div class="dashboard-section-heading">
+        <h2>Coupons</h2>
+        <a href="{{url_for('dashboard.create_coupon')}}">
+            <button type="button" class="btn btn-primary create-product">Create Coupon</button>
+        </a>
+    </div>
+    {% if all_coupons.items == [] %}
+        <div class="not-yet-created">
+                <h2>You currently have no Coupons! :( <br> Click Create Coupon to get started</h2>
+        </div>
+    {% else %}
+        <div class="latest-table">
+            <div class="table-wrapper">
+                <table style="width:100%">
+                    <tr class="theader">
+                        <th class="coupon-name">Code</th>
+                        <th class="coupon-discount">Discount</th>
+                        <th class="coupon-uses">Uses</th>
+                        <th class="coupon-date">Valid From</th>
+                        <th class="coupon-date">Valid To</th>
+                        <th class="coupon-actions">Actions</th>
+                    </tr>
+                    {% for item in all_coupons.items %}
+                        <tr class="table-row">
+                            <td><p class="coupon-code">{{item.coupon_code}}</p></td>
+                            <td>{{item.discount_amount}}%</td>
+                            <td>{{item.uses}}</td>
+                            <td>{% if item.start_date %} {{item.start_date}} {% endif %}</td>
+                            <td>{% if item.end_date %} {{item.end_date}} {% endif %}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="{{url_for('dashboard.delete_coupon', coupon_id=item.id)}}">
+                                        <p class="table-action-delete">DELETE</p>
+                                    </a>
+
+                                    <a href="{{url_for('dashboard.edit_coupon', coupon_id=item.id)}}">
+                                        <p class="table-action-delete">EDIT</p>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>  
+            <div class="latest-table-view-all">
+                {% for page_num in all_coupons.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    <div class="pagination-numbers">
+                            {% if page_num %}
+                                {% if all_coupons.page == page_num %}
+                                    <a href="{{ url_for('dashboard.coupons', page=page_num)}}" class="active-pagination btn pagination-btn">
+                                        {{ page_num }}
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('dashboard.coupons', page=page_num) }}" class="btn pagination-btn"> 
+                                        {{ page_num }}
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                            ...
+                            {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <p class="showing-of">
+                {% if all_coupons.items != [] %}
+                    Showing page {{ all_coupons.page }} of {{ all_coupons.pages }}
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

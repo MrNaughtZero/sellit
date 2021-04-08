@@ -1,0 +1,56 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'analytics' %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading header-analytics">
+    <h2>Analytics</h2>
+</div>
+<div class="dashboard-stats">
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Revenue</h5>
+            <p>£149.99</p> 
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/coins.svg')}}" width="30" height="30">
+        </div>
+    </div>
+
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Monthly Revenue</h5>
+            <p>£149.99</p>
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/coins.svg')}}" width="30" height="30">
+        </div>
+    </div>
+
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Unique Visitors</h5>
+            <p>12,304</p>
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/visibility.svg')}}" width="30" height="30">
+        </div>
+    </div>
+
+    <div class="dash-stat-block">
+        <div class="dash-stat-left">
+            <h5>Customers</h5>
+            <p>1094</p>
+        </div>
+        <div class="dash-stat-right">
+            <img src="{{url_for('static', filename='img/icons/target-audience.svg')}}" width="30" height="30">
+        </div>
+    </div>
+</div>
+
+<div class="analytics-chart">
+    <h3>Revenue</h3>
+    <div class="chart-wrapper">
+        <div id="chart-container"></div>
+    </div>
+</div>
+{% endblock %}

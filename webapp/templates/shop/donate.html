@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static', filename='styles/front.css')}}" type="text/css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>Sellit - Donate to {{user.username}}</title>
+</head>
+<body class="grey-background" onload="donationsStatus()">
+    <div class="not-accepting-donations">
+        <p>{{user.username}} is not currently accepting donations</p>
+    </div>
+    <input type="hidden" id="donations_enabled" data_donations_enabled="{{user.settings.donations}}">
+    <div class="donate-page">
+        <div class="donate-page-block">
+            <div class="donate-header">
+                <h5>Donation</h5>
+                <div class="powered-by">
+                    <span>
+                        Powered By
+                    </span>
+                    <a target="_blank" href="{{url_for('main.index')}}">
+                        <img src="{{url_for('static', filename='img/logos/icon-only-light-background.png')}}" height="20" width="20">
+                    </a>
+                </div>
+            </div>
+            <div class="donate-main-content">
+                <h3>Donate to <b>{{user.username}}</b></h3>
+                <div class="donation-preset-buttons">
+                    {% set currency = user.settings.currency|replace('GBP', '£')|replace('USD', '%')|replace('EUR', '€')%}
+                    <button type="button" data-amount='{{user.settings.minimum_donation}}' class="btn btn-user-donation btn-primary btn-donate-one" onclick="setDonationAmount('.btn-donate-one')">
+                    {{currency}}{{ "%.2f"|format(user.settings.minimum_donation|float)}}
+                    </button>
+                    {% set value = user.settings.minimum_donation | float * 2|round %}
+                    <button type="button" data-amount="{{value}}" class="btn btn-user-donation btn-donate-two" onclick="setDonationAmount('.btn-donate-two')">
+                        {{currency}}{{ "%.2f"|format(value) }}
+                    </button>
+                    {% set value = user.settings.minimum_donation | float * 3|round %}
+                    <button type="button" data-amount="{{value}}" class="btn btn-user-donation btn-donate-three" onclick="setDonationAmount('.btn-donate-three')">
+                        {{currency}}{{ "%.2f"|format(value) }}
+                    </button>
+                </div>
+                <div class="donation-amount-input">
+                    <p class="donation-currency">{{currency}}</p>
+                    {{form.amount(value="%.2f"|format(user.settings.minimum_donation|float), min=user.settings.minimum_donation, data_min=user.settings.minimum_donation, onchange="checkDonationAmount()")}}
+                </div>
+                <hr class="donate-page-linebreak">
+            <div class="donation-message">
+                <div class="leave-message">
+                    {{form.leave_message(onclick="showDonationMessageContent()", value='n')}}
+                    <span>Leave A Message</span>
+                    <div class="leave-message-content">
+                        {{form.name(value='Anonymous')}}
+                        {{form.message}}
+                        <p id="donation-message-required">
+                            Donation message is required. If you would prefer not leave a message, then please untick the checkbox
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="continue-with-donation">
+                <button data-username="{{user.username}}" data-currency="{{currency}}" type="button" onclick="continueWithDonation()" class="btn btn-primary btn-donation-continue">CONTINUE</button>
+            </div>
+            </div>
+            <div class="donate-payment-methods">
+                <h3 id="donation-amount-header"></h3>
+                <div class="awaiting-payment">
+                    <div class="awaiting-payment-left">
+                        <img src="{{url_for('static', filename='img/icons/loading-spinner.svg')}}" height="20" width="20" id="awaiting-payment-spinner">
+                        <span id="awaiting-payment-text">Awaiting Payment</span>
+                    </div>
+                    <div class="awaiting-payment-right">
+                        <span id="awaiting-payment-timer">15:00</span>
+                    </div>
+                </div>
+                <div class="crypto-donation-amount-tracker">
+                    <p>
+                        <span id="received-crypto-amount">0</span>
+                        /
+                        <span id="total-crypto-amount"></span>
+                    </p>
+                </div>
+                <div class="payment-block-options">
+                    {% if user.payment_methods.stripe %}
+                        <div class="payment-block-product-page" onclick="setPaymentMethod('stripe')">
+                            <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-stripe"><img src="{{url_for('static', filename='img/icons/credit-card.svg')}}" height="25" width="25"></button>
+                        </div>
+                    {% endif %}
+                    
+                    {% if user.payment_methods.paypal %}
+                        <div class="payment-block-product-page" onclick="setPaymentMethod('paypal')">
+                            <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-paypal"><img src="{{url_for('static', filename='img/icons/paypal.svg')}}" height="25" width="25"></button>
+                        </div>
+                    {% endif %}
+
+                    {% if user.payment_methods.BTC %}
+                        <div class="payment-block-product-page" onclick="setPaymentMethod('BTC')">
+                            <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-BTC"><img src="{{url_for('static', filename='img/icons/bitcoin.svg')}}" height="25" width="25"></button>
+                        </div>
+                    {% endif %}
+                    
+                    {% if user.payment_methods.ETH %}
+                        <div class="payment-block-product-page" onclick="setPaymentMethod('ETH')">
+                            <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-ETH"><img src="{{url_for('static', filename='img/icons/ethereum.svg')}}" height="25" width="25"></button>
+                        </div>
+                    {% endif %}
+
+                    {% if user.payment_methods.LTC %}
+                        <div class="payment-block-product-page" onclick="setPaymentMethod('LTC')">
+                            <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-LTC"><img src="{{url_for('static', filename='img/icons/litecoin.svg')}}" height="25" width="25"></button>
+                        </div>
+                    {% endif %}
+                    {% if user.payment_methods.LTCT %}
+                        <div class="payment-block-product-page" onclick="setPaymentMethod('LTCT')">
+                            <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-LTC"><img src="{{url_for('static', filename='img/icons/litecoin.svg')}}" height="25" width="25"></button>
+                        </div>
+                    {% endif %}
+
+                    {#{% if (not user.payment_methods.stripe) and (not user.payment_methods.paypal) and (not user.payment_methods.BTC) and (not user.payment_methods.ETH) and (not user.payment_methods.LTC) %}
+                        <h4 id="no-payment-methods">{{user.username}} has no active payment methods</h4>
+                    {% endif %}#}
+
+                    {{form.pm(id='payment_method')}}
+                    {{form.csrf_token}}
+                    {{form.uuid(value=user.uuid)}}
+                    <div class="product-buttons">
+                        <button type="button" onclick="returnToDonation()" class="btn btn-back">Back</button>
+                        {% if user.payment_methods !=[] %}
+                            <button id="payment-block-continue" type="submit" onclick="makeDonation()" class="btn btn-primary donation-block-continue">
+                                <span id="make-payment-text">Make Payment</span>
+                                <img class="donation-loading-spinner" src="{{url_for('static', filename='img/icons/loading-spinner.svg')}}" width="25" height="25">
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="pay-donation-stripe">
+                <form id="payment-form">
+                    <div id="card-element"></div>
+                    <button id="stripe-submit">
+                        <img id="stripe-processing-payment" class="donation-loading-spinner" src="{{url_for('static', filename='img/icons/loading-spinner.svg')}}" height="25" width="25">
+                        <span id="pay-now-text">Pay now</span>
+                    </button>
+                    <p id="card-error" role="alert"></p>
+                </form>
+                <p class="stripe-payment-error"></p>
+                <div class="cancel-donation" onclick="cancelDonation()">
+                    <button type="button" class="btn btn-cancel-donation">Cancel Donation</button>
+                </div>
+            </div>
+
+            <div class="pay-donation-crypto">
+                <h3 id="crypto-pay-amount"></h3>
+                <div class="crypto-pay-qr">
+
+                </div>
+                <div class="cancel-donation" onclick="cancelDonation()">
+                    <button type="button" class="btn btn-cancel-donation">Cancel Donation</button>
+                </div>
+            </div>
+        </div>
+        <p class="flashed-error-donation"></p>
+            {% for item in flashed_message %}
+                {% if 'successfully' in item[0] %}
+                    <p class="donation-flashed-success">
+                        {{item[0]}}
+                    </p>
+                {% else %}
+                    <p class="flashed-error">{{item[0]}}</p>
+                {% endif %}
+            {% endfor %}
+    </div>
+    <script src="{{url_for('static', filename='scripts/front.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/qrcode.min.js')}}"></script>
+</body>

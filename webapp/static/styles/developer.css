@@ -1,0 +1,155 @@
+/* css reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul {
+  margin: 0;
+  padding: 0
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto";
+}
+
+/* variables */
+
+:root {
+    --primary: #4b0082;
+    --secondary: #949fff;
+    --light-grey: #f7fafc;
+    --white: #efefef;
+    --light-white: #F8F8FF;
+    --grey: #839095;
+    --green: #89ac35;
+    --light-green: #c6f6d5;
+}
+
+/* global styles */
+
+ul li {
+    list-style-type: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto";
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* nav */
+
+nav.developer-nav {
+    padding: 20px;
+    background: var(--primary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.api-container {
+    padding: 20px;
+    max-width: 270px;
+    height: 100vh;
+    border-right: 1px solid #efefef;
+}
+
+.api-reference-menu {
+    padding-top: 50px;
+    position: fixed;
+    left: 0;
+}
+
+.api-menu-header {
+    padding-bottom: 4px;
+    font-size: 14px;
+}
+
+.nav-text {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+ul.api-list {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.api-reference-menu ul li {
+    font-size: 13px;
+    line-height: 20px;
+    font-family: 'Open Sans'!important;
+    letter-spacing: 0.5px;
+    color: #8f969a;
+    padding-bottom: 5px;
+}
+
+ul.api-list.api-list-nested {
+    padding-top: 5px;
+}
+
+.api-main {
+    margin-left: 230px;
+    position: relative;
+    top: 50px;
+    padding: 20px;
+}
+
+.main-api-wrapper {
+    opacity: 0.4;
+}
+
+.top-bar-message {
+    background: #DC143C;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Inter';
+}

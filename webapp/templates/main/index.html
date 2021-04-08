@@ -1,0 +1,664 @@
+{% extends 'base/front.html' %}
+{% block title %} The #1 eCommerce Platform{% endblock %}
+{% block content %}
+<div class="hero">
+   <div class="hero-bg"></div>
+   <div class="hero-content main-container">
+      <h1 id="hero-heading">Sell Your <span id="hero-header-highlight">Digital</span> Content</h1>
+      <p id="hero-sub-text">
+         Selling your digital content online just got a hell of a lot easier. Create your own online shop within minutes, and accept a wide range of payment methods at a click of a button.
+      </p>
+      <div class="hero-buttons">
+         <ul class="inline-list">
+            <li>
+               <a href="{{url_for('main.features')}}">
+               <button type="button" class="btn btn-see-features">
+               SEE FEATURES
+               </button>
+               </a>
+            </li>
+            <li>
+               <a href="{{url_for('auth.register')}}">
+               <button type="button" class="btn btn-create-store">
+               CREATE MY STORE
+               </button>
+               </a>
+            </li>
+         </ul>
+      </div>
+      <div class="hero-tip">
+         <p id="cc-not-required">
+            No Credit Card Required
+         </p>
+      </div>
+   </div>
+</div>
+<section class="tools-section">
+   <div class="tools-content main-container">
+      <div class="tools-content-left">
+         <h2 id="tools-header">All the tools you need, in <span class="">one place</span></h2>
+         <p id="tools-description">
+            Sellit makes selling your digital content easier than ever. With all the tools you’ll ever need - all in one place. Build and grow your successful online business with ease. You can create offers and connect with your audience without ever needing to leave Sellit.
+         </p>
+         <div class="tool-icons">
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/credit-card.png')}}" width="35" height="35" alt="animated picture of a credit card">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/litecoin.png')}}" width="35" height="35" alt="picture of the Litecoin cryptocurrency logo">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/mailchimp.png')}}" width="35" height="35" alt="picture of the Mailchimp logo">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/ethereum.png')}}" width="35" height="35" alt="picture of the Ethereum cryptocurrency logo">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/documents.png')}}" width="35" height="35" alt="picture of a document logo">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/bitcoin.png')}}" width="35" height="35" alt="picture of the Bitcoin cryptocurrency logo">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/doughnut.png')}}" width="35" height="35" alt="Picture of a doughnut displaying analytics stats">
+            </div>
+            <div class="tool-icon-block">
+               <img src="{{url_for('static', filename='img/icons/paypal.png')}}" width="35" height="35" alt="picture of the PayPal logo">
+            </div>
+         </div>
+      </div>
+      <div class="tools-content-right">
+         <img id="tools-content-img" src="{{url_for('static', filename='img/illustrations/tools-illustration.svg')}}" width="300" alt="a picture of a man next to circles displaying different icons.">
+      </div>
+   </div>
+</section>
+<section id="features" class="features">
+   <h2 id="features-header" class="main-container section-heading"><span class="highlighted-text">Features</span></h2>
+   <div class="features-wrapper main-container">
+      <div class="feature-block feature-block-reverse">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-all-in-one">
+               <span class="feature-span-header">
+               All in One Platform
+               </span>
+            </h3>
+            <p class="feature-block-desc">
+               Sellit is an all in Platform, giving you access to everything you need to get your business up and running. We provide Multiple payment methods, Crypto currency payments, email delivery, download link delivery and more.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/statistics-illustration.svg')}}" alt="a picture of a man standing next to three cards displaying analytics statistics">
+         </div>
+      </div>
+      <div class="feature-block feature-block">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-payment">
+               Payment Flexability
+            </h3>
+            <p class="feature-block-desc">
+               Whether you want to take payments by PayPal, Credit Card, or Crypto, Sellit has you covered. Offering you all these payments methods and more to be added in the future.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/credit-card-illustration.svg')}}" alt="a picture of three children holding up a blank animated credit card">
+         </div>
+      </div>
+      <div class="feature-block feature-block-reverse">
+         <div class="feature-block-content">
+            <h3 class="feature-block-header" id="feature-block-shop">
+               Customizable Shop
+            </h3>
+            <p class="feature-block-desc">
+               Sellit gives you the option to fully customize your shop. Whether you want to add custom CSS/Javascript, or if you want to Blacklist specific customers. We have you covered.
+            </p>
+         </div>
+         <div class="feature-block-img">
+            <img class="feature-img" src="{{url_for('static', filename='img/illustrations/business-shop-illustration.svg')}}" alt="a picture of a man holding on to an animated picture of a shop">
+         </div>
+      </div>
+   </div>
+   <h2 id="access-to-tools">
+      Get access to all these <span class="highlight-bg">tools</span>
+   </h2>
+</section>
+<section class="sliding-features">
+   <div class="sliding-container">
+      <div class="slider-content-top">
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/coupon.png')}}" width="50" alt="a picture of a discount coupon">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  20% Discount
+               </h4>
+               <p class="sliding-desc">
+                  Create discount coupons
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/donation.png')}}" width="50" alt="a picture of a heard in between two hands">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Donation Received
+               </h4>
+               <p class="sliding-desc">
+                  Create & Share Your Donation Link
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/live-chat.png')}}" width="50" alt="a picture of a live chat symbol">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Live Chat
+               </h4>
+               <p class="sliding-desc">
+                  Speak directly to your customers
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/setup.png')}}" width="50" alt="a picture of a cog">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Easy Setup
+               </h4>
+               <p class="sliding-desc">
+                  As easy as 1.2.3 - No techie required!
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/coupon.png')}}" width="50" alt="a picture of a discount coupon">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  20% Discount
+               </h4>
+               <p class="sliding-desc">
+                  Create discount coupons
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/donation.png')}}" width="50" alt="a picture of a heard between to hands">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Donation Received
+               </h4>
+               <p class="sliding-desc">
+                  Create & Share Your Donation Link
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/live-chat.png')}}" width="50" alt="a picture of a live chat icon">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Live Chat
+               </h4>
+               <p class="sliding-desc">
+                  Speak directly to your customers
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/setup.png')}}" width="50" alt="a picture of a settings gear">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Easy Setup
+               </h4>
+               <p class="sliding-desc">
+                  As easy as 1.2.3 - No techie required!
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="slider-content-middle">
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/customer-service.png')}}" width="50" alt="a picture of a woman behind a desk on a laptop">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  24/7 Support
+               </h4>
+               <p class="sliding-desc">
+                  Our support is here to help
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/hand.png')}}" width="50" alt="a picture of a hand with money">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Instant Payout
+               </h4>
+               <p class="sliding-desc">
+                  No waiting around to be paid
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/star.png')}}" width="50" alt="a picture of a star">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Feedback System
+               </h4>
+               <p class="sliding-desc">
+                  Allow your customers to leave feedback
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/email.png')}}" width="50" alt="a picture of two envelopes">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Email Campaigns
+               </h4>
+               <p class="sliding-desc">
+                  Create campaigns direct from your dashboard
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/customer-service.png')}}" width="50" alt="a picture of a women with a laptop">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  24/7 Support
+               </h4>
+               <p class="sliding-desc">
+                  Our support is here to help
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/hand.png')}}" width="50" alt="a picture of a hand with money on top">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Instant Payout
+               </h4>
+               <p class="sliding-desc">
+                  No waiting around to be paid
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/star.png')}}" width="50" alt="a picture of a star">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Feedback System
+               </h4>
+               <p class="sliding-desc">
+                  Allow your customers to leave feedback
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/email.png')}}" width="50" alt=" a picture of two envelopes">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Email Campaigns
+               </h4>
+               <p class="sliding-desc">
+                  Create campaigns direct from your dashboard
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="slider-content-bottom">
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/cloud.png')}}" width="50" alt="a picture of a cloud">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  File Storage
+               </h4>
+               <p class="sliding-desc">
+                  Store all your files on Sellit's Secure Servers
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/cryptocurrencies.png')}}" width="50" alt="a picture of cryptocurrencies">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Crypto Payments
+               </h4>
+               <p class="sliding-desc">
+                  Get paid with the latest Cryptocurrencies
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/replace.png')}}" width="50" alt="a picture of a person in the middle with a circle going around them">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  User Accounts
+               </h4>
+               <p class="sliding-desc">
+                  Choose whether to allow your customers to create a user account
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-two">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/coupon.png')}}" width="50" alt="a picture of a discount coupon">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Reward Program
+               </h4>
+               <p class="sliding-desc">
+                  Reward your most loyal customers with rewards
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/cloud.png')}}" width="50" alt="a picture of a cloud">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  File Storage
+               </h4>
+               <p class="sliding-desc">
+                  Store all your files on Sellit's Secure Servers
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/cryptocurrencies.png')}}" width="50" alt="a picture of cryptocurrencies">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Crypto Payments
+               </h4>
+               <p class="sliding-desc">
+                  Get paid with the latest Cryptocurrencies
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-one">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/replace.png')}}" width="50" alt="a picture of a person with a circle around them">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  User Accounts
+               </h4>
+               <p class="sliding-desc">
+                  Choose whether to allow your customers to create a user account
+               </p>
+            </div>
+         </div>
+         <div class="sliding-content" id="sliding-content-two">
+            <div class="sliding-content-img">
+               <img src="{{url_for('static', filename='img/icons/coupon.png')}}" width="50" alt="a picture of a discount coupon">
+            </div>
+            <div class="sliding-text">
+               <h4 class="sliding-heading">
+                  Reward Program
+               </h4>
+               <p class="sliding-desc">
+                  Reward your most loyal customers with rewards
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="pricing main-container">
+   <h2 class="section-heading" id="pricing-header"><span class="highlighted-text">Pricing</span></h2>
+   <div class="pricing-container">
+      <div class="pricing-block pricing-block-free">
+         <div class="top-pricing-block">
+            <h5 class="pricing-plan">Free</h5>
+            <p class="pricing-desc">
+               For individuals or small teams trying out Sellit.
+            </p>
+            <span class="pricing-price">
+            £0/ <span class="pricing-month">mo</span>
+            </span>
+         </div>
+         <div class="pricing-block-features">
+            <h5 class="pricing-features-included">
+               What's Included:
+            </h5>
+            <ul class="pricing-block-feature-list">
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  No setup and monthly fee
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Unlimited Products
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Unlimited Coupons
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Standard Fraud Protection
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Shop customization
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Feedback System
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  4% PayPal fees
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  5% Crypto fees
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Analytics Dashboard
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="pricing-block pricing-block-pro">
+         <div class="top-pricing-block">
+            <h5 class="pricing-plan">Pro</h5>
+            <p class="pricing-desc">
+               Grow your business with the tools proven to help do so.
+            </p>
+            <span class="pricing-price">
+            £14.99/ <span class="pricing-month">mo</span>
+            </span>
+         </div>
+         <div class="pricing-block-features">
+            <h5 class="pricing-features-included">
+               What's Included:
+            </h5>
+            <ul class="pricing-block-feature-list">
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Unlimited Products
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Unlimited Coupons
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Advanced Fraud Protection
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Shop customization
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Feedback System
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  2% PayPal fees
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  3% Crypto fees
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Custom Domains
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Live Chat
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Dispute Feedback
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Increased file size limit
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Migration assistance
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Receive Donations
+               </li>
+            </ul>
+         </div>
+      </div>
+      <div class="pricing-block pricing-block-business">
+         <div class="top-pricing-block">
+            <h5 class="pricing-plan">Business</h5>
+            <p class="pricing-desc">
+               Scale your growing business with a comprehensive set of features.
+            </p>
+            <span class="pricing-price">
+            £49.99/ <span class="pricing-month">mo</span>
+            </span>
+         </div>
+         <div class="pricing-block-features">
+            <h5 class="pricing-features-included">
+               What's Included:
+            </h5>
+            <ul class="pricing-block-feature-list">
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="15" class="pricing-block-tick">
+                  Unlimited Products
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Unlimited Coupons
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Ultimate Fraud Protection
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Shop customization
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Feedback System
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  0% PayPal fees
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  0% Crypto fees
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Custom Domains
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Live Chat
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Dispute Feedback
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Increased file size limit
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Migration assistance
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Advanced Fraud Shield
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Priority Support
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  <span class="overflow-list-item">Access to Cashapp Payment Gateway
+               </li>
+               <li>
+                  <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                  Receive Donations
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</section>
+<section class="bottom-banner">
+   <h2 id="bottom-banner-heading">Ready to join Sellit?</h2>
+   <a href="{{url_for('auth.register')}}">
+      <button type="button" class="btn btn-get-started">Get Started</button>
+   </a>
+</section>
+<script src="{{url_for('static', filename='scripts/front.js')}}"></script>
+{% endblock %}

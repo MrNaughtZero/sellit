@@ -1,0 +1,52 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'products' %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading">
+    <h2>Products Overview</h2>
+    <a href="{{url_for('dashboard.create_product')}}">
+        <button type="button" class="btn btn-primary create-product">Create Product</button>
+    </a>
+</div>
+{% if prods == [] %}
+    <div class="not-yet-created">
+            <h2>You currently have no Products! :( <br> Click Create Product to get started</h2>
+    </div>
+{% else %}
+
+    <div class="latest-table">
+        <div class="table-wrapper">
+            <table style="width:100%">
+                <tr class="theader">
+                    <th class="product-name-table">Name</th>
+                    <th class="product-name-sku">SKU</th>
+                    <th class="donation-amount">Stock</th>
+                    <th class="product-name-type">Type</th>
+                    <th class="product-actions">Actions</th>
+                </tr>
+                {% for item in prods %}
+                    <tr class="table-row">
+                        <td class="overflow-ecllipse">{{item.name}}</td>
+                        <td>{{item.id}}</td>
+                        <td class="product-stock">{{item.stock}}</td>
+                        <td class="product-type">{{item.product_type}}</td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="{{url_for('dashboard.edit_product', product_id=item.id)}}">
+                                    <p class="table-action-edit">EDIT</p>
+                                </a>
+                                <a href="{{url_for('dashboard.delete_product', product_id=item.id)}}">
+                                    <p class="table-action-delete">DELETE</p>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>  
+        <div class="latest-table-view-all">
+            <p class="showing-of">Show 10 of 98 Products</p>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,630 @@
+/* css reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul {
+  margin: 0;
+  padding: 0
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto";
+}
+
+/* variables */
+
+:root {
+    --primary: #4b0082;
+    --secondary: #949fff;
+    --light-grey: #f7fafc;
+    --white: #efefef;
+    --light-white: #F8F8FF;
+    --grey: #839095;
+    --green: #89ac35;
+    --light-green: #c6f6d5;
+}
+
+/* global styles */
+
+ul li {
+    list-style-type: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto";
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* form inputs */
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+label {
+    font-family: 'Inter';
+    font-size: 12px;
+    padding-bottom: 3px;
+    position: relative;
+    left: 2px;
+}
+
+input, textarea {
+    margin-bottom: 5px;
+    text-indent: 5px;
+    border: 1px solid #efefef;
+    border-radius: 3px;
+    padding: 7px;
+}
+
+/* flashed messages */
+
+.flashed-message-shop {
+    position: absolute;
+    top: 3%;
+    right: 2%;
+}
+
+.flashed-message {
+    display: inline;
+    position: absolute;
+    right: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: white;
+}
+
+.flashed-error {
+    background: red;
+    padding: 10px;
+}
+
+.flashed-success {
+    background: var(--green);
+    padding: 10px;
+}
+
+/* container */
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+/* reusable styles */
+
+.inline-list li {
+    display: inline-block;
+}
+
+/* buttons */
+
+button.btn-visit-dashboard {
+    background: #c6f6d5;
+    border: none;
+    width: 122px;
+    position: relative;
+    top: 16px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: 'Inter';
+    padding: 5px;
+}
+
+button.submit-contact-form {
+    width: 100%;
+    margin-top: 10px;
+    background: var(--primary);
+    font-family: 'Inter';
+    padding: 10px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+}
+
+/* buttons end */
+
+/* shop header */
+
+.shop-header {
+    background: var(--primary);
+}
+
+.shop-top-bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop-branding {
+    padding: 10px 0;
+}
+
+.shop-user-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 15px;
+    align-items: center;
+}
+
+img#shop-img-avatar {
+    border-radius: 50%;
+    padding-bottom: 10px;
+}
+
+.shop-nav-links ul li {
+    color: white;
+    font-size: 12px;
+    padding: 5px;
+    margin-top: 13px;
+}
+
+/* categories */
+
+.shop-categories {
+    margin-top: 30px;
+}
+
+.category-list li {
+    background: #efefef;
+    padding: 10px;
+    border-radius: 2px;
+    min-width: 47px;
+    text-align: center;
+    margin-right: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* products */
+
+.products-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px 30px;
+    margin-top: 30px;
+}
+
+.mini-product-container {
+    margin-bottom: 25px;
+}
+
+.mini-product-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 20px 4px;
+}
+
+button.btn.btn-view-product {
+    background: var(--primary);
+    width: 100%;
+    border: none;
+    border-right: 4px;
+    color: white;
+    padding: 5px;
+    font-size: 13px;
+    font-family: 'Roboto';
+}
+
+/***** CONTACT PAGE *****/
+
+.contact-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    top: 80px;
+    border: 1px solid #efefef;
+    padding: 40px;
+    border-radius: 3px;
+}
+
+h3#contact-header {
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+span#if-applicable {
+    font-size: 7px;
+}
+
+/****** VIEW TICKET PAGE *********/
+
+.view-ticket-container {
+    background: white;
+    padding: 30px;
+    border-radius: 4px;
+}
+
+p.customer-ticket-message {
+    background: #efefef;
+    display: inline;
+    padding: 10px;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+.customer-details {
+    margin-bottom: 35px;
+    border-bottom: 2px solid #efefef;
+    padding-bottom: 10px;
+}
+
+.ticket-messages {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+p.seller-ticket-message {
+    display: inline;
+    background: #efefef;
+    margin-right: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.reply-to-ticket textarea {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+button.btn-reply-to-ticket {
+    width: 100%;
+    background: var(--primary);
+    font-family: 'Open Sans';
+    border-radius: 3px;
+    padding: 10px;
+    border: none;
+    color: white;
+}
+
+.ticket-information {
+    display: flex;
+    justify-content: space-between;
+}
+
+p.reply-timestamp {
+    margin-right: auto;
+    font-size: 10px;
+    padding-bottom: 10px;
+}
+
+.message-timestamp {
+    margin-left: auto;
+    font-size: 10px;
+    padding-bottom: 10px;
+}
+
+/****** VIEW PRODUCT PAGE *********/
+
+.hide-user-block {
+    display: none;
+}
+
+.product-attributes {
+    display: none;
+}
+
+.product-page-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-top: 60px;
+}
+
+.product-info-title {
+    padding-bottom: 30px;
+}
+
+.product-info-left {
+    background: #efefef;
+    width: 70%;
+    padding: 40px;
+    border-radius: 4px;
+}
+
+.product-payment-block-right {
+    background: #efefef;
+    border-radius: 4px;
+    width: 300px;
+    position: relative;
+}
+
+.buy-block-top {
+    padding: 30px;
+}
+
+.buy-block-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+span#close-purchase-block {
+    position: relative;
+    top: -4px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.buy-block-price {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.buy-block-quantity #quantity {
+    width: 50%;
+    border: 1px solid var(--primary);
+    font-size: 14px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+button.btn.btn-primary.purchase-btn {
+    height: 39px;
+    position: relative;
+    background: var(--primary);
+    color: white;
+    border: none;
+    width: 48%;
+    border-radius: 3px;
+}
+
+.quantity-purchase-block {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.apply-coupon {
+    display: flex;
+    margin-top: 20px;
+}
+
+.apply-coupon input {
+    width: 75%;
+    border: 1px solid var(--primary);
+}
+
+a.coupon-code-check {
+    background: var(--primary);
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: -2px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    height: 41px;
+}
+
+p.invalid-coupon {
+    text-align: center;
+    font-size: 12px;
+    color: red;
+    position: relative;
+    top: 11px;
+    display: none;
+}
+
+p.valid-coupon {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    background: var(--green);
+    color: white;
+    border-radius: 2px;
+    padding: 10px;
+    display: none;
+}
+
+.btn-remove-coupon {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-bottom: -20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+img#product-page-coupon-badge {
+    filter: invert(100%) sepia(0%) saturate(899%) hue-rotate(46deg) brightness(102%) contrast(100%);
+}
+
+.buy-block-shop-info {
+    margin-top: 15px;
+    background: var(--primary);
+    color: white;
+}
+
+.buy-block-shop-info > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+
+.payment-block-options {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.payment-block-product-page {
+    width: 49%;
+    display: flex;
+    background: #efefef;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: var(--primary);
+    font-weight: 500;
+    justify-content: space-evenly;
+    font-size: 13px;
+}
+
+.btn-payment {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-payment-active {
+    background: var(--primary);
+}
+
+.product-buttons {
+    position: relative;
+    top: 10px;
+    width: 100%;
+    display: flex;
+}
+
+.product-buttons button {
+    width: 49%;
+    margin-right: 5px;
+}
+
+.btn-back {
+    background: none;
+    border: 1px solid var(--primary);
+}
+
+.payment-delivery-block button {
+    width: 49%;
+    height: 37px;
+}
+
+.payment-delivery-block label {
+    font-size: 12px;
+    position: relative;
+    left: 4px;
+}
+
+.payment-delivery-block {
+    display: none;
+}
+
+/* order invoice page */
+
+.pay-for-order {
+    margin-top: 60px;
+}
+
+.order-payment-details {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    background: var(--primary);
+    border-radius: 4px;
+    padding: 20px;
+    color: white;
+}
+
+
+/* media queries */
+
+@media screen and (max-width:1317px){
+    .products-block {
+        grid-template-columns: 3fr 3fr 3fr;
+    }
+}
+
+@media screen and (max-width:1100px){
+    /* buy product page */
+    .product-info-left {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width:999px){
+    .products-block {
+        grid-template-columns: 6fr 6fr;
+    }
+    /* buy product page */
+    .product-page-container {
+        flex-wrap: wrap;
+    }
+    .product-info-left {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .product-payment-block-right {
+        width: 100%;
+    }
+    button.btn.btn-primary.purchase-btn {
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 750px){
+    /* buy product page */
+    button.btn.btn-primary.purchase-btn  {
+        left: -3px;
+    }
+}
+
+@media screen and (max-width:715px){
+    .products-block {
+        grid-template-columns: 12fr;
+    }
+}

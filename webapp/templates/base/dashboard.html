@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static', filename='styles/back.css')}}" type="text/css" rel="stylesheet">
+    <link rel="icon" type="image" href="{{url_for('static', filename='img/icons/favicon.ico')}}">
+    <title>Sellit - {% block title %}{% endblock %}</title>
+</head>
+<body{% if active_page == 'coupons' %} onload="setStartDate()"{% endif %}>
+    {% include 'base/dashboard-navigation.html' %}
+    
+    <main class="dashboard-main-content">
+        {% include 'base/dashboard-top-bar.html' %}
+        <!-- main content -->
+        <div class="main-content">
+            <div class="inprogress-animation">
+                <span id="elem" class="slider"></span> 
+            </div>
+            {% include 'base/dashboard-flashed-messages.html' %}
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- main content-->
+    </main>
+    
+    <script src="{{url_for('static', filename='scripts/back.js')}}"></script>
+    
+    {% if active_page == 'analytics' %}
+        <script src="{{url_for('static', filename='scripts/highcharts.js')}}"></script>
+        <script src="{{url_for('static', filename='scripts/analytics.js')}}"></script>
+    {% endif %}
+    
+    {% if (create_product == 'y') or (edit_product == 'y') %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/tinymce.min.js" integrity="sha512-RnlQJaTEHoOCt5dUTV0Oi0vOBMI9PjCU7m+VHoJ4xmhuUNcwnB5Iox1es+skLril1C3gHTLbeRepHs1RpSCLoQ==" crossorigin="anonymous"></script>
+    {% endif %}
+    
+    {% if create_product == 'y' %}
+        <script>
+            createTextEditor('create-product-textarea')
+        </script>
+    {% endif %}
+    
+    {% if edit_product == 'y' %}
+        <script>
+            createTextEditor('create-product-textarea', `{{product.description|safe}}`);
+            editProduct();
+            document.querySelector('#description_value').value = `{{product.description|safe}}`;
+            {% for item in product.product_category %}
+                document.querySelector(`option[value="{{item.category_name}}"]`).setAttribute('selected', 'true');
+            {% endfor %}
+        </script>
+    {% endif %}
+    
+    {% if active_page == 'settings_general' %}
+        <script>
+            preloadSettings('{{avatar}}')
+        </script>
+    {% endif %}
+        
+</body>
+</html>

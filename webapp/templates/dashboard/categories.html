@@ -1,0 +1,103 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'categories' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+
+<div class="categories-container">
+    <div class="dashboard-section-heading">
+        <h2>Categories</h2>
+        <a href="{{url_for('dashboard.create_category')}}">
+            <button type="button" class="btn btn-primary">Add Category</button>
+        </a>
+    </div>
+
+    {% if cats.items == [] %}
+        <div class="not-yet-created">
+                <h2>You currently have no Categories! :( <br> Click Create Category to get started</h2>
+        </div>
+    {% else %}
+        <div class="latest-table">
+            <div class="table-wrapper">
+                <table style="width:100%">
+                    <tr class="theader">
+                        <th class="categories-name">NAME</th>
+                        <th class="categories-product">Products</th>
+                        <th class="category-amount">Actions</th>
+                    </tr>
+                    {% for item in cats.items %}
+                        <tr class="table-row" id="category-id-{{item.id}}">
+                            <td>{{item.category_name}}</td>
+                            <td>{{item.product_count}}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="{{url_for('dashboard.remove_category', category_id=item.id)}}">
+                                        <p class="table-action-delete">DELETE</p>
+                                    </a>
+                                    <a href="{{url_for('dashboard.edit_category', category_id=item.id)}}">
+                                        <p class="table-action-edit">EDIT</p>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>  
+            <div class="latest-table-view-all">
+                {% for page_num in cats.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    <div class="pagination-numbers">
+                        {% if page_num %}
+                            
+                                {% if cats.page == page_num %}
+                                    <a href="{{ url_for('dashboard.categories', page=page_num)}}" class="active-pagination btn pagination-btn">
+                                        {{ page_num }}
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('dashboard.categories', page=page_num) }}" class="btn pagination-btn"> 
+                                        {{ page_num }}
+                                    </a>
+                                {% endif %}
+                        {% else %}
+                            ...
+                            
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <p class="showing-of">
+                {% if cats.items != [] %}
+                    Showing page {{ cats.page }} of {{ cats.pages }}
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+</div>
+
+{#<div class="modal">
+    <div onclick="closeModal('categories')" class="close-modal">
+        <button class="btn btn-primary" type="button">X</button>
+    </div>
+    <div class="modal-header">
+        <h2 id="category-header">Create Category</h2>
+    </div>
+    <div class="modal-content">
+        <form method="POST" action="/categories/create">
+            <div class="form-control">
+                <label for="cat_name">
+                    Category Name
+                </label>
+                {{form.name(id="category-name-input")}}
+                {{form.csrf_token}}
+            </div>
+            <div class="form-control">
+                <label for="cat_products">
+                    Products It Applies To
+                </label>
+                {{form.linked_products}}
+            </div>
+                <button type="submit" class="btn btn-primary btn-save-coupon">Create Category</button>
+        </form>
+    </div>
+</div>
+#}
+{% endblock %}

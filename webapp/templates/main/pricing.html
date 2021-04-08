@@ -1,0 +1,230 @@
+{% extends 'base/front.html' %}
+{% block title %} Pricing {% endblock %}
+{% block content %}
+
+    <section class="features-header">
+        <h2 id="features-main-header" class="highlight-bg">Pricing</h2>
+        <p id="features-sub-heading-text">
+            Fair pricing
+        </p>
+    </section>
+    
+    <section class="pricing main-container">
+        <div class="pricing-container">
+           <div class="pricing-block pricing-block-free">
+              <div class="top-pricing-block">
+                 <h5 class="pricing-plan">Free</h5>
+                 <p class="pricing-desc">
+                    For individuals or small teams trying out Sellit.
+                 </p>
+                 <span class="pricing-price">
+                 £0/ <span class="pricing-month">mo</span>
+                 </span>
+              </div>
+              <div class="pricing-block-features">
+                 <h5 class="pricing-features-included">
+                    What's Included:
+                 </h5>
+                 <ul class="pricing-block-feature-list">
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       No setup and monthly fee
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Unlimited Products
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Unlimited Coupons
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Standard Fraud Protection
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Shop customization
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Feedback System
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       4% PayPal fees
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       5% Crypto fees
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Analytics Dashboard
+                    </li>
+                 </ul>
+              </div>
+           </div>
+           <div class="pricing-block pricing-block-pro">
+              <div class="top-pricing-block">
+                 <h5 class="pricing-plan">Pro</h5>
+                 <p class="pricing-desc">
+                    Grow your business with the tools proven to help do so.
+                 </p>
+                 <span class="pricing-price">
+                 £14.99/ <span class="pricing-month">mo</span>
+                 </span>
+              </div>
+              <div class="pricing-block-features">
+                 <h5 class="pricing-features-included">
+                    What's Included:
+                 </h5>
+                 <ul class="pricing-block-feature-list">
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Unlimited Products
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Unlimited Coupons
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Advanced Fraud Protection
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Shop customization
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Feedback System
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       2% PayPal fees
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       3% Crypto fees
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Custom Domains
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Live Chat
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Dispute Feedback
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Increased file size limit
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Migration assistance
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Receive Donations
+                    </li>
+                 </ul>
+              </div>
+           </div>
+           <div class="pricing-block pricing-block-business">
+              <div class="top-pricing-block">
+                 <h5 class="pricing-plan">Business</h5>
+                 <p class="pricing-desc">
+                    Scale your growing business with a comprehensive set of features.
+                 </p>
+                 <span class="pricing-price">
+                 £49.99/ <span class="pricing-month">mo</span>
+                 </span>
+              </div>
+              <div class="pricing-block-features">
+                 <h5 class="pricing-features-included">
+                    What's Included:
+                 </h5>
+                 <ul class="pricing-block-feature-list">
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="15" class="pricing-block-tick">
+                       Unlimited Products
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Unlimited Coupons
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Ultimate Fraud Protection
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Shop customization
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Feedback System
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       0% PayPal fees
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       0% Crypto fees
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Custom Domains
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Live Chat
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Dispute Feedback
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Increased file size limit
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Migration assistance
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Advanced Fraud Shield
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Priority Support
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       <span class="overflow-list-item">Access to Cashapp Payment Gateway
+                    </li>
+                    <li>
+                       <img src="{{url_for('static', filename='img/icons/checked-alt.png')}}" width="20" class="pricing-block-tick" alt="a picture a green tick">
+                       Receive Donations
+                    </li>
+                 </ul>
+              </div>
+           </div>
+        </div>
+     </section>
+
+     <section class="bottom-banner">
+        <h2 id="bottom-banner-heading">Ready to join Sellit?</h2>
+        <a href="{{url_for('auth.register')}}">
+         <button type="button" class="btn btn-get-started">Get Started</button>
+      </a>
+    </section>
+
+{% endblock %}

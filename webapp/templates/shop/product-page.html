@@ -1,0 +1,126 @@
+{% extends 'base/shop.html' %}
+{% set active_page = 'product_page' %}
+{% block username %}Neil - {{product.name}}{% endblock %}
+{% block content %}
+<div class="product-page-container main-container">
+    <div class="product-info-left">
+        <div class="product-info-title">
+            <h3>{{product.name}}</h3>
+        </div>
+        {{product.description|safe}}
+    </div>
+    <span id="product-price-att" data-product-price="{{product.price}}"></span>
+    <span id="product-currency-att" data-product-currency="{{user.settings.currency}}"></span>
+    <div class="product-payment-block-right">
+        <div class="buy-block-top">
+            <div class="buy-block-heading">
+                <h4>Purchase</h4>
+                <a href="{{url_for('shop.shop', username=user.username)| replace('%40', '@')}}">
+                    <span onclick="closePurchaseBlock()" id="close-purchase-block">x</span>
+                </a>
+            </div>
+            <div class="buy-block-price">
+                <h4 id="total-price">{{user.settings.currency | currency_to_symbol}}<span id="product-price">{{product.price}}</span></h4>
+            </div>
+            <div class="buy-block-form">
+                <form id="create-order-form" method="POST" action="/create/order" onkeypress="return event.keyCode != 13;">
+                    <div class="buy-block-quantity">
+                        <div class="quantity-purchase-block">
+                            {{form.quantity(max=product.stock, value="1", onchange="updateCost()")}}
+                            <button onclick="showPaymentBlocks()" type="button" class="btn btn-primary purchase-btn">Purchase</button>
+                        </div>
+    
+                        <div class="apply-coupon">
+                            {{form.coupon_code(id='coupon_code')}}
+                            {{form.coupon_set(value='')}}
+                            {{form.product_id}}
+                            <a class="coupon-code-check" onclick="checkCoupon()">
+                                <img src="{{url_for('static', filename='img/icons/badge.svg')}}" width="25" height="25" id="product-page-coupon-badge">
+                            </a>
+                        </div>
+                        <p class="invalid-coupon">
+                            Coupon Code is not valid
+                        </p>
+                        <p class="valid-coupon">
+
+                        </p>
+                        <button onclick="removeCoupon()" type="button" class="btn btn-primary btn-remove-coupon">Remove Coupon</button>
+                    </div>
+
+                    <div class="payment-block-options">
+                        {% if user.payment_methods.stripe %}
+                            <div class="payment-block-product-page" onclick="setPaymentMethod('stripe')">
+                                <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-stripe"><img src="{{url_for('static', filename='img/icons/credit-card.svg')}}" height="25" width="25"></button>
+                            </div>
+                        {% endif %}
+                        
+                        {% if user.payment_methods.paypal %}
+                            <div class="payment-block-product-page" onclick="setPaymentMethod('paypal')">
+                                <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-paypal"><img src="{{url_for('static', filename='img/icons/paypal.svg')}}" height="25" width="25"></button>
+                            </div>
+                        {% endif %}
+
+                        {% if user.payment_methods.bitcoin %}
+                            <div class="payment-block-product-page" onclick="setPaymentMethod('BTC')">
+                                <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-bitcoin"><img src="{{url_for('static', filename='img/icons/bitcoin.svg')}}" height="25" width="25"></button>
+                            </div>
+                        {% endif %}
+                        
+                        {% if user.payment_methods.ethereum %}
+                            <div class="payment-block-product-page" onclick="setPaymentMethod('ETH')">
+                                <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-ethereum"><img src="{{url_for('static', filename='img/icons/ethereum.svg')}}" height="25" width="25"></button>
+                            </div>
+                        {% endif %}
+
+                        {% if user.payment_methods.litecoin %}
+                            <div class="payment-block-product-page" onclick="setPaymentMethod('LTC')">
+                                <button type="button" class="btn btn-payment btn-payment-inactive btn-payment-litecoin"><img src="{{url_for('static', filename='img/icons/litecoin.svg')}}" height="25" width="25"></button>
+                            </div>
+                        {% endif %}
+
+                        {% if (not user.payment_methods.stripe) and (not user.payment_methods.paypal) and (not user.payment_methods.bitcoin) and (not user.payment_methods.ethereum) and (not user.payment_methods.litcoin) %}
+                            <h4 id="no-payment-methods">{{user.username}} has no active payment methods</h4>
+                        {% endif %}
+
+                        {{form.payment_method(id='payment_method')}}
+
+                        <div class="product-buttons">
+                            <button type="button" onclick="returnToPrice()" class="btn btn-back">Back</button>
+                            <button id="payment-block-continue" type="button" onclick="continueWithOrder()" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+
+                    <div class="payment-delivery-block">
+                        <div class="form-control">
+                            <label for="email">
+                                Delivery Email
+                            </label>
+                           {{form.email(placeholder="Your Email...")}}
+                        </div>
+                        {{form.csrf_token}}
+                        <button type="button" onclick="returnToPaymentMethods()" class="btn btn-back">Back</button>
+                        <button type="submit" class="btn btn-primary">Purchase</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            <div class="buy-block-shop-info">
+                <div class="shop-name">
+                    <h5>Shop</h5>
+                    <a href="{{url_for('shop.shop', username=user.username)| replace('%40', '@')}}">
+                        <h5>{{user.username}}</h5>
+                    </a>
+                </div>
+                <div class="product-stock">
+                    <h5>Stock</h5>
+                    <h5>{{product.stock}}</h5>
+                </div>
+                <div class="shop-feedback">
+                    <h5>Feedback</h5>
+                    <h5>302</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

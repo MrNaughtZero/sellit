@@ -1,0 +1,98 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'blacklist' %}
+{% block title %}Blacklist{% endblock %}
+{% block content %}
+
+<div class="blacklist-container">
+    <div class="dashboard-section-heading">
+        <h2>Blacklist</h2>
+        <a href="{{url_for('dashboard.create_blacklist')}}">
+            <button type="button" class="btn btn-primary">Add Blacklist</button>
+        </a>
+    </div>
+
+    {% if blacklist.items == [] %}
+        <div class="not-yet-created">
+                <h2>You currently have no Blacklist Data! <br> Click Add Blacklist if you want to restrict a buyer</h2>
+        </div>
+    {% else %}
+        <div class="latest-table">
+            <div class="table-wrapper">
+                <table style="width:100%">
+                    <tr class="theader">
+                        <th class="blacklist-type">TYPE</th>
+                        <th class="product-name-sku">BLOCKED DATA</th>
+                        <th class="black-action">Actions</th>
+                    </tr>
+                    {% for item in blacklist.items %}
+                        <tr class="table-row">
+                            <td>{{item.blacklist_type}}</td>
+                            <td>{{item.blocked_data}}</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="{{url_for('dashboard.remove_blacklist', blocked_id=item.id)}}">
+                                        <p class="table-action-delete">DELETE</p>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endif %} 
+</div>
+
+<div class="latest-table-view-all">
+    {% for page_num in blacklist.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        <div class="pagination-numbers">
+            {% if page_num %}
+                {% if blacklist.page == page_num %}
+                    <a href="{{ url_for('dashboard.blacklist', page=page_num)}}" class="active-pagination btn pagination-btn">
+                        {{ page_num }}
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('dashboard.blacklist', page=page_num) }}" class="btn pagination-btn"> 
+                        {{ page_num }}
+                    </a>
+                {% endif %}
+            {% else %}
+            ...
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<p class="showing-of">
+    {% if blacklist.items != [] %}
+        Showing page {{ blacklist.page }} of {{ blacklist.pages }}
+    {% endif %}
+</p>
+
+<div class="modal">
+    <div class="close-modal blacklist-close-modal">
+        <button class="btn btn-primary" onclick="closeModal('blacklist')">X</button>
+    </div>
+    <div class="modal-header">
+        <h2>Create Blacklist Entry</h2>
+    </div>
+    <div class="modal-content">
+        <form method="POST" action="/blacklist/add">
+            <div class="form-control">
+                <label for="blacklist_type">
+                    Type
+                </label>
+                {{form.blacklist_type}}
+            </div>
+            <div class="form-control">
+                <label for="blocked_data">
+                    Blocked Data
+                </label>
+                {{form.blocked_data}}
+                {{form.csrf_token}}
+            </div>
+                <button type="submit" class="btn btn-purple btn-save-coupon">Add Entry</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base/settings.html' %}
+{% set active_page = 'settings_general' %}
+{% block settings_block %}
+    <h2>General</h2>
+    <div class="settings-content-wrapper">
+        <form method="POST" action="/settings/update" enctype="multipart/form-data">
+            <div class="form-control avatar-form">
+                <label for="avatar">
+                    Avatar
+                </label>
+                <div class="avatar-block">
+                    <img id="default-avatar-img" src="{{url_for('static', filename='img/icons/user.svg')}}" height="50" width="50">
+                </div>
+                {{form.avatar(accept='image/*', onchange="uploadAvatar()", id="avatar-upload")}}
+                <input type="hidden" id="image-changed" name="image-changed" value="n">
+                <button onclick="removeAvatar()" type="button" class="btn btn-donation btn-remove-avatar">Remove</button>
+            </div>
+            <div class="form-control">
+                <label for="username">
+                    Username
+                </label>
+                {{form.username(disabled="True")}}
+            </div>
+
+            <div class="form-control">
+                <label for="username">
+                    Email
+                </label>
+                {{form.email}}
+            </div>
+
+            <div class="form-control">
+                <label for="tawk">
+                    Tawk Key
+                </label>
+                {{form.tawk_key}}
+                <p id="tawk-tooltip">
+                    <a target="_blank" href="#" class="purple-link">
+                        Learn how to get your Tawk Key
+                    </a>
+                </p>
+            </div>
+
+            <div class="form-inline inline-settings currency-timezone">
+                <div class="form-control">
+                    <label for="currency">
+                        Currency
+                    </label>
+                    {{form.currency}}
+                </div>
+
+                <div class="form-control">
+                    <label for="currency">
+                        Currency
+                    </label>
+                    {{form.timezone}}
+                </div>
+            </div>
+            {{form.csrf_token}}
+
+            <button type="submit" class="btn btn-primary btn-update-settings">Update Settings</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base/auth.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="auth-flex">
+    <div class="auth-left">
+        <div class="auth-branding">
+            <a href="/index.html">
+                <img src="{{url_for('static', filename='img/logos/logo-purple.png')}}" width="100" class="auth-logo">
+            </a>
+        </div>
+
+        <div class="auth-block-login auth-block">
+            <p class="merchant-login">
+                Merchant Login
+            </p>
+            <h1>Log In</h1>
+            <form method="POST" action="/login/user">
+                <div class="form-control">
+                    <label for="email">Email</label>
+                    {{form.email(placeholder="youremail@example.com", class="form-input")}}
+                </div>
+
+                <div class="form-control">
+                    <label for="email">Password</label>
+                    {{form.password(placeholder="Password", class="form-input")}}
+                </div>
+                {{form.csrf_token}}
+                <button type="submit" class="btn btn-primary">Login</button>
+
+                <p class="forgotten-password">
+                    Forgotten Your Password?
+                </p>
+            </form>
+        </div>
+        {% include 'include/flashed_messages/auth.html' %}
+    </div>
+    <div class="auth-right">
+        <img src="{{url_for('static', filename='img/icons/dots.png')}}" id="auth-dots-top">
+        <img src="{{url_for('static', filename='img/icons/dots.png')}}" id="auth-dots-bottom">
+
+        <div class="auth-right-block">
+            <div class="top-layer-auth-block">
+                <h2>👋 Welcome Back.</h2>
+                <p>
+                    Login to gain access to your dashboard
+                </p>
+            </div>
+            <div class="bottom-layer-auth-block">
+                <h2>✏️ Sign Up To Start Selling</h2>
+                <div class="signup-text-auth">
+                    <p>You're minutes away from selling on the #1 eCommerce Platform</p>
+                    <a href="{{url_for('auth.register')}}">
+                        <button type="button" class="btn btn-primary">
+                            Sign Up
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="or-block">
+                <p>OR</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'orders' %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading">
+    <h2>Orders</h2>
+</div>
+
+<div class="latest-table">
+    <div class="search-orders">
+        <img src="{{url_for('static', filename='img/icons/search.svg')}}" width="15" height="15">
+        <input type="text" placeholder="Search Orders...">
+    </div>
+    <div class="table-wrapper">
+        <table style="width:100%">
+            <tr class="theader">
+                <th class="order-trans-id">Transaction ID</th>
+                <th class="order-product-name">Product</th>
+                <th class="order-total">Total</th>
+                <th class="order-date">Date</th>
+                <th class="order-feedback">Feedback</th>
+                <th class="table-actions">Actions</th>
+            </tr>
+            <tr class="table-row">
+                <td>92HDN39</td>
+                <td>Windows 10 Serial Pro</td>
+                <td>£198</td>
+                <td>23/12/2021</td>
+                <td>
+                    <div class="order-stars">
+                        <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
+                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
+                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
+                    </div>
+                </td>
+                <td>
+                    <img src="{{url_for('static', filename='img/icons/visibility.svg')}}" height="20" width="20">
+                </td>
+            </tr>
+        </table>
+    </div>  
+        <div class="latest-table-view-all">
+            <p class="showing-of">Show 10 of 98 Orders</p>
+        </div>
+</div>
+{% endblock %}

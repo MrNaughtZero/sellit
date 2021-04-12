@@ -62,6 +62,7 @@ class User(db.Model, UserMixin):
         Setting(uuid=self.uuid).add()
         UserImage().add(self.uuid)
         PaymentMethod(id=self.uuid).add()
+        EmailNotification(id=self.uuid).add()
         
         return self
 
@@ -282,6 +283,19 @@ class PaymentMethod(db.Model):
 
     def fetch_user_payment_method(self):
         return self.query.filter_by(id=current_user.get_id()).first()
+
+class EmailNotification(db.Model):
+    id = db.Column(db.String(10), nullable=False, primary_key=True)
+    uuid = db.Column(db.String(25), db.ForeignKey('users.uuid'), nullable=False)
+    new_order = db.Column(db.Boolean, default=True)
+    new_donation = db.Column(db.Boolean, default=True)
+    new_feedback = db.Column(db.Boolean, default=True)
+    new_support_ticket = db.Column(db.Boolean, default=True)
+    support_ticket_reply = db.Column(db.Boolean, default=True)
+
+    def add(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Category(db.Model):
     __tablename__ = 'categories'

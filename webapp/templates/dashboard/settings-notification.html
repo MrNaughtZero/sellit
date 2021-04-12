@@ -1,9 +1,41 @@
 {% extends 'base/settings.html' %}
 {% set active_page = 'settings_notifications' %}
 {% block settings_block %}
-    <h2>Payment Methods</h2>
+    <h2>Email Notifications</h2>
     <div class="settings-content-wrapper">
-       
+        <form method="POST">
+            <div class="sub-section">
+                <h3>Orders</h3>
+                <div class="settings-notification-block">
+                    {{form.new_order}}
+                    <label for="new_order">New Order</label>
+                </div>
+
+                <div class="settings-notification-block">
+                    {{form.new_donation}}
+                    <label for="new_donation">New Donation</label>
+                </div>
+
+                <div class="settings-notification-block">
+                    {{form.new_feedback}}
+                    <label for="new_donation">New Feedback</label>
+                </div>
+            </div>
+            <div class="sub-section">
+                <h3>Support Tickets</h3>
+                <div class="settings-notification-block">
+                    {{form.new_support_ticket}}
+                    <label for="new_donation">New Support Ticket</label>
+                </div>
+
+                <div class="settings-notification-block">
+                    {{form.new_support_ticket}}
+                    <label for="new_donation">New Support Ticket Reply</label>
+                </div>
+            </div>
+            {{form.csrf_token}}
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
         
     </div>
     </div>

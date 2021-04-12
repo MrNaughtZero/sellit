@@ -1,7 +1,7 @@
 from webapp.celery import create_celery
 from webapp.utils.filters import timestamp_to_human, list_to_string, currency_to_symbol, timestamp_to_hours_minutes
 from dotenv import load_dotenv
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, render_template
 from flask_qrcode import QRcode
 from os import urandom, environ, path
 
@@ -20,7 +20,7 @@ else:
     app.config["SERVER_NAME"] = environ.get('SITE_URL')
 
 from webapp.routes import auth, main, dashboard, admin, payment, shop, order, donate, developer
- 
+
 app.register_blueprint(auth.auth_bp) 
 app.register_blueprint(main.main_bp) 
 app.register_blueprint(dashboard.dashboard_bp) 
@@ -50,3 +50,9 @@ from webapp.models import User
 @login_manager.user_loader
 def load_user(uuid):
     return User.query.get(uuid)
+
+## Global error handlers
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('/errors/404.html'), 404

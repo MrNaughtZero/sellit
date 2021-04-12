@@ -50,3 +50,10 @@ def convert_currency_symbol(currency_code):
 
 def get_user_ip():
     return location(output='ip')
+
+def validate_dob(dob):
+    user_age = int(datetime.now().strftime('%Y%m%d')) - int(dob.replace('-', ''))
+    
+    if (len(str(user_age)) < 6) or (int(str(user_age)[:-4]) < 13):
+        return False
+    return True

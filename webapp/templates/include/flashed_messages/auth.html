@@ -6,7 +6,7 @@
                     Something went wrong. Please try again
                 </p>
             
-            {% elif ('Email is already registered' in item[0]) or ('Username is taken' in item[0]) or ('Password must have a minimum 8 characters' in item[0]) or ('Passwords do not match' in item[0]) or ('Invalid Email' in item[0]) or ('Incorrect login details' in item[0]) %}
+            {% elif ('Email is already registered' in item[0]) or ('Username is taken' in item[0]) or ('Password must have a minimum 8 characters' in item[0]) or ('Passwords do not match' in item[0]) or ('Invalid Email' in item[0]) or ('Incorrect login details' in item[0]) or ('least 13 years' in item[0]) %}
                 <p class="flashed-error">
                     {{item[0]|safe}}
                 </p>

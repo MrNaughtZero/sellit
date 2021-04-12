@@ -1,7 +1,7 @@
 from webapp.utils.login_decorator import login_required
 from webapp.utils.uploads import download_file
 from webapp.forms import SettingsForm, ProductForm, CategoryForm, AttachmentForm, CouponForm, BlacklistForm, SecurityForm, PaymentForm, DonationSettingsForm, TicketReply, SettingsNotificationsForm
-from webapp.models import User, Setting, Category, Product, Attachment, Coupon, Blacklist, ProductCategory, PaymentMethod, Donation, ProductItem, Ticket, TicketMessage
+from webapp.models import User, Setting, Category, Product, Attachment, Coupon, Blacklist, ProductCategory, PaymentMethod, Donation, ProductItem, Ticket, TicketMessage, EmailNotification
 from flask import Blueprint, render_template, url_for, redirect, request, flash, get_flashed_messages, abort, Response
 from flask_login import current_user
 from os import environ
@@ -97,7 +97,26 @@ def payment_methods_update() -> redirect:
 @dashboard_bp.route('/settings/notifications', methods=['GET'], subdomain='dashboard')
 @login_required
 def notification_settings():
-    return render_template('/dashboard/settings-notification.html', form=SettingsNotificationsForm())
+    form = SettingsNotificationsForm()
+    notification = EmailNotification().fetch_notification_settings(current_user.get_id())
+    
+    form.new_order.checked = notification.new_order
+    form.new_donation.checked = notification.new_donation
+    form.new_feedback.checked = notification.new_feedback
+    form.new_support_ticket.checked = notification.new_support_ticket
+    form.support_ticket_reply.checked = notification.support_ticket_reply
+
+    return render_template('/dashboard/settings-notification.html', form=form)
+
+@dashboard_bp.route('/settings/notifications/update', methods=['POST'], subdomain='dashboard')
+@login_required
+def update_notification_settings():
+    if not EmailNotification().update(request.form):
+        flash(['Something went wrong. Please try again'])
+        return redirect(url_for('dashboard.notification_settings'))
+
+    flash(['Settings successfully updated'])
+    return redirect(url_for('dashboard.notification_settings'))
 
 @dashboard_bp.route('/donations', methods=['GET'], subdomain='dashboard')
 @login_required

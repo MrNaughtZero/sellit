@@ -36,6 +36,7 @@ class User(db.Model, UserMixin):
     order = db.relationship('Order', backref='user_order', lazy=True, uselist=True)
     blacklist = db.relationship('Blacklist', backref="user_blacklist", lazy=True)
     donation = db.relationship('Donation', backref="user_donation_settings", uselist=False)
+    emails = db.relationship('EmailNotification', backref="user_emails", uselist=False)
 
     def get_id(self) -> str:
         return self.uuid

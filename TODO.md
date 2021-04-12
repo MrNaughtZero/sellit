@@ -3,7 +3,7 @@
 1. set fore checks
 2. ~~Make sure user is at least 13 years~~
 3. ~~Create 404 / method not allows pages etc~~
-4. Check all emails are asynced
+4. ~~Check all emails are asynced~~
 5. Add total lines to items
 6. Add option to remove duplicates when user enters their product items
 7. Make queries on coupons case sensitive

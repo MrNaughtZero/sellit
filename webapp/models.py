@@ -286,7 +286,7 @@ class PaymentMethod(db.Model):
         return self.query.filter_by(id=current_user.get_id()).first()
 
 class EmailNotification(db.Model):
-    id = db.Column(db.String(10), nullable=False, primary_key=True)
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
     uuid = db.Column(db.String(25), db.ForeignKey('users.uuid'), nullable=False)
     new_order = db.Column(db.Boolean, default=True)
     new_donation = db.Column(db.Boolean, default=True)
@@ -297,6 +297,9 @@ class EmailNotification(db.Model):
     def add(self):
         db.session.add(self)
         db.session.commit()
+
+    def fetch_notification_settings(self, uuid) -> object:
+        return self.query.filter_by(uuid=uuid).first()
 
 class Category(db.Model):
     __tablename__ = 'categories'

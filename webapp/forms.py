@@ -9,6 +9,7 @@ class RegisterForm(FlaskForm):
     email = StringField(validators=[InputRequired(), Email('Invalid Email'), Length(max=200, message="Email should be a maximum of 200 characters.")])
     password = PasswordField(validators=[InputRequired(), Length(min=8, message='Password must have a minimum 8 characters')])
     confirm_password = PasswordField(validators=[InputRequired(), EqualTo('password', message='Passwords do not match')])
+    date_of_birth = DateField('Date of Birth', validators=[InputRequired()], widget=h5widgets.DateInput())
     terms = BooleanField('Terms', validators=[InputRequired(message='You must agree to the Terms & Conditions')])
 
 class LoginForm(FlaskForm):

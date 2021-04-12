@@ -6,7 +6,7 @@
 4. ~~Check all emails are asynced~~
 5. ~~Add total lines to items~~
 6. ~~Add option to remove duplicates when user enters their product items~~
-7. Make queries on coupons case sensitive
+7. ~~Make queries on coupons case sensitive~~
 8. Reconstruct DB - normalize
 9. Reconstruct vars inside DB to max lengths
 10. Setup risk level for stripe based on users settings

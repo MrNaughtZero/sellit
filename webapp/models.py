@@ -931,7 +931,7 @@ class Coupon(db.Model):
         ''' check if coupon is valid '''
         query = self.query.filter_by(coupon_code=data.get('coupon_code')).first()
         
-        if not query:
+        if (not query) or (query.coupon_code != data.get('coupon_code')):
             return False
 
         if (int(query.uses) >= int(query.max_uses)) and (int(query.max_uses) != 0):

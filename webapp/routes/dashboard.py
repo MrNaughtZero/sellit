@@ -97,7 +97,7 @@ def payment_methods_update() -> redirect:
 @dashboard_bp.route('/settings/notifications', methods=['GET'], subdomain='dashboard')
 @login_required
 def notification_settings():
-    return render_template('/dashboard/settings-notification.html')
+    return render_template('/dashboard/settings-notifications.html')
 
 @dashboard_bp.route('/donations', methods=['GET'], subdomain='dashboard')
 @login_required

@@ -301,6 +301,25 @@ class EmailNotification(db.Model):
     def fetch_notification_settings(self, uuid) -> object:
         return self.query.filter_by(uuid=uuid).first()
 
+    def update(self, data) -> bool:
+        query = self.query.filter_by(uuid=current_user.get_id()).first()
+
+        if not query:
+            return False
+
+        query.new_order = bool(data.get('new_order'))
+        query.new_donation = bool(data.get('new_donation'))
+        query.new_donation = bool(data.get('new_donation'))
+        query.new_feedback = bool(data.get('new_feedback'))
+        query.new_support_ticket = bool(data.get('new_support_ticket'))
+        query.support_ticket_reply = bool(data.get('support_ticket_reply'))
+
+        db.session.commit()
+
+        return True
+
+        
+
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.String(8), primary_key=True)

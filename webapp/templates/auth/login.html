@@ -14,7 +14,7 @@
                 Merchant Login
             </p>
             <h1>Log In</h1>
-            <form method="POST" action="/login/user">
+            <form method="POST" id="auth-form" action="/login/user">
                 <div class="form-control">
                     <label for="email">Email</label>
                     {{form.email(placeholder="youremail@example.com", class="form-input")}}
@@ -25,11 +25,13 @@
                     {{form.password(placeholder="Password", class="form-input")}}
                 </div>
                 {{form.csrf_token}}
-                <button type="submit" class="btn btn-primary">Login</button>
-
+                <button type="button" onclick="validateLogin()" class="btn btn-primary">Login</button>
                 <p class="forgotten-password">
                     Forgotten Your Password?
                 </p>
+                <span id="validation-error">
+
+                </span>
             </form>
         </div>
         {% include 'include/flashed_messages/auth.html' %}

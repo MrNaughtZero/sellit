@@ -29,7 +29,7 @@ def settings() -> render_template:
     form.currency.data = user.settings.currency
     form.timezone.data = user.settings.timezone
     
-    return render_template('/dashboard/settings.html', form=form, flashed_message=get_flashed_messages(), avatar=user.avatar.avatar_name)
+    return render_template('/dashboard/settings.html', form=form, flashed_message=get_flashed_messages(), avatar=user.avatar.avatar_filename)
 
 @dashboard_bp.route('/settings/update', methods=['POST'], subdomain='dashboard')
 @login_required
@@ -93,6 +93,11 @@ def payment_methods_update() -> redirect:
 
     flash(['Payment Methods successfully updated'])
     return redirect(url_for('dashboard.payment_methods'))
+
+@dashboard_bp.route('/settings/notifications', methods=['GET'], subdomain='dashboard')
+@login_required
+def notification_settings():
+    return render_template('/dashboard/settings-notifications.html')
 
 @dashboard_bp.route('/donations', methods=['GET'], subdomain='dashboard')
 @login_required

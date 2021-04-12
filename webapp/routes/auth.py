@@ -1,5 +1,6 @@
 from webapp.utils.login_decorator import loggedout_required, developer_required
 from webapp.utils.tools import validate_dob
+from webapp.utils.regex import email_regex
 from webapp.forms import RegisterForm, LoginForm, PasswordResetForm
 from webapp.models import User, Verification
 from flask import Blueprint, render_template, url_for, flash, get_flashed_messages, redirect, request, abort
@@ -25,6 +26,10 @@ def register_user() -> redirect:
 
     if User().query.filter_by(email=request.form.get('email')).first():
         flash(['''Email is already registered. Please use a different email, or login to continue'''])
+        return redirect(url_for('auth.register'))
+
+    if not email_regex(request.form.get('email')):
+        flash(['Please enter a valid email'])
         return redirect(url_for('auth.register'))
 
     if User().query.filter_by(username=request.form.get('username')).first():

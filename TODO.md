@@ -2,12 +2,12 @@
 
 1. set fore checks
 2. Make sure user is at least 13 years
-3. Create 404 / method not allows pages etc
+3. ~~Create 404 / method not allows pages etc~~
 4. Check all emails are asynced
 5. Add total lines to items
 6. Add option to remove duplicates when user enters their product items
 7. Make queries on coupons case sensitive
-8. Reconstruct DB - normalise
+8. Reconstruct DB - normalize
 9. Reconstruct vars inside DB to max lengths
 10. Setup risk level for stripe based on users settings
 11. Create notification settings inside user settings
@@ -16,7 +16,7 @@
 14. Change keywords on add_donation to price
 15. Allow expiration of download file
 16. Change PayPal create order to HTTPS // only when in Production
-17. Add max file size to attachment dependant on the member role
+17. Add max file size to attachment dependent on the member role
 18. When user is a leaving feedback create a tracking hash and store as cookie. If user visits link, and no hash exists -> regenerate -> send email for them to click; else return 404
 19. When user is accessing their ticket, create tracking hash and compare to DB. Return 404 if not
 20. Create notification system

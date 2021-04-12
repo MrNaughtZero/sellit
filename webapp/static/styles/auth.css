@@ -330,6 +330,19 @@ img#auth-dots-bottom {
     font-size: 12px;
 }
 
+/* VALIDATIONS */
+
+#validation-error {
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+    background: red;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    display: none;
+}
+
 /* media queries */
 
 @media screen and (max-width:1317px){

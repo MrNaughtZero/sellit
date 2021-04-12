@@ -53,6 +53,13 @@ class PaymentForm(FlaskForm):
     ETH = StringField('Ethereum Address', validators=[Optional()])
     LTC = StringField('Litecoin Address', validators=[Optional()])
 
+class SettingsNotificationsForm(FlaskForm):
+   new_order = BooleanField('New Order')
+   new_donation = BooleanField('New Donation')
+   new_feedback = BooleanField('New Feedback')
+   new_support_ticket = BooleanField('New Ticket')
+   support_ticket_reply = BooleanField('New Ticket')
+
 class CouponForm(FlaskForm):
     coupon_code = StringField('Coupon', validators=[InputRequired(), Length(max=50, message='Maximum Length for a coupon is 50 characters.')])
     discount_amount = IntegerField('Coupon Discount', validators=[InputRequired()], widget=h5widgets.NumberInput(max=100, step=1))

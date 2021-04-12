@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    date_of_birth = db.Column(db.String(10), nullable=False)
     registration_timestamp = db.Column(db.String(30), default=timestamp(0))
     setting_id = db.Column(db.String(25), foreign_keys=('settings.uuid'))
     api_token = db.Column(db.String(50), nullable=False)
@@ -50,6 +51,7 @@ class User(db.Model, UserMixin):
         self.username = data.get('username')
         self.email = data.get('email')
         self.password = hash_string(data.get('password'))
+        self.date_of_birth = data.get('date_of_birth')
         self.api_token = generate_string(49)
 
         db.session.add(self)

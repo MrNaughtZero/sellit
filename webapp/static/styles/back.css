@@ -1294,6 +1294,18 @@ p#tawk-tooltip {
     top: 1px;
 }
 
+/* notifications */
+
+.sub-section {
+    padding-bottom: 20px;
+}
+
+.settings-notification-block {
+    margin-top: 10px;
+    position: relative;
+    left: -3px;
+}
+
 /* DONATIONS */
 /* DONATIONS */
 /* DONATIONS */

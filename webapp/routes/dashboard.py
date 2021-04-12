@@ -1,5 +1,6 @@
 from webapp.utils.login_decorator import login_required
 from webapp.utils.uploads import download_file
+from webapp.utils.regex import email_regex, ip_regex
 from webapp.forms import SettingsForm, ProductForm, CategoryForm, AttachmentForm, CouponForm, BlacklistForm, SecurityForm, PaymentForm, DonationSettingsForm, TicketReply, SettingsNotificationsForm
 from webapp.models import User, Setting, Category, Product, Attachment, Coupon, Blacklist, ProductCategory, PaymentMethod, Donation, ProductItem, Ticket, TicketMessage, EmailNotification
 from flask import Blueprint, render_template, url_for, redirect, request, flash, get_flashed_messages, abort, Response
@@ -499,6 +500,15 @@ def add_to_blacklist() -> redirect:
     if not form.validate_on_submit():
         flash(list(form.errors.values())[0])
         return redirect(url_for('dashboard.blacklist'))
+
+    if request.form.get('blacklist_type') == 'email':
+        if not email_regex(request.form.get('blocked_data')):
+            flash(['Please enter a valid email'])
+            return redirect(url_for('dashboard.blacklist'))
+    else:
+        if not ip_regex(request.form.get('blocked_data')):
+            flash(['Please enter a valid IP Address'])
+            return redirect(url_for('dashboard.blacklist'))
 
     Blacklist().add(request.form)
     

@@ -318,8 +318,6 @@ class EmailNotification(db.Model):
 
         return True
 
-        
-
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.String(8), primary_key=True)

@@ -77,7 +77,7 @@ class CategoryForm(FlaskForm):
     linked_products = SelectMultipleField('Linked Products', validators=[Optional()], choices=[])
 
 class BlacklistForm(FlaskForm):
-    blacklist_type = SelectField('Blacklist Type', validators=[InputRequired()], choices=[('Email', 'Email'), ('IP', 'IP')])
+    blacklist_type = SelectField('Blacklist Type', validators=[InputRequired()], choices=[('email', 'Email'), ('ip', 'IP')])
     blocked_data = StringField('Blacklist Data', validators=[InputRequired()])
 
 class PurchaseProduct(FlaskForm):

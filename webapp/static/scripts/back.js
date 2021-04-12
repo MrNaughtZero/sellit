@@ -129,6 +129,24 @@ function itemLineCount(){
     }
 }
 
+function removeDuplicates(){
+    const items = document.querySelector('.items-textarea');
+    const replaced_items = Array.from(new Set(items.value.split('\n')));
+    let new_items = '';
+    for(i=0; i < replaced_items.length; i++){
+        if(i +1 == replaced_items.length){
+            new_items = new_items + replaced_items[i]
+        }
+        else{
+            new_items = new_items + replaced_items[i] + '\n'
+        }
+        
+    }
+    items.innerHTML = new_items;
+    items.value = new_items;
+    itemLineCount();
+}
+
 // edit product
 function editProduct(){
     if(document.querySelector('#product_type_hidden').value == 'file'){

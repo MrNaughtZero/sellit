@@ -19,6 +19,13 @@
                         Payment Methods
                     </li>
                 </a>
+
+                <a href="{{url_for('dashboard.notification_settings')}}">
+                    <li id="settings-link-pm" {% if active_page == 'settings_notifications' %} class="setting-link-active" {% endif %}>
+                        Notifications
+                    </li>
+                </a>
+                
             </ul>
         </div>
         <div class="settings-right">

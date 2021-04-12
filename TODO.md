@@ -11,7 +11,7 @@
 9. Reconstruct vars inside DB to max lengths
 10. Setup risk level for stripe based on users settings
 11. ~~Create notification settings inside user settings~~
-12. Validate email/ip on blacklist
+12. ~~Validate email/ip on blacklist~~
 13. Create global blacklist of known fraudulent emails -> advanced fraud shield
 14. Change keywords on add_donation to price
 15. Allow expiration of download file

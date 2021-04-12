@@ -13,7 +13,7 @@
 11. ~~Create notification settings inside user settings~~
 12. ~~Validate email/ip on blacklist~~
 13. Create global blacklist of known fraudulent emails -> advanced fraud shield
-14. Change keywords on add_donation to price
+14. ~~Change keywords on add_donation to price~~
 15. Allow expiration of download file
 16. Change PayPal create order to HTTPS // only when in Production
 17. Add max file size to attachment dependent on the member role

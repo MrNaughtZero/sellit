@@ -13,7 +13,7 @@
                 Merchant Registration
             </p>
             <h1>Register</h1>
-            <form method="POST" action="/register/user">
+            <form method="POST" action="/register/user" id="auth-form">
                 <div class="form-control">
                     <label for="email">Email</label>
                     {{form.email(placeholder="youremail@example.com", class="form-input")}}
@@ -33,6 +33,11 @@
                     <label for="confirm_password">Confirm Password</label>
                     {{form.confirm_password(placeholder="Confirm Password", class="form-input")}}
                 </div>
+
+                <div class="form-control">
+                    <label for="date_of_birth">Date of Birth</label>
+                    {{form.date_of_birth(class="form-input")}}
+                </div>
                 <div class="form-control" id="terms-checkbox">
                     {{form.terms}}
                     <span id="agree-to-terms">
@@ -40,10 +45,10 @@
                     </span>
                 </div>
                 {{form.csrf_token}}
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button id="auth-submit" onclick="validateRegistration()" type="button" class="btn btn-primary">Register</button>
+                <span id="validation-error">
 
-
-                
+                </span>
             </form>
         </div>
         {% include 'include/flashed_messages/auth.html' %}

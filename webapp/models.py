@@ -62,7 +62,7 @@ class User(db.Model, UserMixin):
         Setting(uuid=self.uuid).add()
         UserImage().add(self.uuid)
         PaymentMethod(id=self.uuid).add()
-        EmailNotification(id=self.uuid).add()
+        EmailNotification(uuid=self.uuid).add()
         
         return self
 

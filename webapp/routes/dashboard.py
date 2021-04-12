@@ -1,6 +1,6 @@
 from webapp.utils.login_decorator import login_required
 from webapp.utils.uploads import download_file
-from webapp.forms import SettingsForm, ProductForm, CategoryForm, AttachmentForm, CouponForm, BlacklistForm, SecurityForm, PaymentForm, DonationSettingsForm, TicketReply
+from webapp.forms import SettingsForm, ProductForm, CategoryForm, AttachmentForm, CouponForm, BlacklistForm, SecurityForm, PaymentForm, DonationSettingsForm, TicketReply, SettingsNotificationsForm
 from webapp.models import User, Setting, Category, Product, Attachment, Coupon, Blacklist, ProductCategory, PaymentMethod, Donation, ProductItem, Ticket, TicketMessage
 from flask import Blueprint, render_template, url_for, redirect, request, flash, get_flashed_messages, abort, Response
 from flask_login import current_user
@@ -97,7 +97,7 @@ def payment_methods_update() -> redirect:
 @dashboard_bp.route('/settings/notifications', methods=['GET'], subdomain='dashboard')
 @login_required
 def notification_settings():
-    return render_template('/dashboard/settings-notifications.html')
+    return render_template('/dashboard/settings-notification.html', form=SettingsNotificationsForm())
 
 @dashboard_bp.route('/donations', methods=['GET'], subdomain='dashboard')
 @login_required

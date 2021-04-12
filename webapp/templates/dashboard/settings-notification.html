@@ -3,7 +3,7 @@
 {% block settings_block %}
     <h2>Email Notifications</h2>
     <div class="settings-content-wrapper">
-        <form method="POST">
+        <form method="POST" action="{{url_for('dashboard.update_notification_settings')}}">
             <div class="sub-section">
                 <h3>Orders</h3>
                 <div class="settings-notification-block">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="settings-notification-block">
-                    {{form.new_support_ticket}}
+                    {{form.support_ticket_reply}}
                     <label for="new_donation">New Support Ticket Reply</label>
                 </div>
             </div>

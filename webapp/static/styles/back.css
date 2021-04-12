@@ -1767,6 +1767,10 @@ option:not(:last-child){
     border-bottom: 1px solid #efefef;
 }
 
+.remove-duplicates {
+    /* text-align: right; */
+}
+
 /* COUPON PAGE */
 /* COUPON PAGE */
 /* COUPON PAGE */

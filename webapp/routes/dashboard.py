@@ -423,7 +423,7 @@ def analytics() -> render_template:
 @dashboard_bp.route('/attachments', methods=['GET'], subdomain='dashboard')
 @login_required
 def attachments() -> render_template:
-    return render_template('/dashboard/attachments.html', form=AttachmentForm(), attachments=Attachment().fetch_user_attachments_pagination(), flashed_message=get_flashed_messages())
+    return render_template('/dashboard/attachments.html', form=AttachmentForm(), attachments=Attachment().fetch_user_attachments_pagination(), flashed_message=get_flashed_messages(), user=User().fetch_user_logged_in())
 
 @dashboard_bp.route('/attachments/upload', methods=['POST'], subdomain='dashboard')
 @login_required
@@ -436,6 +436,10 @@ def upload_attachment() -> redirect:
 
     if Attachment().check_if_already_exists(request.files['attachment_upload'].filename):
         flash(['This attachment has already been uploaded. Please rename the attachment, or upload a different attachment'])
+        return redirect(url_for('dashboard.attachments'))
+
+    if not Attachment().check_attachment_size(request.files['attachment_upload']):
+        flash(['Attachment too large. Maximum file size is 5MB'])
         return redirect(url_for('dashboard.attachments'))
     
     upload = Attachment().upload_attachment(request.files['attachment_upload'])

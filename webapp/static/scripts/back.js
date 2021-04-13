@@ -225,8 +225,16 @@ function couponRestricted(){
 // attachment page
 
 function uploadAttachment(){
-    inProgress();
-    if(document.querySelector('#attachment_upload').value != ''){
+    const m = document.querySelector('#membership-status').getAttribute('data-membership');
+    const upload = document.querySelector('#attachment_upload')
+    let upload_error = document.querySelector('#attachment-error');
+    
+    if(upload.value != ''){
+        if(m === 'Free' & upload.files[0].size > 5242880){
+            upload_error.innerHTML = 'File too big. Max file size is 5MB';
+            return;
+        }
+        inProgress();
         document.querySelector('#submit-attachment').click();
     }
 }

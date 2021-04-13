@@ -909,6 +909,14 @@ class Attachment(db.Model):
         ''' check if attachment exists. this is to prevent a user uploading the same attachment twice '''
         return self.query.filter_by(original_attachment_filename=filename, uuid=current_user.get_id()).first()
 
+    def check_attachment_size(self, upload) -> bool:
+        membership = User().get_membership_status()
+        if membership == 'Free':
+            if upload.seek(0, 2) > 5242880:
+                return False
+        
+        return True
+
     def remove_attachment(self, id) -> True:
         ''' remove attachment when a user chooses to delete it '''
         

@@ -37,12 +37,17 @@ class User(db.Model, UserMixin):
     blacklist = db.relationship('Blacklist', backref="user_blacklist", lazy=True)
     donation = db.relationship('Donation', backref="user_donation_settings", uselist=False)
     emails = db.relationship('EmailNotification', backref="user_emails", uselist=False)
+    membership = db.relationship('Membership', backref='user_membership', uselist=False)
 
     def get_id(self) -> str:
         return self.uuid
 
     def get_username(self) -> str:
         return self.username
+
+    def get_membership_status(self):
+        query = self.query.filter_by(uuid=current_user.get_id()).first()
+        return query.membership.status
 
     def get_email(self) -> str:
         return self.email
@@ -64,6 +69,7 @@ class User(db.Model, UserMixin):
         UserImage().add(self.uuid)
         PaymentMethod(id=self.uuid).add()
         EmailNotification(uuid=self.uuid).add()
+        Membership(uuid=self.uuid).add()
         
         return self
 
@@ -242,6 +248,17 @@ class Setting(db.Model):
     def update_minimum_amount(self, data):
         query = self.query.filter_by(uuid=current_user.get_id()).first()
         query.minimum_donation = data.get('amount')
+        db.session.commit()
+
+class Membership(db.Model):
+    __tablename__ = 'memberships'
+    id = db.Column(db.Integer, primary_key=True)
+    uuid = db.Column(db.String(25), db.ForeignKey('users.uuid'))
+    status = db.Column(db.String(20), default='Free', nullable=False)
+    expiration = db.Column(db.String(12), nullable=True)
+
+    def add(self):
+        db.session.add(self)
         db.session.commit()
 
 class PaymentMethod(db.Model):

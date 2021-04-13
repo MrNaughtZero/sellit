@@ -1,6 +1,6 @@
 {% extends 'base/dashboard.html' %}
 {% set active_page = 'attachments' %}
-{% block title %}Attachmente{% endblock %}
+{% block title %}Attachments{% endblock %}
 {% block content %}
 
 
@@ -17,6 +17,7 @@
     <form method="POST" action="/attachments/upload" enctype="multipart/form-data">
         {{form.attachment_upload(onchange="uploadAttachment()")}}
         {{form.csrf_token}}
+        <span id="membership-status" data-membership="{{user.membership.status}}"></span>
         <button type="submit" id="submit-attachment" style="display:none"></button>
     </form>
 </div>
@@ -79,4 +80,6 @@
         </p>
     </div>
 {% endif %}
+
+<span id="attachment-error"></span>
 {% endblock %}

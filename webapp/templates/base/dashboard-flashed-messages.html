@@ -1,7 +1,7 @@
 {% if flashed_message != [] %}
     <div class="flashed-message-backend">
         {% for item in flashed_message %}
-            {% if ('Something went wrong' in item[0]) or ('Coupon already exists' in item[0]) or ('Category already exists' in item[0]) or ('removed from the Blacklis' in item[0]) or("You can't delete" in item[0]) or ('This attachment has already been uploaded' in item[0]) or ('Invalid Email' in item[0]) or ('Passwords do not match' in item[0]) or ('Incorrect Password' in item[0]) or ('Please enter a valid IP Address' in item[0]) or ('Please enter a valid email' in item[0]) %}
+            {% if ('Something went wrong' in item[0]) or ('Coupon already exists' in item[0]) or ('Category already exists' in item[0]) or ('removed from the Blacklis' in item[0]) or("You can't delete" in item[0]) or ('This attachment has already been uploaded' in item[0]) or ('Invalid Email' in item[0]) or ('Passwords do not match' in item[0]) or ('Incorrect Password' in item[0]) or ('Please enter a valid IP Address' in item[0]) or ('Please enter a valid email' in item[0]) or ('Attachment too large' in item[0]) %}
                 <div class="flashed-error">
                     {{item[0]}}
                 </div>

@@ -1,5 +1,5 @@
 from webapp.forms import PurchaseProduct, StoreContact, TicketReply, FeedbackForm
-from webapp.models import User, Product, Coupon, Ticket, TicketMessage, Order
+from webapp.models import User, Product, Coupon, Ticket, TicketMessage, Order, Feedback
 import webapp.utils.tasks as task
 from flask import Blueprint, abort, render_template, get_flashed_messages, jsonify, request, flash, get_flashed_messages, redirect, url_for, session
 
@@ -105,6 +105,7 @@ def feedback_hash(order_id, email, order_hash):
         return abort(404)
 
     session['order_hash'] = order.order_hash
+  
     return redirect(url_for('shop.leave_feedback', order_id=order_id, username=User().fetch_user_supply_uuid(order.user).username))
 
 @shop_bp.route('/@<string:username>/order/<string:order_id>/feedback', methods=['GET'])
@@ -121,3 +122,32 @@ def leave_feedback(username, order_id):
         return redirect(url_for('shop.shop', username=username))
 
     return render_template('/shop/feedback.html', user=User().fetch_user_supply_username(username), form=FeedbackForm())
+
+@shop_bp.route('/feedback/submit', methods=['POST'])
+def submit_feedback():
+    form = FeedbackForm()
+
+    if not form.validate_on_submit():
+        flash(list(form.errors.values())[0])
+        return redirect(request.referrer)
+    
+    if not session.get('order_hash'):
+        return abort(404)
+
+    order = Order().query.filter_by(order_hash=session['order_hash']).first()
+
+    if not order:
+        return abort(404)
+
+    feedback = Feedback().fetch_feedback(order.id)
+
+    if not feedback:
+        Feedback().add(request.form, order.id, order.user)
+        flash(['Feedback Submitted'])
+
+        return redirect(url_for('shop.shop', username=User().fetch_user_supply_uuid(order.user).username))
+
+    Feedback().update_feedback(order.id, request.form)
+
+    flash(['Feedback successfully updated.'])
+    return redirect(url_for('shop.shop', username=User().fetch_user_supply_uuid(order.user).username))

@@ -173,6 +173,16 @@ button.submit-contact-form {
     color: white;
 }
 
+.btn-primary {
+    margin-top: 10px;
+    background: var(--primary);
+    font-family: 'Inter';
+    padding: 10px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+}
+
 /* buttons end */
 
 /* shop header */
@@ -579,6 +589,30 @@ img#product-page-coupon-badge {
     padding: 20px;
     color: white;
 }
+
+/****** LEAVE FEEDBACK PAGE *********/
+
+.feedback-wrapper {
+    padding-top: 100px;
+}
+
+.rating-wrapper {
+    display: flex;
+}
+
+.rating-wrapper img {
+    filter: invert(99%) sepia(1%) saturate(0%) hue-rotate(161deg) brightness(101%) contrast(104%);
+    padding-right: 3px;
+}
+
+.rating-checked {
+    filter: none!important;
+}
+
+
+
+
+
 
 
 /* media queries */

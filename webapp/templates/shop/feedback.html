@@ -2,7 +2,7 @@
 {% block username %}Sellit - @{{user.username}}{% endblock %}
 {% block content %}
     <div class="main-container feedback-wrapper">
-        <form method="POST" action="">
+        <form method="POST" action="{{url_for('shop.submit_feedback')}}">
             <div class="form-control">
                 <label for="rating">
                     Rating
@@ -20,6 +20,7 @@
                     Comment
                 </label>
                 {{form.comment}}
+                {{form.csrf_token}}
             </div>
             
             {{form.rating(id="rating")}}

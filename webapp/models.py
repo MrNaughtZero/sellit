@@ -38,6 +38,7 @@ class User(db.Model, UserMixin):
     donation = db.relationship('Donation', backref="user_donation_settings", uselist=False)
     emails = db.relationship('EmailNotification', backref="user_emails", uselist=False)
     membership = db.relationship('Membership', backref='user_membership', uselist=False)
+    feedback = db.relationship('Feedback', backref='user_feedback', uselist=True)
 
     def get_id(self) -> str:
         return self.uuid
@@ -559,11 +560,8 @@ class Product(db.Model):
 
         if query.product_type == 'item':
             product_items = ProductItem().fetch_sold_serials(product_id, order_id)
-            print(int(query.stock))
-            print(len(product_items))
             query.stock = int(query.stock) - len(product_items)
             order.status = 'Completed'
-            print(query.stock)
             task.order_complete_items.apply_async(args=[email, product_items, query.id])
 
         else:
@@ -940,7 +938,6 @@ class Attachment(db.Model):
         return self.query.filter_by(uuid=current_user.get_id()).all()
 
     def fetch_user_attachments_pagination(self) -> object:
-        print(type(self.query.filter_by(uuid=current_user.get_id()).paginate(per_page=12)))
         return self.query.filter_by(uuid=current_user.get_id()).paginate(per_page=12)
 
     def check_if_linked_to_product(self, attachment_id) -> bool:
@@ -1147,6 +1144,7 @@ class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.String(40), nullable=False, primary_key=True)
     product_id = db.Column(db.String(8), db.ForeignKey('products.id'))
+    order_hash = db.Column(db.String(50), nullable=True)
     quantity = db.Column(db.Integer(), nullable=False)
     currency = db.Column(db.String(5), nullable=False)
     price = db.Column(db.String(20), nullable=False)
@@ -1209,6 +1207,16 @@ class Order(db.Model):
 
     def update(self):
         db.session.commit()
+
+    @staticmethod
+    def set_order_hash():
+        return generate_string(50)
+
+    def update_order_hash(self, order_id, username):
+        query = self.query.filter_by(id=order_id).first()
+        query.order_hash = Order.set_order_hash()
+        query.update()
+        task.update_hash_leave_feedback.apply_async(args=[query.email, username, order_id, query.order_hash])
 
     def fetch_order(self, order_id) -> object:
         return self.query.filter_by(id=order_id).first()
@@ -1575,3 +1583,17 @@ class TicketMessage(db.Model):
             Ticket().update_ticket_stats(ticket_id, 'Replied')
             db.session.add(self)
             db.session.commit()
+
+class Feedback(db.Model):
+    __tablename__ = 'feedback'
+    id = db.Column(db.Integer, primary_key=True)
+    seller_id = db.Column(db.String(25), db.ForeignKey('users.uuid'))
+    order_id = db.Column(db.String(8), nullable=False)
+    comment = db.Column(db.String(500), nullable=True)
+    rating = db.Column(db.Integer(), nullable=True)
+
+    def add(self):
+        db.session.add(self)
+
+    def update_hash(self):
+        pass

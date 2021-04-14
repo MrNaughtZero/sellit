@@ -1,12 +1,13 @@
 // product page
+if(document.querySelector('#product-price-att')){
+    const product_price = document.querySelector('#product-price-att').getAttribute('data-product-price');
+    let product_currency = document.querySelector('#product-currency-att').getAttribute('data-product-currency');
+    const email_delivery = document.querySelector('#product-email-delivery').getAttribute('data-email-delivery');
 
-const product_price = document.querySelector('#product-price-att').getAttribute('data-product-price');
-let product_currency = document.querySelector('#product-currency-att').getAttribute('data-product-currency');
-const email_delivery = document.querySelector('#product-email-delivery').getAttribute('data-email-delivery');
-
-product_currency = product_currency.replace('GBP', '£')
-product_currency = product_currency.replace('EUR', '€')
-product_currency = product_currency.replace('USD', '$')
+    product_currency = product_currency.replace('GBP', '£')
+    product_currency = product_currency.replace('EUR', '€')
+    product_currency = product_currency.replace('USD', '$')
+}
 
 function updateCost(){
     const per_item = parseFloat(product_price);
@@ -118,3 +119,21 @@ function returnToPaymentMethods(){
     document.querySelector('.payment-block-options').style.display = 'flex';
     document.querySelector('.payment-delivery-block').style.display = 'none';
 }
+
+if(document.querySelector('.rating-wrapper')){
+    document.querySelector('.rating-wrapper').addEventListener('click', updateStarRating, false);
+}
+
+function updateStarRating(evt){
+    for(i=0; i < parseInt(evt.target.id); i++){
+        const stars = document.querySelectorAll('.rating-wrapper img');
+        for(s=0; s < 5; s++){
+            stars[s].classList.remove('rating-checked');
+        }
+        for(j=0; j < parseInt(evt.target.id); j++){
+            stars[j].classList.add('rating-checked');
+        }
+    }
+    document.querySelector('#rating').value = evt.target.id;
+}
+

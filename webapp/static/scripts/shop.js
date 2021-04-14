@@ -2,6 +2,7 @@
 
 const product_price = document.querySelector('#product-price-att').getAttribute('data-product-price');
 let product_currency = document.querySelector('#product-currency-att').getAttribute('data-product-currency');
+const email_delivery = document.querySelector('#product-email-delivery').getAttribute('data-email-delivery');
 
 product_currency = product_currency.replace('GBP', '£')
 product_currency = product_currency.replace('EUR', '€')
@@ -92,7 +93,7 @@ function setPaymentMethod(payment){
 
 function continueWithOrder(){
     if(document.querySelector('#payment_method').value == 'paypal'){
-        if('{{user.payment_methods.paypal_delivery}}' == 'False'){
+        if(email_delivery == 'False'){
             document.querySelector('.payment-block-options').style.display = 'none';
             document.querySelector('.payment-delivery-block').style.display = 'block';
             document.querySelector('#email').setAttribute('required', 'true');

@@ -912,7 +912,15 @@ class Attachment(db.Model):
     def check_attachment_size(self, upload) -> bool:
         membership = User().get_membership_status()
         if membership == 'Free':
-            if upload.seek(0, 2) > 5242880:
+            if upload.seek(0, 2) > 2097152:
+                return False
+
+        if membership == 'Pro':
+            if upload.seek(0,2) > 5242880:
+                return False
+
+        else:
+            if upload.seek(0,2) > 10485760:
                 return False
         
         return True

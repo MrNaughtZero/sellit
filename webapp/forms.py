@@ -107,3 +107,7 @@ class StoreContact(FlaskForm):
 
 class TicketReply(FlaskForm):
     message = TextAreaField('Message', validators=[InputRequired(), Length(min=3, max=1000, message='Message should be between 3-1000 characters')])
+
+class FeedbackForm(FlaskForm):
+    rating = HiddenField('Rating')
+    comment = TextAreaField('Comment', validators=[InputRequired(), Length(max=500, message='Maximum comment length is 500 characters')])

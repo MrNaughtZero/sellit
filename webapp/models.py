@@ -1591,9 +1591,21 @@ class Feedback(db.Model):
     order_id = db.Column(db.String(8), nullable=False)
     comment = db.Column(db.String(500), nullable=True)
     rating = db.Column(db.Integer(), nullable=True)
+    timestamp = db.Column(db.String(20), default=timestamp(0), nullable=False)
 
-    def add(self):
+    def add(self, data, order_id, user):
+        self.seller_id = user
+        self.order_id = order_id
+        self.comment = data.get('comment')
+        self.rating = int(data.get('rating'))
         db.session.add(self)
+        db.session.commit()
 
-    def update_hash(self):
-        pass
+    def fetch_feedback(self, order_id):
+        return self.query.filter_by(order_id=order_id).first()
+
+    def update_feedback(self, order_id, data):
+        feedback = self.fetch_feedback(order_id)
+        feedback.rating = data.get('rating')
+        feedback.comment = data.get('comment')
+        db.session.commit()

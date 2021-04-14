@@ -1,4 +1,4 @@
-from webapp.forms import PurchaseProduct, StoreContact, TicketReply
+from webapp.forms import PurchaseProduct, StoreContact, TicketReply, FeedbackForm
 from webapp.models import User, Product, Coupon, Ticket, TicketMessage, Order
 import webapp.utils.tasks as task
 from flask import Blueprint, abort, render_template, get_flashed_messages, jsonify, request, flash, get_flashed_messages, redirect, url_for, session
@@ -120,4 +120,4 @@ def leave_feedback(username, order_id):
         flash(['Please check your email. You can leave feedback by clicking the link in your email'])
         return redirect(url_for('shop.shop', username=username))
 
-    return render_template('/shop/feedback.html', user=User().fetch_user_supply_username(username))
+    return render_template('/shop/feedback.html', user=User().fetch_user_supply_username(username), form=FeedbackForm())

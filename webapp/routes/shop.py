@@ -1,6 +1,7 @@
 from webapp.forms import PurchaseProduct, StoreContact, TicketReply
-from webapp.models import User, Product, Coupon, Ticket, TicketMessage
-from flask import Blueprint, abort, render_template, get_flashed_messages, jsonify, request, flash, get_flashed_messages, redirect, url_for
+from webapp.models import User, Product, Coupon, Ticket, TicketMessage, Order
+import webapp.utils.tasks as task
+from flask import Blueprint, abort, render_template, get_flashed_messages, jsonify, request, flash, get_flashed_messages, redirect, url_for, session
 
 shop_bp = Blueprint("shop", __name__)
 
@@ -95,3 +96,28 @@ def check_coupon():
         return jsonify({'Success':'False'}), 400
     else:
         return jsonify({'Success':'True', 'Discount':f'0.{check}'}), 200
+
+@shop_bp.route('/order/<string:order_id>/<string:email>/<string:order_hash>/feedback', methods=['GET'])
+def feedback_hash(order_id, email, order_hash):
+    order = Order().query.filter_by(id=order_id, email=email, order_hash=order_hash).first()
+    
+    if not order:
+        return abort(404)
+
+    session['order_hash'] = order.order_hash
+    return redirect(url_for('shop.leave_feedback', order_id=order_id, username=User().fetch_user_supply_uuid(order.user).username))
+
+@shop_bp.route('/@<string:username>/order/<string:order_id>/feedback', methods=['GET'])
+def leave_feedback(username, order_id):
+    order = Order().fetch_order(order_id)
+
+    if not order:
+        return abort(404)
+    
+    if (not session.get('order_hash')) or (session['order_hash'] != order.order_hash):
+        Order().update_order_hash(order_id, username)
+        
+        flash(['Please check your email. You can leave feedback by clicking the link in your email'])
+        return redirect(url_for('shop.shop', username=username))
+
+    return render_template('/shop/feedback.html', user=User().fetch_user_supply_username(username))

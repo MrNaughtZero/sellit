@@ -1586,7 +1586,7 @@ class Feedback(db.Model):
     order_id = db.Column(db.String(8), db.ForeignKey('orders.id'), nullable=False)
     comment = db.Column(db.String(500), nullable=True)
     rating = db.Column(db.Integer(), nullable=True)
-    reply = db.Column(db.String(500), nulable=True)
+    reply = db.Column(db.String(500), nullable=True)
     timestamp = db.Column(db.String(20), default=timestamp(0), nullable=False)
 
     def add(self, data, order_id, user):

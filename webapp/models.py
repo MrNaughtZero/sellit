@@ -1595,6 +1595,9 @@ class Feedback(db.Model):
     def fetch_feedback(self, order_id):
         return self.query.filter_by(order_id=order_id).first()
 
+    def fetch_all_feedback(self, seller_id):
+        return self.query.filter_by(seller_id=seller_id).limit(50).all()
+
     def update_feedback(self, order_id, data):
         feedback = self.fetch_feedback(order_id)
         feedback.rating = data.get('rating')

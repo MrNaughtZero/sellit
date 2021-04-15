@@ -25,6 +25,8 @@
                     <th class="order-total">Total</th>
                     <th class="order-date">Timestamp</th>
                     <th class="order-feedback">Feedback</th>
+                    <th class="order-total">Status</th>
+                    <th class="order-total">Actions</th>
                 </tr>
                 {% for i in orders.items %}
                     <tr class="table-row">
@@ -41,6 +43,9 @@
                                     
                                 </div>
                                 {% endif %}
+                        </td>
+                        <td>
+                            {{i.status}}
                         </td>
                         <td>
                             <a href="{{url_for('dashboard.view_order', order_id=i.id)}}">

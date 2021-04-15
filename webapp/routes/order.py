@@ -60,17 +60,15 @@ def payment_complete(order_id):
         check_order = get_paypal_order(token)
     
         if check_order['payment_status'] == 'COMPLETED':
-            order.status = 'Completed'
-            order.order_hash = Order.set_order_hash()
-            session['order_hash'] = order.order_hash
+            order.status = 'Paid'
+            deliver_goods = Product().deliver_product(order.product_id, order_id, order.quantity, order.email)
+            leave_feedback.apply_async(args=[order.email, User().fetch_user_supply_uuid(order.user).username, order_id, order.order_hash]).delay(300000)
 
         if not order.email:
             order.email = check_order['buyer_email']
         
         order.update()
 
-        deliver_goods = Product().deliver_product(order.product_id, order_id, order.quantity, order.email)
-        leave_feedback.apply_async(args=[order.email, User().fetch_user_supply_uuid(order.user).username, order_id])
             
     return redirect(url_for('order.track_order', order_id=order_id))
 

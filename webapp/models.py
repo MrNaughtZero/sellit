@@ -559,7 +559,7 @@ class Product(db.Model):
             return task.out_of_stock_email.apply_async(email, Product().fetch_product(order.product_id).name)
 
         if query.product_type == 'item':
-            product_items = ProductItem().fetch_sold_serials(product_id, order_id)
+            product_items = ProductItem().fetch_sold_serials(product_id, order_id, order.quantity)
             query.stock = int(query.stock) - len(product_items)
             order.status = 'Completed'
             task.order_complete_items.apply_async(args=[email, product_items, query.id])
@@ -689,10 +689,10 @@ class ProductItem(db.Model):
 
         return True
     
-    def fetch_sold_serials(self, product_id, order_id) -> list:
+    def fetch_sold_serials(self, product_id, order_id, quantity) -> list:
         ''' method is called when product is sold. return list of serials to be delivered via email'''
 
-        query = self.query.filter_by(product_id=product_id).all()
+        query = self.query.filter_by(product_id=product_id).limit(quantity).all()
 
         item_list = []
 

@@ -327,7 +327,7 @@ def update_coupon(coupon_id) -> redirect:
 @dashboard_bp.route('/orders', methods=['GET'], subdomain='dashboard')
 @login_required
 def orders() -> render_template:
-    return render_template('/dashboard/orders.html')
+    return render_template('/dashboard/orders.html', orders=Order().fetch_orders(), user=User().fetch_user_logged_in())
 
 @dashboard_bp.route('/categories', methods=['GET'], subdomain='dashboard')
 @login_required

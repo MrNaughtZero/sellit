@@ -2,7 +2,7 @@ from webapp.utils.login_decorator import login_required
 from webapp.utils.uploads import download_file
 from webapp.utils.regex import email_regex, ip_regex
 from webapp.forms import SettingsForm, ProductForm, CategoryForm, AttachmentForm, CouponForm, BlacklistForm, SecurityForm, PaymentForm, DonationSettingsForm, TicketReply, SettingsNotificationsForm
-from webapp.models import User, Setting, Category, Product, Attachment, Coupon, Blacklist, ProductCategory, PaymentMethod, Donation, ProductItem, Ticket, TicketMessage, EmailNotification
+from webapp.models import User, Setting, Category, Product, Attachment, Coupon, Blacklist, ProductCategory, PaymentMethod, Donation, ProductItem, Ticket, TicketMessage, EmailNotification, Order
 from flask import Blueprint, render_template, url_for, redirect, request, flash, get_flashed_messages, abort, Response
 from flask_login import current_user
 from os import environ
@@ -484,7 +484,7 @@ def download_attachment(attachment_id) -> Response:
 @dashboard_bp.route('/reviews', methods=['GET'], subdomain='dashboard')
 @login_required
 def reviews() -> render_template:
-    return render_template('/dashboard/reviews.html')
+    return render_template('/dashboard/reviews.html', orders=Order().fetch_orders())
 
 @dashboard_bp.route('/blacklist', methods=['GET'], subdomain='dashboard')
 @login_required

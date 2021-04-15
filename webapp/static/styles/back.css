@@ -1993,6 +1993,23 @@ th.order-feedback {
     padding-top: 80px;
 }
 
+.order-block {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+}
+
+.delivered-items-wrapper {
+    border: 2px solid #efefef;
+    padding: 20px;
+}
+
+.order-info-star-rating {
+    display: flex;
+    margin-bottom: 10px;
+}
+
 /* ANALYTICS PAGE */
 /* ANALYTICS PAGE */
 /* ANALYTICS PAGE */

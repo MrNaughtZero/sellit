@@ -17,7 +17,7 @@
 15. ~~Allow expiration of download file~~
 16. Change PayPal create order to HTTPS // only when in Production
 17. ~~Add max file size to attachment dependent on the member role~~
-18. When user is a leaving feedback create a tracking hash and store as cookie. If user visits link, and no hash exists -> regenerate -> send email for them to click; else return 404
+18. ~~When user is a leaving feedback create a tracking hash and store as cookie. If user visits link, and no hash exists -> regenerate -> send email for them to click; else return 404~~
 19. When user is accessing their ticket, create tracking hash and compare to DB. Return 404 if not
 20. Create notification system
 21. Create WAF system : maybe use 3rd party

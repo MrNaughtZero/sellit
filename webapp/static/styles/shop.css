@@ -610,7 +610,19 @@ img#product-page-coupon-badge {
 }
 
 
+/******* VIEW FEEDBACK PAGE *********/
 
+.feedback-blocks-wrapper {
+    display: flex;
+    padding-top: 80px;
+}
+
+.feedback-block {
+    width: 25%;
+    border: 1px solid;
+    padding: 30px;
+    margin-right: 10px;
+}
 
 
 

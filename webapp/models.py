@@ -1153,12 +1153,13 @@ class Order(db.Model):
     email = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(30), default='Pending Payment', nullable=False)
     expiry = db.Column(db.String(15), nullable=True)
+    purchase_date = db.Column(db.String(12), default=timestamp(0), nullable=False)
     user = db.Column(db.String(25), db.ForeignKey('users.uuid'))
     # relationships
     product = db.relationship('Product', back_populates='order')
     payment = db.relationship('Payment', backref='order_payment', uselist=False, lazy=True)
     sold = db.relationship('Sold', backref='order_sold', lazy=True)
-    feedback = db.relationship('Feedback', backref='order_feedback', lazy=True)
+    feedback = db.relationship('Feedback', backref='order_feedback', lazy=True, uselist=False)
 
     def add(self, data) -> Union[bool, dict]:
         product = Product().query.filter_by(id=data.get('product_id')).first()

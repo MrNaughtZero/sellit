@@ -104,10 +104,11 @@ def leave_feedback(username, order_id, order_hash):
     if (not order) or (order.order_hash != order_hash):
         return abort(404)
     
-    return render_template('/shop/feedback.html', user=User().fetch_user_supply_username(username), form=FeedbackForm(), order_id=order_id, order_hash=order_hash)
+    return render_template('/shop/leave-feedback.html', user=User().fetch_user_supply_username(username), form=FeedbackForm(), order_id=order_id, order_hash=order_hash)
 
 @shop_bp.route('/@<string:username>/order/<string:order_id>/<string:order_hash>/feedback/submit', methods=['POST'])
 def submit_feedback(username, order_id, order_hash):
+
     form = FeedbackForm()
 
     if not form.validate_on_submit():
@@ -131,3 +132,11 @@ def submit_feedback(username, order_id, order_hash):
 
     flash(['Feedback successfully updated.'])
     return redirect(url_for('shop.shop', username=User().fetch_user_supply_uuid(order.user).username))
+
+@shop_bp.route('/@<string:username>/feedback', methods=['GET'])
+def shop_feedback(username):
+    user = User().fetch_user_supply_username(username)
+    if not user:
+        return abort(404)
+
+    return render_template('/shop/feedback.html', feedback=Feedback().fetch_all_feedback(user.uuid), user=user)

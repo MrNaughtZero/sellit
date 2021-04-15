@@ -52,12 +52,8 @@ def update_donation_status(donation_id):
             donation_timestamp.update()
 
 @celery.task
-def leave_feedback(email, username, order_id):
-    Email(email=email).leave_feedback(username, order_id)
-
-@celery.task
-def update_hash_leave_feedback(email, username, order_id, order_hash):
-    Email(email=email).update_hash_leave_feedback(username, order_id, order_hash)
+def leave_feedback(email, username, order_id, order_hash):
+    Email(email=email).leave_feedback(username, order_id, order_hash)
 
 ## ticket tasks
 

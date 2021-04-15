@@ -1157,6 +1157,7 @@ class Order(db.Model):
     # relationships
     payment = db.relationship('Payment', backref='order_payment', uselist=False, lazy=True)
     sold = db.relationship('Sold', backref='order_sold', lazy=True)
+    feedback = db.relationship('Feedback', backref='order_feedback', lazy=True)
 
     def add(self, data) -> Union[bool, dict]:
         product = Product().query.filter_by(id=data.get('product_id')).first()
@@ -1582,7 +1583,7 @@ class Feedback(db.Model):
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True)
     seller_id = db.Column(db.String(25), db.ForeignKey('users.uuid'))
-    order_id = db.Column(db.String(8), nullable=False)
+    order_id = db.Column(db.String(8), db.ForeignKey('orders.id'), nullable=False)
     comment = db.Column(db.String(500), nullable=True)
     rating = db.Column(db.Integer(), nullable=True)
     reply = db.Column(db.String(500), nulable=True)

@@ -493,7 +493,6 @@ class Product(db.Model):
         if product.product_type == 'item':
             if data.form.get('product_type') == 'item':
                 new_product_items = ProductItem().update_product_items(product.id, data.form.get('items').split('\n'))
-                print('adding items')
                 product.stock = new_product_items
 
 
@@ -1160,6 +1159,7 @@ class Order(db.Model):
 
     def add(self, data, user_agent) -> Union[bool, dict]:
         product = Product().query.filter_by(id=data.get('product_id')).first()
+        
         if not product:
             return False
 
@@ -1171,6 +1171,9 @@ class Order(db.Model):
         self.product_id = product.id
         self.product_name = product.name
         self.quantity = int(data.get('quantity'))
+
+        if int(self.quantity) > int(product.stock):
+            return [False, 'Not enough stock to fulfill your order']
         
         if data.get('coupon_code') != '':
             coupon_check = Coupon().check_coupon(data)

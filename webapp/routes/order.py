@@ -65,7 +65,7 @@ def payment_complete(order_id):
             leave_feedback.apply_async(args=[order.email, User().fetch_user_supply_uuid(order.user).username, order_id, order.order_hash], countdown=120)
 
         if not order.email:
-            order.email = check_order['buyer_email']
+            order.customer.email = check_order['buyer_email']
         
         order.update()
 

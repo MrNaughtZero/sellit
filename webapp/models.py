@@ -1225,7 +1225,7 @@ class CustomerInformation(db.Model):
     user_agent = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), nullable=False)
 
-    def add(self):
+    def add(self, order_id, user_agent, email):
         db.session.add(self)
 
 class Payment(db.Model):

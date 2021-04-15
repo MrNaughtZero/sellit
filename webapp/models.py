@@ -947,7 +947,7 @@ class Coupon(db.Model):
     id = db.Column(db.String(12), primary_key=True)
     coupon_code = db.Column(db.String(50), nullable=False, unique=True)
     discount_amount = db.Column(db.String(5), nullable=False)
-    max_uses = db.Column(db.String(10), nullable=True)
+    max_uses = db.Column(db.String(10), nullable=True, default=None)
     start_date = db.Column(db.String(11), nullable=True)
     end_date = db.Column(db.String(11), nullable=True)
     restricted = db.Column(db.Boolean, nullable=True)
@@ -964,7 +964,7 @@ class Coupon(db.Model):
             return False
 
         self.discount_amount = data.get('discount_amount')
-        self.max_uses = 0 if not data.get('max_uses') else int(data.get('max_uses'))
+        self.max_uses = None if not data.get('max_uses') else int(data.get('max_uses'))
     
         if data.get('coupon_restricted') == 'y':
             self.restricted = True
@@ -990,7 +990,10 @@ class Coupon(db.Model):
 
     def check_coupon(self, data) -> Union[bool, str]:
         ''' check if coupon is valid '''
-        query = self.query.filter_by(coupon_code=data.get('coupon_code')).first()
+        product = Product().query.filter_by(id=data.get('product_id')).first()
+        if not product:
+            return None
+        query = self.query.filter_by(coupon_code=data.get('coupon_code'), user=product.user).first()
         
         if (not query) or (query.coupon_code != data.get('coupon_code')):
             return False
@@ -1023,11 +1026,14 @@ class Coupon(db.Model):
 
         return True
 
-    def update_coupon_use(self, coupon):
+    def update_coupon_use(self, coupon, uuid, operator):
         ''' update the amount of times the coupon has been used '''
         
-        query = self.query.filter_by(coupon_code=coupon).first()
-        query.uses = query.uses + 1
+        query = self.query.filter_by(coupon_code=coupon, user=uuid).first()
+        if operator == '+':
+            query.uses = query.uses + 1
+        else:
+            query.uses = query.uses - 1
         db.session.commit()
 
     def delete_coupon(self, coupon_id) -> Union[None, str]:
@@ -1179,10 +1185,12 @@ class Order(db.Model):
             coupon_check = Coupon().check_coupon(data)
             self.coupon = data.get('coupon_code')
             self.price = '%.2f' % ((float(product.price)) - (float(coupon_check) / 100 * float(product.price)) * int(self.quantity))
-            Coupon().update_coupon_use(data.get('coupon_code'))
+
+            Coupon().update_coupon_use(data.get('coupon_code'), product.user, '+')
             
         else:
-            self.price = int(product.price) * int(self.quantity)
+            print(2)
+            self.price = float(product.price) * float(self.quantity)
 
         self.payment_method = data.get('payment_method')
         
@@ -1192,12 +1200,14 @@ class Order(db.Model):
         db.session.add(self)
         db.session.commit()
 
+        task.update_order_status.apply_async(args=[self.id, self.user], countdown=930)
+
         if data.get('email') != '':
             CustomerInformation().add(self.id, user_agent, data.get('email'))
 
         if self.payment_method == 'paypal':
             ## replace receiver in production env
-            payment_create = create_paypal_order(self.currency, product.price, self.quantity, self.id, 'sb-zricq5204691@personal.example.com', product.name, product.id)
+            payment_create = create_paypal_order(self.currency, self.price, self.quantity, self.id, 'sb-zricq5204691@personal.example.com', product.name, product.id)
             Payment(id=self.id, payment_address=payment_create['address'], transaction_id=payment_create['transaction_id']).add()
         else:
             crypto_payment = create_coin_transaction(self.price, self.currency, self.payment_method)
@@ -1216,7 +1226,7 @@ class Order(db.Model):
         return self.query.filter_by(id=order_id).first()
 
     def fetch_orders(self):
-        return self.query.filter_by(user=current_user.get_id()).order_by(Order.id.desc()).paginate(per_page=12)
+        return self.query.filter_by(user=current_user.get_id()).order_by(Order.purchase_date.desc()).paginate(per_page=12)
 
 class CustomerInformation(db.Model):
     __tablename__ = 'customer_information'

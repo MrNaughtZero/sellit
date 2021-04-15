@@ -34,7 +34,7 @@ def order_confirmation_attachment(email, order_id, file):
     Email(email=email).order_confirmation_attachment(order_id, file)
 
 @celery.task
-def out_of_stock_email(email):
+def out_of_stock_email(email, product_name, order_id):
     Email(email=email).out_of_stock()
 
 @celery.task

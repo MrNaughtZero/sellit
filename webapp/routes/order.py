@@ -23,8 +23,8 @@ def create_order() -> redirect:
 
     new_order = Order().add(request.form, request.headers.get('User-Agent'))
 
-    if not new_order:
-        flash(['Something went wrong. Please try again'])
+    if False in new_order:
+        flash([new_order[1]])
         return redirect(request.referrer)
 
     if new_order['payment_method'] == 'paypal':

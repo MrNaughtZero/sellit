@@ -12,6 +12,7 @@ from typing import Union
 from flask import session, flash
 from flask_login import UserMixin, current_user
 from datetime import datetime
+from sqlalchemy import desc
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -477,7 +478,7 @@ class Product(db.Model):
             Category().update_product_count(item, '+')
 
     def update(self, data, product_id) -> Union[bool, str]:
-        product = self.query.filter_by(id=product_id).first()
+        product = self.query.filter_by(id=product_id, user=current_user.get_id()).first()
         
         if not product:
             return False
@@ -492,7 +493,9 @@ class Product(db.Model):
         if product.product_type == 'item':
             if data.form.get('product_type') == 'item':
                 new_product_items = ProductItem().update_product_items(product.id, data.form.get('items').split('\n'))
+                print('adding items')
                 product.stock = new_product_items
+
 
             else:
                 ProductItem().remove_all_product_items(product.id)
@@ -555,7 +558,7 @@ class Product(db.Model):
             order.status = 'Out of stock'
             db.session.commit()
             
-            return task.out_of_stock_email.apply_async(email, Product().fetch_product(order.product_id).name)
+            return task.out_of_stock_email.apply_async(email, Product().fetch_product(order.product_id, order.user).name)
 
         if query.product_type == 'item':
             product_items = ProductItem().fetch_sold_serials(product_id, order_id, order.quantity)
@@ -647,11 +650,7 @@ class ProductItem(db.Model):
 
     def update_product_items(self, product_id, new_product_items) -> len:
         ''' compare two lot of product_items. If they don't match, remove the product_item from old list and update with new list '''
-
         query = self.query.filter_by(product_id=product_id).all()
-
-        if not query:
-            return None
 
         original_product_items = []
         new_product_items = self.remove_white_space_entries(new_product_items)
@@ -671,7 +670,6 @@ class ProductItem(db.Model):
                     ProductItem().insert_new_product_items(product_id, new_item)
 
         db.session.commit()
-
         return len(new_product_items)
 
     def remove_all_product_items(self, product_id) -> bool:
@@ -1162,7 +1160,6 @@ class Order(db.Model):
 
     def add(self, data, user_agent) -> Union[bool, dict]:
         product = Product().query.filter_by(id=data.get('product_id')).first()
-        
         if not product:
             return False
 
@@ -1182,7 +1179,7 @@ class Order(db.Model):
             Coupon().update_coupon_use(data.get('coupon_code'))
             
         else:
-            self.price = product.price
+            self.price = int(product.price) * int(self.quantity)
 
         self.payment_method = data.get('payment_method')
         
@@ -1197,7 +1194,7 @@ class Order(db.Model):
 
         if self.payment_method == 'paypal':
             ## replace receiver in production env
-            payment_create = create_paypal_order(self.currency, self.price, self.quantity, self.id, 'sb-zricq5204691@personal.example.com', product.name, product.id)
+            payment_create = create_paypal_order(self.currency, product.price, self.quantity, self.id, 'sb-zricq5204691@personal.example.com', product.name, product.id)
             Payment(id=self.id, payment_address=payment_create['address'], transaction_id=payment_create['transaction_id']).add()
         else:
             crypto_payment = create_coin_transaction(self.price, self.currency, self.payment_method)
@@ -1216,7 +1213,7 @@ class Order(db.Model):
         return self.query.filter_by(id=order_id).first()
 
     def fetch_orders(self):
-        return self.query.filter_by(user=current_user.get_id()).all()
+        return self.query.filter_by(user=current_user.get_id()).order_by(Order.id.desc()).paginate(per_page=12)
 
 class CustomerInformation(db.Model):
     __tablename__ = 'customer_information'

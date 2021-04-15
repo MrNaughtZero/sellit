@@ -24,18 +24,18 @@ def create_paypal_order(currency, price, quantity, order_id, receiver, product_n
                     {
                         "amount": {
                             "currency_code": currency,
-                            "value": price,
+                            "value": str(int(quantity) * int(price)),
                             "breakdown": {
                                 "item_total" : {
                                      "currency_code" : currency,
-                                        "value" : price
+                                        "value" : str(int(quantity) * int(price))
                                 }
                             }
                         },
                         "items": [
                             {
                                 "name": product_name,
-                                "sku": product_id,
+                                "sku": ' ' + product_id,
                                 "unit_amount": {
                                     "currency_code": currency,
                                     "value": price

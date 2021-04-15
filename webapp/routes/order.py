@@ -55,7 +55,7 @@ def payment_complete(order_id):
     if order.payment.transaction_id != token:
         return abort(404)
     
-    if order.status != 'Completed':
+    if order.status != 'Paid':
         capture_paypal_order(token)
         check_order = get_paypal_order(token)
     

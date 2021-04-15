@@ -21,7 +21,7 @@ def create_order() -> redirect:
             flash(['Coupon is invalid. Please try again'])
             return redirect(request.referrer)
 
-    new_order = Order().add(request.form)
+    new_order = Order().add(request.form, request.headers.get('User-Agent'))
 
     if not new_order:
         flash(['Something went wrong. Please try again'])

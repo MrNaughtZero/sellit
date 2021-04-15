@@ -32,12 +32,16 @@
 
                 <div class="shop-nav-links">
                     <ul class="inline-list">
-                        <li>
-                            Products
-                        </li>
-                        <li>
-                            Feedback
-                        </li>
+                        <a href="{{url_for('shop.shop', username=user.username)}}">
+                            <li>
+                                Products
+                            </li>
+                        </a>
+                        <a href="{{url_for('shop.shop_feedback', username=user.username)}}">
+                            <li>
+                                Feedback
+                            </li>
+                        </a>
                         <a href="{{url_for('shop.open_ticket', username=user.username)}}">
                             <li>
                                 Contact

@@ -446,7 +446,6 @@ class Product(db.Model):
     product_image = db.relationship('ProductImage', backref='product_image', lazy=True, uselist=False)
     product_items = db.relationship('ProductItem', backref='product_items', lazy=True, uselist=True)
     product_category = db.relationship('ProductCategory', backref='product_category', lazy=True, uselist=True)
-    order = db.relationship('Order', back_populates='product', lazy=True, uselist=True)
 
     def add(self, data):
         self.id = generate_string(8)
@@ -1143,7 +1142,8 @@ class CouponRestrictedProduct(db.Model):
 class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.String(40), nullable=False, primary_key=True)
-    product_id = db.Column(db.String(8), db.ForeignKey('products.id'))
+    product_id = db.Column(db.String(8))
+    product_name = db.Column(db.String(100), nullable=False)
     order_hash = db.Column(db.String(50), nullable=True)
     quantity = db.Column(db.Integer(), nullable=False)
     price = db.Column(db.String(20), nullable=False)
@@ -1155,7 +1155,6 @@ class Order(db.Model):
     purchase_date = db.Column(db.String(12), default=timestamp(0), nullable=False)
     user = db.Column(db.String(25), db.ForeignKey('users.uuid'))
     # relationships
-    product = db.relationship('Product', back_populates='order')
     payment = db.relationship('Payment', backref='order_payment', uselist=False, lazy=True)
     sold = db.relationship('Sold', backref='order_sold', lazy=True)
     feedback = db.relationship('Feedback', backref='order_feedback', lazy=True, uselist=False)
@@ -1173,6 +1172,7 @@ class Order(db.Model):
         self.id = generate_string(8)
         self.order_hash = generate_string(50)
         self.product_id = product.id
+        self.product_name = product.name
         self.quantity = int(data.get('quantity'))
         
         if data.get('coupon_code') != '':

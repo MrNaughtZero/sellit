@@ -28,7 +28,6 @@ def create_order() -> redirect:
         return redirect(request.referrer)
 
     if new_order['payment_method'] == 'paypal':
-        ### redirect to the paypal page to pay
         return redirect(new_order['payment_address'])
     
     return redirect(url_for('order.track_order', order_id=new_order))

@@ -76,18 +76,10 @@ class Email():
 
         self.send_email(content)
 
-    def leave_feedback(self, username, order_id):
+    def leave_feedback(self, username, order_id, order_hash):
         to = self.email
         subject = f'Sellit - Leave Feedback #{order_id}'
-        body = f"Please leave feedback for your order. {environ.get('SITE_URL')}/@{username}/order/{order_id}/feedback"
-        content = f'Subject: {subject}\n\n{body}'
-
-        self.send_email(content)
-
-    def update_hash_leave_feedback(self, username, order_id, order_hash):
-        to = self.email
-        subject = f'Sellit - Leave Feedback #{order_id}'
-        body = f"Please leave feedback for your order. {environ.get('SITE_URL')}/order/{order_id}/{self.email}/{order_hash}/feedback"
+        body = f"Please leave feedback for your order. {environ.get('SITE_URL')}/@{username}/order/{order_id}/{order_hash}/feedback"
         content = f'Subject: {subject}\n\n{body}'
 
         self.send_email(content)

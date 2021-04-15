@@ -446,7 +446,7 @@ class Product(db.Model):
     product_image = db.relationship('ProductImage', backref='product_image', lazy=True, uselist=False)
     product_items = db.relationship('ProductItem', backref='product_items', lazy=True, uselist=True)
     product_category = db.relationship('ProductCategory', backref='product_category', lazy=True, uselist=True)
-    order = db.relationship('Order', backref='ordered_product', lazy=True, uselist=True)
+    order = db.relationship('Order', back_populates='product', lazy=True, uselist=True)
 
     def add(self, data):
         self.id = generate_string(8)
@@ -1155,6 +1155,7 @@ class Order(db.Model):
     expiry = db.Column(db.String(15), nullable=True)
     user = db.Column(db.String(25), db.ForeignKey('users.uuid'))
     # relationships
+    product = db.relationship('Product', back_populates='order')
     payment = db.relationship('Payment', backref='order_payment', uselist=False, lazy=True)
     sold = db.relationship('Sold', backref='order_sold', lazy=True)
     feedback = db.relationship('Feedback', backref='order_feedback', lazy=True)

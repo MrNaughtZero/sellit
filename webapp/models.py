@@ -551,12 +551,12 @@ class Product(db.Model):
         
         if (not order) or (not query):
             return False
-        
-        if int(query.stock) < int(quantity):
+
+        if (not query.stock) or (int(query.stock) < int(quantity)):
             order.status = 'Out of stock'
             db.session.commit()
             
-            return out_of_stock_email.apply_async(email)
+            return task.out_of_stock_email.apply_async(email, Product().fetch_product(order.product_id).name)
 
         if query.product_type == 'item':
             product_items = ProductItem().fetch_sold_serials(product_id, order_id)
@@ -1168,6 +1168,7 @@ class Order(db.Model):
         self.currency = user.settings.currency
         
         self.id = generate_string(8)
+        self.order_hash = generate_string(50)
         self.product_id = product.id
         self.quantity = int(data.get('quantity'))
         
@@ -1207,16 +1208,6 @@ class Order(db.Model):
 
     def update(self):
         db.session.commit()
-
-    @staticmethod
-    def set_order_hash():
-        return generate_string(50)
-
-    def update_order_hash(self, order_id, username):
-        query = self.query.filter_by(id=order_id).first()
-        query.order_hash = Order.set_order_hash()
-        query.update()
-        task.update_hash_leave_feedback.apply_async(args=[query.email, username, order_id, query.order_hash])
 
     def fetch_order(self, order_id) -> object:
         return self.query.filter_by(id=order_id).first()

@@ -1,8 +1,12 @@
 // product page
+let product_price = ''
+let product_currency = ''
+let email_delivery = ''
+
 if(document.querySelector('#product-price-att')){
-    const product_price = document.querySelector('#product-price-att').getAttribute('data-product-price');
-    let product_currency = document.querySelector('#product-currency-att').getAttribute('data-product-currency');
-    const email_delivery = document.querySelector('#product-email-delivery').getAttribute('data-email-delivery');
+    product_price = document.querySelector('#product-price-att').getAttribute('data-product-price');
+    product_currency = document.querySelector('#product-currency-att').getAttribute('data-product-currency');
+    email_delivery = document.querySelector('#product-email-delivery').getAttribute('data-email-delivery');
 
     product_currency = product_currency.replace('GBP', '£')
     product_currency = product_currency.replace('EUR', '€')

@@ -5,7 +5,7 @@ from webapp.payments.paypal import create_paypal_donation, create_paypal_order, 
 from webapp.payments.stripe import create_donation_checkout, check_stripe_intent
 from webapp.utils.regex import check_if_upload_is_image
 from webapp.utils.tools import (check_coupon_dates, date_rearrange,
-                             generate_string, hash_string, timestamp)
+                             generate_string, hash_string, timestamp, get_user_ip)
 from webapp.utils.uploads import copy_file, delete_upload, upload_file
 from os import environ
 from typing import Union
@@ -1146,11 +1146,9 @@ class Order(db.Model):
     product_id = db.Column(db.String(8), db.ForeignKey('products.id'))
     order_hash = db.Column(db.String(50), nullable=True)
     quantity = db.Column(db.Integer(), nullable=False)
-    currency = db.Column(db.String(5), nullable=False)
     price = db.Column(db.String(20), nullable=False)
     coupon = db.Column(db.String(50), nullable=True)
     payment_method = db.Column(db.String(10), nullable=False)
-    email = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(30), default='Pending Payment', nullable=False)
     expiry = db.Column(db.String(15), nullable=True)
     purchase_date = db.Column(db.String(12), default=timestamp(0), nullable=False)
@@ -1160,6 +1158,7 @@ class Order(db.Model):
     payment = db.relationship('Payment', backref='order_payment', uselist=False, lazy=True)
     sold = db.relationship('Sold', backref='order_sold', lazy=True)
     feedback = db.relationship('Feedback', backref='order_feedback', lazy=True, uselist=False)
+    customer = db.relationship('CustomerInformation', backref='order_customer', lazy=True, uselist=False)
 
     def add(self, data) -> Union[bool, dict]:
         product = Product().query.filter_by(id=data.get('product_id')).first()
@@ -1217,6 +1216,17 @@ class Order(db.Model):
 
     def fetch_orders(self):
         return self.query.filter_by(user=current_user.get_id()).all()
+
+class CustomerInformation(db.Model):
+    __tablename__ = 'customer_information'
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.String(40), db.ForeignKey('orders.id'))
+    ip_address = db.Column(db.String(15), default=get_user_ip())
+    user_agent = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+
+    def add(self):
+        db.session.add(self)
 
 class Payment(db.Model):
     __tablename__ = 'payments'

@@ -329,6 +329,16 @@ def update_coupon(coupon_id) -> redirect:
 def orders() -> render_template:
     return render_template('/dashboard/orders.html', orders=Order().fetch_orders(), user=User().fetch_user_logged_in())
 
+@dashboard_bp.route('/order/<string:order_id>', methods=['GET'], subdomain='dashboard')
+@login_required
+def view_order(order_id):
+    order = Order().fetch_order(order_id)
+
+    if order.user != current_user.get_id():
+        return abort(404)
+
+    return render_template('/dashboard/view-order.html', order=order)
+
 @dashboard_bp.route('/categories', methods=['GET'], subdomain='dashboard')
 @login_required
 def categories() -> render_template:

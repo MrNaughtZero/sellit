@@ -1160,7 +1160,7 @@ class Order(db.Model):
     feedback = db.relationship('Feedback', backref='order_feedback', lazy=True, uselist=False)
     customer = db.relationship('CustomerInformation', backref='order_customer', lazy=True, uselist=False)
 
-    def add(self, data) -> Union[bool, dict]:
+    def add(self, data, user_agent) -> Union[bool, dict]:
         product = Product().query.filter_by(id=data.get('product_id')).first()
         
         if not product:
@@ -1185,14 +1185,14 @@ class Order(db.Model):
 
         self.payment_method = data.get('payment_method')
         
-        if data.get('email') != '':
-            self.email = data.get('email')
-        
         self.user = product.user
         self.expiry = timestamp(1800)
         
         db.session.add(self)
         db.session.commit()
+
+        if data.get('email') != '':
+            CustomerInformation().add(self.id, user_agent, data.get('email'))
 
         if self.payment_method == 'paypal':
             ## replace receiver in production env
@@ -1226,6 +1226,9 @@ class CustomerInformation(db.Model):
     email = db.Column(db.String(100), nullable=False)
 
     def add(self, order_id, user_agent, email):
+        self.order_id = order_id
+        self.user_agent = user_agent
+        self.email = email
         db.session.add(self)
 
 class Payment(db.Model):

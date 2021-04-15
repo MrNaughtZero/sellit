@@ -82,7 +82,7 @@ def product_page(username, product_id):
     user = User().fetch_user_supply_username(username)
     product = Product().fetch_product(product_id, user.uuid)
     
-    if product.user != user.uuid:
+    if (not product) or (product.user != user.uuid):
         return abort(404)
 
     form.product_id.data = product.id

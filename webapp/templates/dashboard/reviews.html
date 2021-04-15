@@ -11,26 +11,31 @@
         <table style="width:100%">
             <tr class="theader">
                 <th class="product-name-table">Customer</th>
-                <th class="product-name-sku">Product</th>
-                <th class="review-rating">Rating</th>
+                <th class="review-rating">Comment</th>
+                <th class="product-name-sku">Rating</th>
                 <th class="review-reply">Reply</th>
             </tr>
-            <tr class="table-row">
-                <td>ekv389ybfe@gmail.com</td>
-                <td>Windows 10 Serial Pro</td>
-                <td>
-                    <div class="order-stars">
-                        <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
-                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
-                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
-                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
-                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
-                    </div>
-                </td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Reply</button>
-                    </td>
-            </tr>
+            {% for i in orders %}
+                {% for f in i.feedback %}
+                    {% if f.comment %}
+                        <tr class="table-row">
+                            <td>{{i.email}}</td>
+                            <td>{{f.comment}}</td>
+                            <td>
+                                <div class="order-stars">
+                                    
+                                    {% for n in range(f.rating) %}
+                                        <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="10" width="10">
+                                    {% endfor %}
+                                </div>
+                            </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">Reply</button>
+                                </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
         </table>
     </div>  
         <div class="latest-table-view-all">

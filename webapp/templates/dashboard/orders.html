@@ -23,7 +23,7 @@
             {% for i in orders %}
                 <tr class="table-row">
                     <td>{{i.id}}</td>
-                    <td>{{i.product.name}}</td>
+                    <td>{{i.product_name}}</td>
                     <td>{{user.settings.currency|currency_to_symbol}}{{i.price}}</td>
                     <td>{{i.purchase_date|int|timestamp_to_hours_minutes}}</td>
                     <td>

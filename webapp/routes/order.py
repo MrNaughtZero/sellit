@@ -61,10 +61,10 @@ def payment_complete(order_id):
     
         if check_order['payment_status'] == 'COMPLETED':
             order.status = 'Paid'
-            deliver_goods = Product().deliver_product(order.product_id, order_id, order.quantity, order.email)
-            leave_feedback.apply_async(args=[order.email, User().fetch_user_supply_uuid(order.user).username, order_id, order.order_hash], countdown=120)
+            deliver_goods = Product().deliver_product(order.product_id, order_id, order.quantity, order.customer.email)
+            leave_feedback.apply_async(args=[order.customer.email, User().fetch_user_supply_uuid(order.user).username, order_id, order.order_hash], countdown=120)
 
-        if not order.email:
+        if not order.customer.email:
             order.customer.email = check_order['buyer_email']
         
         order.update()

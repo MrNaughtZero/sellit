@@ -1147,6 +1147,7 @@ class Order(db.Model):
     order_hash = db.Column(db.String(50), nullable=True)
     quantity = db.Column(db.Integer(), nullable=False)
     price = db.Column(db.String(20), nullable=False)
+    currency = db.Column(db.String(5), nullable=False)
     coupon = db.Column(db.String(50), nullable=True)
     payment_method = db.Column(db.String(10), nullable=False)
     status = db.Column(db.String(30), default='Pending Payment', nullable=False)

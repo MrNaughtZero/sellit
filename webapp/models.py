@@ -1212,6 +1212,9 @@ class Order(db.Model):
     def fetch_order(self, order_id) -> object:
         return self.query.filter_by(id=order_id).first()
 
+    def fetch_orders(self):
+        return self.query.filter_by(user=current_user.get_id()).all()
+
 class Payment(db.Model):
     __tablename__ = 'payments'
     id = db.Column(db.String(40), db.ForeignKey('orders.id'), primary_key=True)
@@ -1582,6 +1585,7 @@ class Feedback(db.Model):
     order_id = db.Column(db.String(8), nullable=False)
     comment = db.Column(db.String(500), nullable=True)
     rating = db.Column(db.Integer(), nullable=True)
+    reply = db.Column(db.String(500), nulable=True)
     timestamp = db.Column(db.String(20), default=timestamp(0), nullable=False)
 
     def add(self, data, order_id, user):

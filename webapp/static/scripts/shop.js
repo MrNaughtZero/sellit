@@ -8,6 +8,10 @@ if(document.querySelector('#product-price-att')){
     product_currency = document.querySelector('#product-currency-att').getAttribute('data-product-currency');
     email_delivery = document.querySelector('#product-email-delivery').getAttribute('data-email-delivery');
 
+    if(document.querySelector('#product-stock').getAttribute('data-product-stock') == '0'){
+        document.querySelector('.buy-block-form').innerHTML = 'Out of Stock';
+    }
+
     product_currency = product_currency.replace('GBP', '£')
     product_currency = product_currency.replace('EUR', '€')
     product_currency = product_currency.replace('USD', '$')

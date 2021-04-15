@@ -1,0 +1,50 @@
+{% extends 'base/dashboard.html' %}
+{% set active_page = 'orders' %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+<div class="dashboard-section-heading">
+    <h2>Order #{{order.id}}</h2>
+</div>
+<div class="order-information-wrapper">
+    <div class="order-block">
+        <h3>Product: {{order.product_name}}</h3>
+        <h3>Price Paid: {{order.price}}</h3>
+        <h3>Quantity: {{order.quantity}}</h3>
+        {% if order.coupon %}
+            <h3>Coupon: {{order.coupon}}</h3>
+        {% endif %}
+        <h3>Purchase Date: {{order.purchase_date|int|timestamp_to_hours_minutes}}</h3>
+    </div>
+
+    <div class="order-block">
+        <h3>Delivered Items</h3>
+        <div class="delivered-items-wrapper">
+            {% for item in order.sold %}
+                {{item.item}}
+            </br>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    {% if order.feedback.rating %}
+        <div class="order-block">
+            <h3>Feedback</h3>
+            <div class="order-info-star-rating">
+                {% for n in range(order.feedback.rating) %}
+                    <img src="{{url_for('static', filename='img/icons/star.svg')}}" height="20" width="20">
+                {% endfor %}
+            </div>
+            {{order.feedback.comment}}
+        </div>
+    {% endif %}
+
+    <div class="order-block">
+        <h3>Customer Information</h3>
+        <h5>Email: {{order.customer.email}}</h5>
+        <h5>IP: {{order.customer.ip_address}}</h5>
+        <h5>User Agent: {{order.customer.user_agent}}</h5>
+    </div>
+</div>
+</div>
+{% endblock %}

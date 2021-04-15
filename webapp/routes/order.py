@@ -16,9 +16,10 @@ def create_order() -> redirect:
         flash(list(form.errors.values())[0])
         return redirect(request.referrer)
 
-    if request.form.get('coupon') != '':
+    if request.form.get('coupon_code') != '':
         if not Coupon().check_coupon(request.form):
             flash(['Coupon is invalid. Please try again'])
+            return redirect(request.referrer)
 
     new_order = Order().add(request.form)
 
@@ -62,7 +63,7 @@ def payment_complete(order_id):
         if check_order['payment_status'] == 'COMPLETED':
             order.status = 'Paid'
             deliver_goods = Product().deliver_product(order.product_id, order_id, order.quantity, order.email)
-            leave_feedback.apply_async(args=[order.email, User().fetch_user_supply_uuid(order.user).username, order_id, order.order_hash]).delay(300000)
+            leave_feedback.apply_async(args=[order.email, User().fetch_user_supply_uuid(order.user).username, order_id, order.order_hash], countdown=120)
 
         if not order.email:
             order.email = check_order['buyer_email']

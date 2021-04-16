@@ -1281,7 +1281,7 @@ class Donation(db.Model):
         ''' insert donation record '''
         validate_donation_attempt = self.validate_donation_attempt(data)
 
-        if False in validate_donation_attempt:
+        if not validate_donation_attempt:
             return validate_donation_attempt
         
         self.id = generate_string(40)
@@ -1305,7 +1305,7 @@ class Donation(db.Model):
         task.update_donation_status.apply_async(args=[self.id], countdown=901)
 
         if self.payment_method == 'paypal':
-            return DonationPayment().add_paypal_donation(user.settings.currency, self.id, self.amount, referrer)
+            return DonationPayment().add_paypal_donation(validate_donation_attempt.settings.currency, self.id, self.amount, referrer)
         
         elif self.payment_method == 'stripe':
             return DonationPayment().add_stripe_donation(self.id, user.payment_methods.stripe, self.amount, user.settings.currency)
@@ -1313,7 +1313,7 @@ class Donation(db.Model):
         else:
             return DonationPayment().add_crypto_donation(self.id, self.amount, user.settings.currency, self.payment_method)
 
-    def validate_donation_attempt(self, data) -> list:
+    def validate_donation_attempt(self, data) -> Union[list, bool]:
         ''' check that the donation can be made and the attempt is valid '''
         user = User().query.filter_by(uuid=data.get('uuid')).first()
         
@@ -1328,6 +1328,8 @@ class Donation(db.Model):
 
         if not getattr(user.payment_methods, data.get('payment_method')):
             return [False, f'{request.form.get("payment_method").capitalize()} is no longer available. Please choose a different payment method']
+
+        return user
 
     def cancel_donation(self, id) -> Union[None, str]:
         query = self.query.filter_by(id=id).first()
@@ -1349,22 +1351,22 @@ class Donation(db.Model):
     def fetch_user_donations(self):
         return self.query.filter_by(user=current_user.get_id(), status='completed').paginate(per_page=12)
 
-    def check_donation(donation_id):
-        query = self.query.filter_by(id=donation_id).first()
+    def check_donation(self, donation_id):
+        return self.query.filter_by(id=donation_id).first()
 
     def validate_paypal_donation(self, donation_id, token) -> bool:
         query = self.check_donation(donation_id)
 
         if not query:
-            flash['Something went wrong. Please try again']
+            flash(['Something went wrong. Please try again'])
             return False
         
         if query.donation_payment.transaction_id != token:
-            flash['Something went wrong. Please try again']
+            flash(['Something went wrong. Please try again'])
             return False
         
         if not check_paypal_success(query.donation_payment.transaction_id):
-            flash['Something went wrong. Please try again']
+            flash(['Something went wrong. Please try again'])
             return False
 
         query.status = 'completed'
@@ -1409,7 +1411,7 @@ class DonationPayment(db.Model):
 
     def add_paypal_donation(self, currency, id, amount, referrer) -> Union[list, dict]:
         ''' method to handle paypal donations '''
-        donation_payment_create = create_paypal_donation(currency, amount, id, '', referrer)
+        donation_payment_create = create_paypal_donation(currency, amount, id, 'sb-zricq5204691@personal.example.com', referrer)
         
         if not donation_payment_create:
             return [False, 'Something went wrong. Please try again']

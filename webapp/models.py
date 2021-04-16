@@ -998,7 +998,7 @@ class Coupon(db.Model):
         if (not query) or (query.coupon_code != data.get('coupon_code')):
             return False
 
-        if (int(query.uses) >= int(query.max_uses)) and (int(query.max_uses) != 0):
+        if (query.max_uses != None) and ((int(query.uses) >= int(query.max_uses)) and (int(query.max_uses) != 0)):
             return False
         
         if (query.start_date != None) or (query.end_date != None):

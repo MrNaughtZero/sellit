@@ -29,7 +29,7 @@ def create_donation() -> jsonify:
     session['donation_session'] = generate_string(40)
 
     add_donation = Donation().add(request.form, request.referrer)
-    
+
     if not all(add_donation):
         return jsonify({'Success':'Failure', 'error' : str(add_donation[1])}), 400
 
@@ -39,8 +39,9 @@ def create_donation() -> jsonify:
 
 @donate_bp.route('/donation/check/<string:donation_id>', methods=['GET'])
 def donation_check(donation_id):
+    token = request.args.get('token')
     
-    if not session.get('donation_session'):
+    if (not session.get('donation_session')) or (not token):
         return abort(404)
 
     donation = Donation().fetch_donation(donation_id)
@@ -59,11 +60,12 @@ def donation_check(donation_id):
         return redirect(url_for('donate.donate', username=user.username))
 
     if donation.payment_method == 'paypal':
-       validated_paypal_donation = Donation().validate_paypal_donation(donation_id)
-       if not validated_paypal_donation:
+       paypal_payment = Donation().validate_paypal_donation(donation_id, token)
+       
+       if not paypal_payment:
            return redirect(url_for('donate.donate', username=user.username))
             
-    if donation.payment_method == 'stripe':
+    elif donation.payment_method == 'stripe':
         stripe_payment = Donation().validate_stripe_donation(donation_id, request.args.get('intent'))
         
         if not stripe_payment:

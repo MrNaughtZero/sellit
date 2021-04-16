@@ -54,11 +54,12 @@ def update_donation_status(donation_id):
 @celery.task
 def update_order_status(order_id, uuid):
     order = model.Order().fetch_order(order_id)
-    if (order.status == 'Pending Payment') and (order.coupon):
-        model.Coupon().update_coupon_use(order.coupon, uuid, '-')
-        order.status = 'Cancelled'
-        order.coupon = None
-        order.update()
+    if order:
+        if (order.status == 'Pending Payment') and (order.coupon):
+            model.Coupon().update_coupon_use(order.coupon, uuid, '-')
+            order.status = 'Cancelled'
+            order.coupon = None
+            order.update()
 
 @celery.task
 def leave_feedback(email, username, order_id, order_hash):

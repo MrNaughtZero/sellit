@@ -1155,7 +1155,7 @@ class Order(db.Model):
     payment_method = db.Column(db.String(10), nullable=False)
     status = db.Column(db.String(30), default='Pending Payment', nullable=False)
     expiry = db.Column(db.String(15), nullable=True)
-    purchase_date = db.Column(db.String(12), default=timestamp(0), nullable=False)
+    purchase_date = db.Column(db.String(12), nullable=False)
     user = db.Column(db.String(25), db.ForeignKey('users.uuid'))
     # relationships
     payment = db.relationship('Payment', backref='order_payment', uselist=False, lazy=True)
@@ -1177,6 +1177,7 @@ class Order(db.Model):
         self.product_id = product.id
         self.product_name = product.name
         self.quantity = int(data.get('quantity'))
+        self.purchase_date = timestamp(0)
 
         if int(self.quantity) > int(product.stock):
             return [False, 'Not enough stock to fulfill your order']

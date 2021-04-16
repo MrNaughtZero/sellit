@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{url_for('static', filename='styles/front.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{url_for('static', filename='styles/shop.css')}}" type="text/css" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
     <title>Sellit - Donate to {{user.username}}</title>
 </head>
@@ -122,7 +122,7 @@
                         <h4 id="no-payment-methods">{{user.username}} has no active payment methods</h4>
                     {% endif %}#}
 
-                    {{form.pm(id='payment_method')}}
+                    {{form.payment_method(id='payment_method')}}
                     {{form.csrf_token}}
                     {{form.uuid(value=user.uuid)}}
                     <div class="product-buttons">
@@ -173,6 +173,6 @@
                 {% endif %}
             {% endfor %}
     </div>
-    <script src="{{url_for('static', filename='scripts/front.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/shop.js')}}"></script>
     <script src="{{url_for('static', filename='scripts/qrcode.min.js')}}"></script>
 </body>

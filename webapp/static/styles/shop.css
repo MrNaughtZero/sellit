@@ -624,7 +624,261 @@ img#product-page-coupon-badge {
     margin-right: 10px;
 }
 
+/******* DONATION PAGE *********/
 
+.donate-page {
+    background: url(/static/img/donation-page-dotted-bg.svg);
+    background-size: cover;
+    background-repeat: repeat;
+    height: 100vh;
+    background-position: center center;
+}
+
+.not-accepting-donations {
+    padding: 10px;
+    text-align: center;
+    background: red;
+    color: white;
+    display: none;
+}
+
+.donate-page-block {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%);
+    background: white;
+    width: 500px;
+}
+
+.donate-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #efefef;
+}
+
+.donate-header > * {
+    padding: 20px;
+    padding-bottom: 5px;
+}
+
+.powered-by {
+    display: flex;
+    position: relative;
+    top: -4px;
+}
+
+.donate-main-content {
+    padding: 20px;
+}
+
+.donation-preset-buttons {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-user-donation {
+    width: 30%;
+    margin-right: 10px;
+}
+
+.donation-amount-input {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+p.donation-currency {
+    background: #efefef;
+    padding: 10px;
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+.donation-amount-input input#amount {
+    width: 91%;
+}
+
+.leave-message {
+    margin-bottom: -28px;
+    margin-top: 20px;
+}
+
+.leave-message-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    display: none;
+}
+
+.leave-message-content input {
+    margin-bottom: 10px;
+}
+
+.leave-message-content textarea {
+    border: 1px solid #efefef;
+    border-radius: 3px;
+}
+
+.continue-with-donation {
+    position: relative;
+}
+
+.btn-donation-continue {
+    width: 50%;
+    position: absolute;
+    border-radius: 2px;
+    top: 44px;
+    left: 25%;
+}
+
+p#donation-message-required {
+    font-size: 12px;
+    color: red;
+    padding-left: 2px;
+    margin-top: 5px;
+    display: none;
+}
+
+.donate-payment-methods {
+    padding: 20px;
+}
+
+.donation-loading-spinner {
+    display: none;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.flashed-error-donation {
+    display: none;
+    background: red;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+.donation-flashed-success {
+    background: var(--green);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+h3#donation-amount-header {
+    font-size: 14px;
+    background: green;
+    display: flex;
+    justify-content: center;
+    align-items: cc;
+    padding: 5px;
+    color: white;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.awaiting-payment {
+    background: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    color: white;
+    margin-bottom: 10px;
+    font-size: 12px;
+    display: none;
+}
+
+.awaiting-payment-left {
+    display: flex;
+}
+
+/* stripe donation */
+
+.pay-donation-stripe {
+    display: none;
+}
+
+.pay-donation-stripe form#payment-form {
+    padding: 20px;
+    margin-top: -20px;
+}
+
+.pay-donation-stripe #stripe-submit {
+    background: purple;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #efefef;
+    border-radius: 2px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 13px;
+    height: 30px;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+.pay-donation-stripe div#card-element {
+    padding-left: 5px;
+    margin-right: -6px;
+}
+
+#card-error {
+    display: none;
+    background: red;
+    color: white;
+    text-align: center;
+}
+
+.stripe-return-to-payment-methods {
+    width: 100%;
+    padding: 20px;
+    margin-top: -23px;
+}
+
+.stripe-return-to-payment-methods button {
+    width: 100%;
+}
+
+/* crypto donations */
+
+.pay-donation-crypto {
+    display: none;
+}
+
+h3#crypto-pay-amount {
+    text-align: center;
+    font-size: 13px;
+    padding: 0 25px;
+    margin-bottom: 15px;
+}
+
+.crypto-pay-qr {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.crypto-donation-amount-tracker {
+    background: #efefef;
+    padding: 5px;
+    display: none;
+}
+
+/* cancel donation */
+
+.cancel-donation {
+    width: 100%;
+    padding: 20px;
+}
+
+.btn-cancel-donation {
+    width: 100%;
+    background: var(--primary);
+    margin-bottom: 0;
+    color: white;
+}
 
 
 /* media queries */
